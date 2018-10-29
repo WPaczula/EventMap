@@ -1,12 +1,19 @@
+import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import App from '../app'
 import withTemplate from './withTemplate'
 
 const createHtml = () => {
   const sheet = new ServerStyleSheet()
 
-  const html = renderToString(sheet.collectStyles(App))
+  const AppWrapper = (
+    <StyleSheetManager sheet={sheet.instance}>
+      <App />
+    </StyleSheetManager>
+  )
+
+  const html = renderToString(AppWrapper)
   const styles = sheet.getStyleTags()
 
   return withTemplate(html, styles)

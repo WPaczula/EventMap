@@ -12,8 +12,7 @@ const App = () => (
     <GlobalStyle />
     <Helmet titleTemplate={`%s - ${defaultTitle}`} defaultTitle={defaultTitle} />
     <Header />
-    <Page.Content>
-    </Page.Content>
+    <Page.Content />
     <Footer />
   </Page>
 )

@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import StyledContent from './style'
 
-const Content = ({ children }) => (
+const Content = () => (
   <StyledContent>
     {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere a turpis eget vulputate. Etiam imperdiet nulla at vestibulum accumsan. Integer viverra id arcu eget varius. Suspendisse accumsan metus et magna volutpat, eu tincidunt augue lacinia. Fusce vel nisl ut nibh ultrices facilisis eu quis odio. Aliquam nec nunc diam. Sed hendrerit quis ipsum et sollicitudin. Quisque consequat, massa ut scelerisque facilisis, diam metus interdum est, id suscipit neque sem ut nunc. Nam sed porttitor tellus, nec facilisis velit. Suspendisse volutpat, leo at eleifend rhoncus, sem sapien sollicitudin felis, sed lobortis nunc mi quis eros.
 
@@ -29,12 +28,7 @@ Aenean sit amet lobortis turpis. Vestibulum sit amet turpis nunc. Mauris enim ri
 Quisque dui est, eleifend id rhoncus non, maximus sed justo. Aenean tincidunt, urna et congue vehicula, diam lacus luctus quam, a malesuada nisl urna sit amet ante. Duis venenatis pharetra magna, sit amet imperdiet eros placerat at. Morbi nec odio vel justo mattis faucibus ac a lorem. Ut consectetur, nisl in ornare feugiat, ante metus fringilla leo, at accumsan dui diam malesuada lacus. Duis justo odio, gravida in feugiat sed, pretium ac massa. Aliquam venenatis lacinia nisl sit amet euismod. Donec posuere accumsan consequat. Suspendisse interdum leo vitae lorem tincidunt, nec consectetur augue sagittis. Ut sodales ante ante, fringilla tempus mauris placerat dapibus. Aenean non leo ac velit laoreet cursus.
 
 Fusce vehicula dapibus sodales. In feugiat imperdiet efficitur. Donec ut iaculis lorem. Ut condimentum placerat nunc at condimentum. In viverra nisi at odio pretium tristique. Maecenas euismod est purus, luctus commodo dui egestas vitae. Nulla facilisis, arcu id cursus mattis, lorem ipsum maximus mauris, eu accumsan est justo sit amet nisl. Maecenas efficitur pharetra luctus.`}
-    {children}
   </StyledContent>
 )
-
-Content.propTypes = {
-  children: PropTypes.node.isRequired,
-}
 
 export default Content
