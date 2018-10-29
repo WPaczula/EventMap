@@ -6,12 +6,14 @@ import GlobalStyle from './style'
 import Header from './blocks/header'
 import Footer from './blocks/footer'
 import Page from './blocks/page'
+import ScrollToTop from './blocks/scroll-to-top'
 
 const defaultTitle = 'EventMap'
 
 const App = ({ routes }) => (
   <Page>
     <GlobalStyle />
+    <ScrollToTop />
     <Helmet titleTemplate={`%s - ${defaultTitle}`} defaultTitle={defaultTitle} />
     <Header />
     <Page.Content>
@@ -24,7 +26,7 @@ const App = ({ routes }) => (
 )
 
 App.propTypes = {
-  routes: PropTypes.arrayOf(PropTypes.objectOf({
+  routes: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     component: PropTypes.func.isRequired,
