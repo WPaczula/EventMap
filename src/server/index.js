@@ -27,5 +27,7 @@ const server = createServer(app)
 server.listen(PORT, (err) => {
   if (err) throw err
 
+  /* eslint-disable no-console */
   console.log(`Server started on port ${PORT}`)
+  /* eslint-enable */
 })
