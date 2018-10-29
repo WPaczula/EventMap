@@ -9,6 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/build'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js'],
@@ -41,4 +42,7 @@ module.exports = {
       template: path.join(__dirname, '/src/client/index.html'),
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+  },
 }
