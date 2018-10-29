@@ -25,6 +25,12 @@ module.exports = {
               ['@babel/preset-env'],
               ['@babel/preset-react'],
             ],
+            /* eslint-disable global-require */
+            plugins: [
+              require('babel-plugin-styled-components'),
+              require('@babel/plugin-proposal-class-properties'),
+            ],
+            /* eslint-disable */
           },
         },
       },
