@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "University project enabling users to search and sign to events",
   "main": "index.js",
+  "engines": {
+    "node": "9.5.0",
+    "npm": "6.4.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint . --ext .js",
+    "babel-node": "babel-node --presets=@babel/env",
     "start": "webpack-dev-server --mode development --open --hot",
+    "server": "nodemon --exec npm run babel-node -- ./src/server/index.js",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -21,6 +27,7 @@
   "homepage": "https://github.com/WPaczula/EventMap#readme",
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
@@ -33,11 +40,16 @@
     "eslint-plugin-react": "^7.11.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.1.2",
+    "nodemon": "^1.18.5",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
   },
