@@ -9,11 +9,16 @@ import {
   MenuList,
   NavigationLink,
 } from './style'
-import routes from '../../routes'
 
 class Header extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+    routes: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        path: PropTypes.string.isRequired,
+      }).isRequired,
+    ),
   }
 
   constructor(props) {
@@ -25,10 +30,7 @@ class Header extends Component {
   }
 
   toggleMenuHidden = (value) => {
-    const { searchHidden } = this.state
-
     this.setState({ menuHidden: value })
-    if (!searchHidden) this.toggleSearchHidden(true)
   }
 
   isNavigationItemChosen = (path) => {
@@ -46,6 +48,7 @@ class Header extends Component {
 
   render() {
     const { menuHidden } = this.state
+    const { routes } = this.props
 
     return (
       <HeaderContainer>
@@ -75,4 +78,5 @@ class Header extends Component {
   }
 }
 
+export const HeaderComponent = Header
 export default withRouter(Header)

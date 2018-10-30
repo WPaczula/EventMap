@@ -4,7 +4,6 @@ import { HamburgerWrapper, HamburgerLine } from './style'
 
 class Hamburger extends Component {
   static propTypes = {
-    className: PropTypes.string,
     onClick: PropTypes.func,
   }
 
@@ -21,15 +20,14 @@ class Hamburger extends Component {
     const { active } = this.state
 
     this.setState({ active: !active })
-    onClick()
+    if (onClick) onClick()
   }
 
   render() {
     const { active } = this.state
-    const { className } = this.props
 
     return (
-      <HamburgerWrapper className={className} onClick={this.onClick}>
+      <HamburgerWrapper onClick={this.onClick}>
         <HamburgerLine active={active} />
         <HamburgerLine active={active} />
         <HamburgerLine active={active} />
