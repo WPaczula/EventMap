@@ -15,7 +15,7 @@ const App = ({ routes }) => (
     <GlobalStyle />
     <ScrollToTop />
     <Helmet titleTemplate={`%s - ${defaultTitle}`} defaultTitle={defaultTitle} />
-    <Header />
+    <Header routes={routes} />
     <Page.Content>
       <Switch>
         {routes.map(r => <Route {...r} />)}
