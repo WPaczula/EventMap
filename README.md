@@ -27,6 +27,7 @@ It will run a webpack-dev-server on your localhost:8080. It supports hot reloadi
 To run the server run:
 
 ```npm run build```
+
 ```npm run server```
 
 They will build the app and store the bundle in the `build` folder. The second command will run a `nodemon` server on localhost:5000. Use this method to check if SSR works as intended.

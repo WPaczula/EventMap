@@ -9,7 +9,8 @@
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
         "react/forbid-prop-types": "off",
-        "react/jsx-one-expression-per-line": "off"
+        "react/jsx-one-expression-per-line": "off",
+        "no-use-before-define": "off"
     },
     "env": {
         "browser": true,
