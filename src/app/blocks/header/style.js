@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom'
 import media from '../../style/media'
 import { primaryColorLight, primaryColor, primaryColorDark } from '../../style/colors'
 
-export const headerSize = (scale = 1) => `${4.2 * scale}em`
+export const controlPanelSize = '4em'
+export const headerSize = (scale = 1) => `${3 * scale}em`
 
 export const HeaderContainer = styled.header`
   display: block;
+  position: sticky;
+  top: 0;
+  left: 0;
 `
 
 export const Navigation = styled.nav`
@@ -14,10 +18,7 @@ export const Navigation = styled.nav`
   width: 100%;
   background: ${primaryColorDark};
   box-shadow: 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.14);
-  position: fixed;
   display: flex;
-  top: 0;
-  left: 0;
   justify-content: flex-end;
 `
 
@@ -32,7 +33,7 @@ export const MenuList = styled.ul`
     transition: height .5s;
     position: absolute;
     width: 100%;
-    top: ${headerSize()};
+    top: calc(${headerSize()} + ${controlPanelSize});
     background: ${primaryColor};
     flex-direction: column;
 
@@ -44,9 +45,10 @@ export const MenuList = styled.ul`
 
 export const MenuItem = styled.li`
   text-align: center;
-  flex: 1;
+  flex: 0 0 15em;
   line-height: ${headerSize()};
   text-transform: uppercase;
+  font-weight: 800;
   cursor: pointer;
   transition: all .2s ease;
   color: #fff;
@@ -56,10 +58,20 @@ export const MenuItem = styled.li`
   &:hover {
     background: ${primaryColorLight};
   }
+
+  ${media.upToDesktop`
+    flex: 1;  
+  `}
 `
 
 export const NavigationLink = styled(Link)`
   flex: 1;
   color: #fff;
   text-decoration: none;
+`
+export const ControlPanel = styled.div`
+  background: ${primaryColorDark};
+  border-bottom: 1px solid ${primaryColor};
+  height: ${controlPanelSize};
+  display: flex;
 `

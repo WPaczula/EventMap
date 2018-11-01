@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-import Hamburger from '../hamburger'
+import Hamburger from './hamburger'
+import LoginButton from './login-button'
 import {
   HeaderContainer,
   Navigation,
   MenuItem,
   MenuList,
   NavigationLink,
+  ControlPanel,
 } from './style'
 
 class Header extends Component {
@@ -23,6 +25,8 @@ class Header extends Component {
 
   constructor(props) {
     super(props)
+
+    this.ref = React.createRef()
 
     this.state = {
       menuHidden: true,
@@ -41,6 +45,7 @@ class Header extends Component {
 
   hideMobileMenu = (e) => {
     e.preventDefault()
+    this.ref.current.toggle(false)
     const { menuHidden } = this.state
 
     if (!menuHidden) this.toggleMenuHidden(true)
@@ -52,8 +57,11 @@ class Header extends Component {
 
     return (
       <HeaderContainer>
+        <ControlPanel>
+          <LoginButton />
+        </ControlPanel>
         <Navigation>
-          <Hamburger onClick={() => this.toggleMenuHidden(!menuHidden)} />
+          <Hamburger onClick={() => this.toggleMenuHidden(!menuHidden)} ref={this.ref} />
           <MenuList hidden={menuHidden}>
             {
             routes

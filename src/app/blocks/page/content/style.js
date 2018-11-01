@@ -7,7 +7,7 @@ const StyledContent = styled.main`
     flex-direction: column;
     justify-content: space-between;
     min-height: 100%;
-    margin: ${headerSize()} 15em 2em;
+    margin-top: ${headerSize()};
     white-space: pre-wrap;
 `
 
