@@ -23,6 +23,8 @@ export const Navigation = styled.nav`
   justify-content: flex-end;
 `
 
+const transformOffset = '3em'
+
 export const MenuList = styled.ul`
   list-style: none;
   display: flex;
@@ -31,15 +33,16 @@ export const MenuList = styled.ul`
   ${media.upToDesktop`
     height: ${headerSize(3)};
     overflow: hidden;
-    transition: height .5s;
+    transition: transform .5s;
     position: absolute;
     width: 100%;
-    top: calc(${headerSize()} + ${controlPanelSize});
     background: ${primaryColor};
     flex-direction: column;
+    z-index: -1;
+    top: -${transformOffset};    
 
-    ${props => props.hidden && css`
-      height: 0;
+    ${props => !props.hidden && css`
+      transform: translateY(calc(${headerSize()} + ${controlPanelSize} + ${transformOffset}));    
     `}
   `}
 `
