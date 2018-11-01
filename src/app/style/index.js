@@ -26,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
   display: flex;
   flex-direction: column;
 }
+#modal-root{
+  position:absolute;
+}
 `
 
 export default GlobalStyle
