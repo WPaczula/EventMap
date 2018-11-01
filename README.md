@@ -34,3 +34,16 @@ They will build the app and store the bundle in the `build` folder. The second c
 ## Lint
 
 This workspace has configured `Eslint`. It will show your errors in codestyle and try to repair them when you save the files. Linter is also fired before push (via husky), so no code can be pushed to the repo without fulfilling the style requirements.
+
+To run lint run 
+```npm run lint```
+
+## Tests
+
+Project uses `jest` to run unit tests. By the rule, components which have some functionality like state, or fire some functions should have tests which cover their behaviour. 
+
+To run tests run
+```npm run test```
+
+You can also run test watch while you code via
+```npm run test -- --watch```
