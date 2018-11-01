@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import media from '../../style/media'
+import { hover } from '../../style/pseudo'
 import { primaryColorLight, primaryColor, primaryColorDark } from '../../style/colors'
 
 export const controlPanelSize = '4em'
@@ -55,9 +56,9 @@ export const MenuItem = styled.li`
   display: flex;
   background: ${props => (props.active ? primaryColorLight : 'unset')};
 
-  &:hover {
-    background: ${primaryColorLight};
-  }
+  ${hover`
+    background: ${primaryColorLight};  
+  `}
 
   ${media.upToDesktop`
     flex: 1;  
@@ -74,4 +75,15 @@ export const ControlPanel = styled.div`
   border-bottom: 1px solid ${primaryColor};
   height: ${controlPanelSize};
   display: flex;
+`
+
+export const Logo = styled.h1`
+  font-weight: 800;
+  color: white;
+  align-self: center;
+  margin-left: 2.3em;
+
+  ${media.upToDesktop`
+    margin-left: 1em;
+  `}
 `

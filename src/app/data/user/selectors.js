@@ -10,5 +10,5 @@ export const selectTokens = createSelector(
 
 export const selectIsUserSignedIn = createSelector(
   selectTokens,
-  tokens => tokens && !didTokenExpire(tokens.expires),
+  tokens => !!(tokens && !didTokenExpire(tokens.expires)),
 )
