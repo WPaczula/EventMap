@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { HeaderComponent as Header } from '..'
 import { MenuList, MenuItem } from '../style'
-import Hamburger from '../../hamburger'
+import Hamburger from '../hamburger'
 
 describe('header', () => {
   const renderHeader = (opts = {}) => {

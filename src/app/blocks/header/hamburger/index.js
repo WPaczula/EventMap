@@ -15,6 +15,10 @@ class Hamburger extends Component {
     }
   }
 
+  toggle = (active) => {
+    this.setState({ active })
+  }
+
   onClick = () => {
     const { onClick } = this.props
     const { active } = this.state

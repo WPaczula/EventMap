@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import media from '../../style/media'
+import media from '../../../style/media'
 
 export const HamburgerWrapper = styled.div`
 ${media.upToDesktop`

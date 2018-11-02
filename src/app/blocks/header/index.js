@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-import Hamburger from '../hamburger'
+import Hamburger from './hamburger'
+import LoginStateControl from './login-state-control'
 import {
   HeaderContainer,
   Navigation,
   MenuItem,
   MenuList,
   NavigationLink,
+  ControlPanel,
+  Logo,
 } from './style'
 
 class Header extends Component {
@@ -23,6 +26,8 @@ class Header extends Component {
 
   constructor(props) {
     super(props)
+
+    this.ref = React.createRef()
 
     this.state = {
       menuHidden: true,
@@ -43,6 +48,8 @@ class Header extends Component {
     e.preventDefault()
     const { menuHidden } = this.state
 
+    if (this.ref.current) this.ref.current.toggle(false)
+
     if (!menuHidden) this.toggleMenuHidden(true)
   }
 
@@ -52,8 +59,12 @@ class Header extends Component {
 
     return (
       <HeaderContainer>
+        <ControlPanel>
+          <Logo>LOGO</Logo>
+          <LoginStateControl />
+        </ControlPanel>
         <Navigation>
-          <Hamburger onClick={() => this.toggleMenuHidden(!menuHidden)} />
+          <Hamburger onClick={() => this.toggleMenuHidden(!menuHidden)} ref={this.ref} />
           <MenuList hidden={menuHidden}>
             {
             routes
