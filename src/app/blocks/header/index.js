@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import Hamburger from './hamburger'
 import LoginStateControl from './login-state-control'
+import Logo from '../logo/index'
 import {
   HeaderContainer,
   Navigation,
@@ -10,7 +11,6 @@ import {
   MenuList,
   NavigationLink,
   ControlPanel,
-  Logo,
 } from './style'
 
 class Header extends Component {
@@ -60,7 +60,7 @@ class Header extends Component {
     return (
       <HeaderContainer>
         <ControlPanel>
-          <Logo>LOGO</Logo>
+          <Logo />
           <LoginStateControl />
         </ControlPanel>
         <Navigation>

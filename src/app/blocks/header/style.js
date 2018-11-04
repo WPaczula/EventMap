@@ -84,9 +84,4 @@ export const Logo = styled.h1`
   font-weight: 800;
   color: white;
   align-self: center;
-  margin-left: 2.3em;
-
-  ${media.upToDesktop`
-    margin-left: 1em;
-  `}
 `
