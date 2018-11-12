@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import media from '../../../style/media'
+import { secondaryColorLight } from '../../../style/colors'
 
-export const StyledAccountLink = styled.a`
+export const AccountControlContainer = styled.div`
   margin-left: auto;
-  ${media.fromDesktop`
-    padding: 1em 4em;
-  `}
+  color: ${secondaryColorLight};
+  padding: 0.9em;
+  font-size: 1.2em;
 `

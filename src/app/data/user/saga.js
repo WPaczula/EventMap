@@ -6,12 +6,11 @@ import { GET_TOKENS, COOKIE_NAME, CLEAR_TOKENS } from './constants'
 import { storeTokens, storeTokensError } from './actions'
 import { selectTokens } from './selectors'
 
-export function* getAccessToken(api) {
+export function* getAccessToken(api, action) {
   try {
     const savedTokens = yield select(selectTokens)
-
     if (!savedTokens) {
-      const tokens = yield call(api.getTokens)
+      const tokens = yield call(api.getTokens, action.email, action.password)
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))

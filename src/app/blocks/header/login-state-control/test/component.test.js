@@ -1,6 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import LoginStateControl from '../component'
+import LogInPanel from '../log-in-panel'
+import LogOutPanel from '../log-out-panel'
 
 describe('login state control component', () => {
   const renderComponent = (opts = {}) => {
@@ -17,22 +19,25 @@ describe('login state control component', () => {
     />)
   }
 
-  it('should run logIn when not logged and clicked.', () => {
+  it('should render LogInPanel when user is logged in.', () => {
     const logIn = jest.fn()
-    const hamburger = renderComponent({ logIn })
+    const isUserLoggedIn = false
+    const accountPanel = renderComponent({ logIn, isUserLoggedIn })
 
-    hamburger.simulate('click')
+    const logInPanel = accountPanel.find(LogInPanel)
 
-    expect(logIn).toBeCalledTimes(1)
+    expect(logInPanel.exists()).toBe(true)
+    expect(logInPanel.prop('logIn')).toBe(logIn)
   })
 
   it('should run logOut when logged in and clicked.', () => {
     const logOut = jest.fn()
     const isUserLoggedIn = true
-    const hamburger = renderComponent({ logOut, isUserLoggedIn })
+    const accountPanel = renderComponent({ logOut, isUserLoggedIn })
 
-    hamburger.simulate('click')
+    const logOutPanel = accountPanel.find(LogOutPanel)
 
-    expect(logOut).toBeCalledTimes(1)
+    expect(logOutPanel.exists()).toBe(true)
+    expect(logOutPanel.prop('logOut')).toBe(logOut)
   })
 })

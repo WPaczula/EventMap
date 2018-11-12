@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import media from '../../style/media'
 import { hover } from '../../style/pseudo'
 import { primaryColorLight, primaryColor, primaryColorDark } from '../../style/colors'
+import Logo from '../logo'
 
 export const controlPanelSize = '4em'
 export const headerSize = (scale = 1) => `${3 * scale}em`
@@ -80,8 +81,7 @@ export const ControlPanel = styled.div`
   display: flex;
 `
 
-export const Logo = styled.h1`
-  font-weight: 800;
-  color: white;
-  align-self: center;
+export const LogoContainer = styled(Logo)`
+  padding: 26.9px 0.9em;
+  line-height: 0;
 `

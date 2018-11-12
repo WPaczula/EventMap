@@ -1,20 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledAccountLink } from './style'
-import LogIn from './log-in/index'
-import LogOut from './log-out/index'
-// Zrob z tego klase
-// Link Login | Register dla zalogowanego
-// Logout dla niezalogowanego
-// onClick w login => this.setState({ popup: popupTypes.login })
-//  w render this.state.popup && this.state.popup === popupTypes.login && <LoginPopup />
-// gdzie popup ma w sobie <Modal />
-const AccountControl = ({ isUserLoggedIn, logIn, logOut }) => (!isUserLoggedIn
-  ? (
-    <LogIn />
-  ) : (
-    <LogOut />
-  )
+import LoggedInPanel from './log-in-panel/index'
+import LoggedOutPanel from './log-out-panel/index'
+import { AccountControlContainer } from './style'
+
+const AccountControl = ({ isUserLoggedIn, logIn, logOut }) => (
+  <AccountControlContainer>
+    {
+    !isUserLoggedIn
+      ? (
+        <LoggedInPanel logIn={logIn} />
+      ) : (
+        <LoggedOutPanel logOut={logOut} />
+      )
+    }
+  </AccountControlContainer>
 )
 
 AccountControl.propTypes = {

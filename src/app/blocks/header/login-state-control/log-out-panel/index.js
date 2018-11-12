@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { StyledAccountLink } from '../style'
-
+import Link from '../../../link'
 
 class LogIn extends Component {
     state = { }
 
     render() {
       return (
-        <StyledAccountLink>
+        <Link to="">
         Logout 👻
-        </StyledAccountLink>
+        </Link>
       )
     }
 }

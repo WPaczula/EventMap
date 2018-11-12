@@ -1,45 +1,50 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Modal from '../modal/index'
-import Logo from '../logo/index'
-import LoginForm from './login-form/index'
-import { StyledPopup, LoginLogo, X } from './style'
+import Modal from '../modal'
+import LoginForm from './login-form'
+import { StyledPopup, LogoContainer, X } from './style'
+
+export const popupTypes = {
+  login: 'LOGIN',
+  register: 'REGISTER',
+}
 
 class LoginPopup extends Component {
     state = { }
 
     static propTypes={
-      popupHandler: PropTypes.func.isRequired,
-
+      exit: PropTypes.func.isRequired,
+      onLogin: PropTypes.func.isRequired,
     }
 
     componentWillMount() {
-      if (document) document.onkeyup = this.escapeHandler
+      if (document) document.onkeyup = this.handleKey
     }
 
     componentWillUnmount() {
       if (document) document.onkeyup = null
     }
 
-    escapeHandler = (event) => {
-      const { popupHandler } = this.props
+    handleKey = (event) => {
+      const { exit } = this.props
 
-      if (event.key === 'Escape') popupHandler()
+      if (event.key === 'Escape') exit()
     }
 
     render() {
-      const { popupHandler } = this.props
-
+      const {
+        exit,
+        onLogin,
+      } = this.props
 
       return (
         <Modal>
           <StyledPopup>
-            <X onClick={popupHandler} />
-            <LoginLogo>
-              <Logo />
-            </LoginLogo>
-            <LoginForm />
-
+            <X onClick={exit} />
+            <LogoContainer />
+            {
+              <LoginForm onLogin={onLogin} />
+            }
           </StyledPopup>
         </Modal>
       )

@@ -1,35 +1,53 @@
 import React, { Component } from 'react'
-import Header from './login-header/index'
-import Email from './email-input/index'
-import Password from './password-input/index'
-import Submit from './login-submit/index'
+import PropTypes from 'prop-types'
+import { SubmitButton } from './style'
+import Input from '../../input'
 
 class LoginForm extends Component {
-    state = { email: '', password: '' }
+  state = { email: '', password: '' }
 
-    setEmail = (email) => {
-      this.setState({ email })
-    }
+  static propTypes = {
+    onLogin: PropTypes.func.isRequired,
+  }
 
-    setPassword = (password) => {
-      this.setState({ password })
-    }
+  setEmail = (email) => {
+    this.setState({ email })
+  }
 
-    logIn=() => {
-      const { email, password } = this.state
-      console.log(`email: ${email} password: ${password}`)
-    }
+  setPassword = (password) => {
+    this.setState({ password })
+  }
 
-    render() {
-      const { email, password } = this.state
-      return (
-      <>
-        <Header />
-        <Email email={email} onEmailChange={this.setEmail} />
-        <Password password={password} onPasswordChange={this.setPassword} />
-        <Submit onSubmit={this.logIn} />
-      </>)
-    }
+  logIn = () => {
+    const { email, password } = this.state
+    const { onLogin } = this.props
+
+    onLogin(email, password)
+  }
+
+  render() {
+    const { email, password } = this.state
+
+    return (
+    <>
+      <Input
+        value={email}
+        onChange={this.setEmail}
+        placeholder="email adress"
+        type="email"
+        icon="👤"
+      />
+      <Input
+        value={password}
+        onChange={this.setPassword}
+        placeholder="password"
+        type="password"
+        icon="💬"
+      />
+      <SubmitButton inverse onClick={this.logIn}>Log in</SubmitButton>
+    </>
+    )
+  }
 }
 
 export default LoginForm

@@ -1,12 +1,10 @@
-import React, { PureComponent } from 'react'
-import { Logo } from '../header/style'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { StyledLogo } from './style'
 
-class LogoIcon extends PureComponent {
-    state = { }
+const LogoIcon = ({ className }) => <StyledLogo className={className}>Logo</StyledLogo>
 
-    render() {
-      return (<Logo> Logo </Logo>)
-    }
+LogoIcon.propTypes = {
+  className: PropTypes.string,
 }
-
 export default LogoIcon
