@@ -13,6 +13,7 @@ class LogIn extends Component {
 
     togglePopup = () => {
       const { isLoginPopupOpen } = this.state
+
       this.setState({ isLoginPopupOpen: !isLoginPopupOpen })
     };
 
