@@ -4,6 +4,10 @@ import {
   storeTokens,
   storeTokensError,
   clearTokens,
+  handleError,
+  createAccount,
+  accountCreated,
+  accountCreationFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -50,7 +54,7 @@ describe('user', () => {
 
       const nextState = reducer(prevState, action)
 
-      expect(nextState).toEqual(makeState({ error }))
+      expect(nextState).toEqual(makeState({ error, unhandledError: true }))
     })
 
     it('should clear tokens.', () => {
@@ -61,5 +65,51 @@ describe('user', () => {
 
       expect(nextState).toEqual(makeState())
     })
+
+    it('should clear unhandled errors.', () => {
+      const prevState = makeState({ unhandledError: true })
+      const action = handleError()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState())
+    })
+
+    it('should clear state when create account is requrested.', () => {
+      const prevState = makeState({ unhandledError: true, unhandledRegister: false })
+      const action = createAccount()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState())
+    })
+
+    it('should set unhandledRegister after registration is completed.', () => {
+      const prevState = makeState()
+      const action = accountCreated()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState({ unhandledRegister: true }))
+    })
+
+    it('should set', () => {
+      const prevState = makeState()
+      const error = {}
+      const action = accountCreationFailed(error)
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState({ error, unhandledError: true }))
+    })
+
+    /**  [CREATE_ACCOUNT]: state => state
+    .set('unhandledRegister', false)
+    .set('unhandledError', false),
+  [ACCOUNT_CREATED]: state => state.set('unhandledRegister', true),
+  [ACCOUNT_CREATION_FAILED]: (state, { error }) => state
+    .set('error', error)
+    .set('unhandledError', true)
+    .set('registered', false), */
   })
 })

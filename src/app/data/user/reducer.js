@@ -20,7 +20,9 @@ const initialState = {
 
 const handlers = {
   [STORE_TOKENS]: (state, { tokens }) => state.set('tokens', tokens),
-  [FAILED_TO_GET_TOKENS]: (state, { error }) => state.set('error', error),
+  [FAILED_TO_GET_TOKENS]: (state, { error }) => state
+    .set('error', error)
+    .set('unhandledError', true),
   [CLEAR_TOKENS]: state => state.set('tokens', null),
 
   [CREATE_ACCOUNT]: state => state
@@ -29,8 +31,8 @@ const handlers = {
   [ACCOUNT_CREATED]: state => state.set('unhandledRegister', true),
   [ACCOUNT_CREATION_FAILED]: (state, { error }) => state
     .set('error', error)
-    .set('unhandledError', true)
-    .set('registered', false),
+    .set('unhandledError', true),
+
   [HANDLE_REGISTERED]: state => state.set('unhandledRegister', false),
   [HANDLE_ERROR]: state => state.set('unhandledError', false),
 }
