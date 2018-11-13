@@ -4,6 +4,10 @@ import {
   storeTokens,
   storeTokensError,
   clearTokens,
+  handleError,
+  createAccount,
+  accountCreated,
+  accountCreationFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -50,7 +54,7 @@ describe('user', () => {
 
       const nextState = reducer(prevState, action)
 
-      expect(nextState).toEqual(makeState({ error }))
+      expect(nextState).toEqual(makeState({ error, unhandledError: true }))
     })
 
     it('should clear tokens.', () => {
@@ -60,6 +64,43 @@ describe('user', () => {
       const nextState = reducer(prevState, action)
 
       expect(nextState).toEqual(makeState())
+    })
+
+    it('should clear unhandled errors.', () => {
+      const prevState = makeState({ unhandledError: true })
+      const action = handleError()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState())
+    })
+
+    it('should clear state when create account is requrested.', () => {
+      const prevState = makeState({ unhandledError: true, unhandledRegister: false })
+      const action = createAccount()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState())
+    })
+
+    it('should set unhandledRegister after registration is completed.', () => {
+      const prevState = makeState()
+      const action = accountCreated()
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState({ unhandledRegister: true }))
+    })
+
+    it('should set unhandled error.', () => {
+      const prevState = makeState()
+      const error = {}
+      const action = accountCreationFailed(error)
+
+      const nextState = reducer(prevState, action)
+
+      expect(nextState).toEqual(makeState({ error, unhandledError: true }))
     })
   })
 })
