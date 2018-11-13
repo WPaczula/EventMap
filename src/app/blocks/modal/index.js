@@ -17,6 +17,11 @@ export default class Modal extends Component {
 
     componentWillMount() {
       this.modal = document.getElementById('modal-root')
+      document.getElementById('root').classList.toggle('blurred')
+    }
+
+    componentWillUnmount() {
+      document.getElementById('root').classList.toggle('blurred')
     }
 
     render() {

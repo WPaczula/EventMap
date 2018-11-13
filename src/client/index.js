@@ -6,6 +6,7 @@ import App from '../app'
 import routes from '../app/routes'
 import createScore from '../app/data/store'
 
+
 const preloadedState = window.REDUX_DATA
 
 const AppWrapper = () => (

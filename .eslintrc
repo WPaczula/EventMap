@@ -11,6 +11,9 @@
         "react/forbid-prop-types": "off",
         "react/jsx-one-expression-per-line": "off",
         "jsx-a11y/accessible-emoji": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "jsx-a11y/label-has-for": "off",
+        "jsx-a11y/label-has-associated-control": "off",
         "no-use-before-define": "off"
     },
     "env": {

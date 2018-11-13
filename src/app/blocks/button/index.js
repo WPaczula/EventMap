@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { secondaryColor, secondaryColorDark } from '../../style/colors'
 import { hover } from '../../style/pseudo'
 
@@ -17,6 +17,17 @@ const Button = styled.button`
 
   ${hover`
     background: ${secondaryColorDark};
+  `}
+
+  ${props => props.inverse && css`
+    background: white;
+    color: ${secondaryColor};
+    border-color: white;
+
+    ${hover`
+      color: white;
+      border-color: ${secondaryColorDark};
+    `}
   `}
 `
 

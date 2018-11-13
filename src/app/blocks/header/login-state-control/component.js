@@ -1,17 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledAccountButton } from './style'
+import LoggedInPanel from './log-in-panel/index'
+import LoggedOutPanel from './log-out-panel/index'
+import { AccountControlContainer } from './style'
 
-const AccountControl = ({ isUserLoggedIn, logIn, logOut }) => (!isUserLoggedIn
-  ? (
-    <StyledAccountButton onClick={logIn}>
-      Login 🚀
-    </StyledAccountButton>
-  ) : (
-    <StyledAccountButton onClick={logOut}>
-      Logout 👻
-    </StyledAccountButton>
-  )
+const AccountControl = ({ isUserLoggedIn, logIn, logOut }) => (
+  <AccountControlContainer>
+    {
+    !isUserLoggedIn
+      ? (
+        <LoggedInPanel logIn={logIn} />
+      ) : (
+        <LoggedOutPanel logOut={logOut} />
+      )
+    }
+  </AccountControlContainer>
 )
 
 AccountControl.propTypes = {

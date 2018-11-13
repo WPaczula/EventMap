@@ -10,7 +10,7 @@ import {
   MenuList,
   NavigationLink,
   ControlPanel,
-  Logo,
+  LogoContainer,
 } from './style'
 
 class Header extends Component {
@@ -60,7 +60,7 @@ class Header extends Component {
     return (
       <HeaderContainer>
         <ControlPanel>
-          <Logo>LOGO</Logo>
+          <LogoContainer />
           <LoginStateControl />
         </ControlPanel>
         <Navigation>

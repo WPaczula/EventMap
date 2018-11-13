@@ -8,13 +8,13 @@ export default class Api {
     this.apiUrl = apiUrl
   }
 
-  getTokens = () => post({
+  getTokens = (email, password) => post({
     url: `${this.apiUrl}/authorization`,
     data: {
       client_id,
       client_secret,
-      email: 'user',
-      password: 'pass',
+      email,
+      password,
       grant_type: 'password',
     },
   })

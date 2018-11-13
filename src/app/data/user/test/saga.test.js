@@ -1,6 +1,6 @@
 import { expectSaga, matchers } from 'redux-saga-test-plan'
 import Cookie from '../../../lib/cookie'
-import { COOKIE_NAME } from '../constants'
+import { COOKIE_NAME, GET_TOKENS } from '../constants'
 import {
   getAccessToken,
   clearTokens,
@@ -26,8 +26,12 @@ describe('user', () => {
         const api = {
           getTokens: jest.fn(),
         }
+        const email = 'email'
+        const password = 'password'
+        const action = { type: GET_TOKENS, email, password }
 
-        return expectSaga(getAccessToken, api)
+
+        return expectSaga(getAccessToken, api, action)
           .provide([
             [matchers.select(selectTokens), {}],
           ]).select(selectTokens)
@@ -40,12 +44,15 @@ describe('user', () => {
         const api = {
           getTokens: jest.fn().mockReturnValueOnce(tokens),
         }
+        const email = 'email'
+        const password = 'password'
+        const action = { type: GET_TOKENS, email, password }
 
-        return expectSaga(getAccessToken, api)
+        return expectSaga(getAccessToken, api, action)
           .provide([
             [matchers.select(selectTokens), undefined],
           ])
-          .call(api.getTokens)
+          .call(api.getTokens, email, password)
           .put(storeTokens(tokens))
           .call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
           .run()
@@ -56,8 +63,11 @@ describe('user', () => {
         const api = {
           getTokens: jest.fn().mockImplementation(() => { throw error }),
         }
+        const email = 'email'
+        const password = 'password'
+        const action = { type: GET_TOKENS, email, password }
 
-        return expectSaga(getAccessToken, api)
+        return expectSaga(getAccessToken, api, action)
           .provide([
             [matchers.select(selectTokens), undefined],
           ])
