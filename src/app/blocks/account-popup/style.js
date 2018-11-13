@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import React from 'react'
 import { secondaryColorLight, secondaryColorDark } from '../../style/colors'
 import Logo from '../logo'
+import Button from '../button'
 
 export const StyledPopup = styled.div`
     background-image:
@@ -54,6 +55,12 @@ const StyledLogoContainer = styled.div`
     margin-top: 5em;
     text-align: center;
     padding: 10%;
+`
+
+export const SubmitButton = styled(Button)`
+  display: block;
+  margin: 4em auto;
+  padding: 2em 4em;
 `
 
 export const LogoContainer = () => <StyledLogoContainer><Logo /></StyledLogoContainer>

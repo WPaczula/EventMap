@@ -9,10 +9,17 @@ import {
 describe('user', () => {
   describe('reducer', () => {
     const makeState = (opts = {}) => {
-      const { tokens = null, error = undefined } = opts
+      const {
+        tokens = null,
+        unhandledError = false,
+        unhandledRegister = false,
+        error = undefined,
+      } = opts
 
       return Immutable({
         tokens,
+        unhandledError,
+        unhandledRegister,
         error,
       })
     }

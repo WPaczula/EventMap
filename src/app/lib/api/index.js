@@ -18,4 +18,15 @@ export default class Api {
       grant_type: 'password',
     },
   })
+
+  createAccount = (email, password) => post({
+    url: `${this.apiUrl}/register`,
+    data: {
+      client_id,
+      client_secret,
+      email,
+      nickname: email,
+      password,
+    },
+  })
 }
