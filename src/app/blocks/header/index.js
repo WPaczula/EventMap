@@ -22,6 +22,7 @@ class Header extends Component {
         path: PropTypes.string.isRequired,
       }).isRequired,
     ),
+    short: PropTypes.bool,
   }
 
   constructor(props) {
@@ -55,14 +56,17 @@ class Header extends Component {
 
   render() {
     const { menuHidden } = this.state
-    const { routes } = this.props
+    const { routes, short } = this.props
 
     return (
       <HeaderContainer>
         <ControlPanel>
           <LogoContainer />
-          <LoginStateControl />
+          {
+            !short && <LoginStateControl />
+          }
         </ControlPanel>
+        { !short && (
         <Navigation>
           <Hamburger onClick={() => this.toggleMenuHidden(!menuHidden)} ref={this.ref} />
           <MenuList hidden={menuHidden}>
@@ -84,6 +88,8 @@ class Header extends Component {
             }
           </MenuList>
         </Navigation>
+        )
+        }
       </HeaderContainer>
     )
   }

@@ -82,6 +82,10 @@ export const ControlPanel = styled.div`
 `
 
 export const LogoContainer = styled(Logo)`
-  padding: 26.9px 0.9em;
+  ${media.fromTablet`
+    padding-left: 0.9em;
+  `}
+
+  padding: 26.9px 0.1em;
   line-height: 0;
 `

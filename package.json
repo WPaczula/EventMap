@@ -11,9 +11,9 @@
     "test": "jest",
     "lint": "./node_modules/.bin/eslint . --ext .js",
     "babel-node": "babel-node --presets=@babel/env",
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --mode development --env.development --open --hot",
     "server": "nodemon --exec npm run babel-node -- ./src/server/index.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production --env.production"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-styled-components": "^1.8.0",
+    "copy-webpack-plugin": "^4.6.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.8.0",

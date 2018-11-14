@@ -1,14 +1,17 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = {
-  entry: [
-    '@babel/polyfill',
-    path.join(__dirname, '/src/client/index.js'),
-  ],
+module.exports = env => ({
+  entry: env.production
+    ? {
+      main: ['@babel/polyfill', path.join(__dirname, '/src/client/index.js')],
+      static: ['@babel/polyfill', path.join(__dirname, '/src/static/index.js')],
+    }
+    : ['@babel/polyfill', path.join(__dirname, '/src/client/index.js')],
   output: {
     path: path.join(__dirname, '/build'),
-    filename: 'bundle.js',
+    filename: env.production ? '[name]/bundle.js' : 'bundle.js',
     publicPath: '/',
   },
   resolve: {
@@ -37,7 +40,26 @@ module.exports = {
       },
     ],
   },
-  plugins: [
+  plugins: env.production 
+    ? [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/src/client/index.html'),
+      chunks: ['main'],
+      filename: '/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/src/static/error.html'),
+      chunks: ['static'],
+      filename: '/error.html'
+    }),
+    new CopyWebpackPlugin(
+      [
+        { from: path.join(__dirname, '/src/workers/sw.js'), to: path.join(__dirname, '/build')},
+        { from: path.join(__dirname, '/assets/favicon.ico'), to: path.join(__dirname, '/build')},
+      ]
+    )
+  ]
+  : [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '/src/client/index.html'),
     }),
@@ -45,4 +67,4 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
-}
+})

@@ -1,24 +1,28 @@
 import styled from 'styled-components'
 import React from 'react'
 import { secondaryColorLight, secondaryColorDark } from '../../style/colors'
+import media from '../../style/media'
 import Logo from '../logo'
 import Button from '../button'
 
 export const StyledPopup = styled.div`
-    background-image:
-    linear-gradient(to bottom, ${secondaryColorLight}, 70%, ${secondaryColorDark});
-    box-shadow: 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.14);
-    position: absolute;
-    width: 20%;
-    height: 60%;
+  ${media.fromTablet`
     min-width: 26em;
     min-height: 35em;
-    margin: auto;
+    width: 20%;
+    height: 60%;
     border-radius: 5%;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+  `}
+
+  background-image:
+  linear-gradient(to bottom, ${secondaryColorLight}, 70%, ${secondaryColorDark});
+  box-shadow: 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.14);
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 `
 export const X = styled.div`
   position: absolute;
