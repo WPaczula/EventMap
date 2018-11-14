@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Modal from '../modal'
 import LoginForm from './login-form'
+import RegisterForm from './register-form'
 import { StyledPopup, LogoContainer, X } from './style'
 
 export const popupTypes = {
@@ -9,12 +10,11 @@ export const popupTypes = {
   register: 'REGISTER',
 }
 
-class LoginPopup extends Component {
-    state = { }
-
+class AccountPopup extends Component {
     static propTypes={
       exit: PropTypes.func.isRequired,
-      onLogin: PropTypes.func.isRequired,
+      onSubmit: PropTypes.func.isRequired,
+      popupType: PropTypes.oneOf(['LOGIN', 'REGISTER']),
     }
 
     componentWillMount() {
@@ -34,8 +34,13 @@ class LoginPopup extends Component {
     render() {
       const {
         exit,
-        onLogin,
+        onSubmit,
+        popupType,
       } = this.props
+
+      const PopupComponent = popupType === popupTypes.login
+        ? LoginForm
+        : RegisterForm
 
       return (
         <Modal>
@@ -43,7 +48,7 @@ class LoginPopup extends Component {
             <X onClick={exit} />
             <LogoContainer />
             {
-              <LoginForm onLogin={onLogin} />
+              <PopupComponent onSubmit={onSubmit} />
             }
           </StyledPopup>
         </Modal>
@@ -51,4 +56,4 @@ class LoginPopup extends Component {
     }
 }
 
-export default LoginPopup
+export default AccountPopup

@@ -8,6 +8,7 @@ export default class Modal extends Component {
 
     static propTypes = {
       children: PropTypes.node.isRequired,
+      message: PropTypes.bool,
     }
 
     constructor(props) {
@@ -16,12 +17,23 @@ export default class Modal extends Component {
     }
 
     componentWillMount() {
-      this.modal = document.getElementById('modal-root')
-      document.getElementById('root').classList.toggle('blurred')
+      const { message } = this.props
+
+      this.modal = message
+        ? document.getElementById('message-root')
+        : document.getElementById('modal-root')
+      if (!document.getElementById('root').classList.contains('blurred')) {
+        document.getElementById('root').classList.add('blurred')
+      }
     }
 
     componentWillUnmount() {
-      document.getElementById('root').classList.toggle('blurred')
+      const isModalOpen = document.getElementById('modal-root').hasChildNodes()
+      const isMessageOpne = document.getElementById('message-root').hasChildNodes()
+
+      if ((isModalOpen && !isMessageOpne) || (!isModalOpen && isMessageOpne)) {
+        document.getElementById('root').classList.remove('blurred')
+      }
     }
 
     render() {

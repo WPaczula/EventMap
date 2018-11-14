@@ -3,19 +3,19 @@ import { mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router'
 import LoginStateControl from '../component'
-import { selectIsUserSignedIn } from '../../../../data/user/selectors'
-import { getAccessToken, clearTokens } from '../../../../data/user/actions'
-import { createMockStore } from '../../../../../../test/store'
-import { NOOPComponent } from '../../../../../../test/components'
+import { selectIsUserSignedIn } from '../../../data/user/selectors'
+import { getAccessToken, clearTokens } from '../../../data/user/actions'
+import { createMockStore } from '../../../../../test/store'
+import { NOOPComponent } from '../../../../../test/components'
 import LoginStateControlContainer from '../index'
 
-jest.mock('../../../../data/user/selectors')
-jest.mock('../../../../data/user/actions')
+jest.mock('../../../data/user/selectors')
+jest.mock('../../../data/user/actions')
 jest.mock('../component')
 
 LoginStateControl.mockImplementation(NOOPComponent)
 
-describe('notification-cta', () => {
+describe('login state control container', () => {
   it('should pass correct state props.', () => {
     const isUserLoggedIn = true
     selectIsUserSignedIn.mockReturnValue(isUserLoggedIn)

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { SubmitButton } from './style'
+import { SubmitButton } from '../style'
 import Input from '../../input'
 
 class LoginForm extends Component {
   state = { email: '', password: '' }
 
   static propTypes = {
-    onLogin: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   }
 
   setEmail = (email) => {
@@ -20,9 +20,9 @@ class LoginForm extends Component {
 
   logIn = () => {
     const { email, password } = this.state
-    const { onLogin } = this.props
+    const { onSubmit } = this.props
 
-    onLogin(email, password)
+    onSubmit(email, password)
   }
 
   render() {

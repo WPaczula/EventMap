@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { secondaryColorLight } from '../../../style/colors'
+import { secondaryColorLight } from '../../style/colors'
 
 export const AccountControlContainer = styled.div`
   margin-left: auto;

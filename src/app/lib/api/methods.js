@@ -15,4 +15,9 @@ export const post = ({ url, data = {}, ...rest }) => fetch(url, {
   referrer: 'no-referrer',
   body: JSON.stringify(data),
   ...rest,
-}).then(r => r.json())
+}).then((r) => {
+  if (r.status === 201) {
+    return r
+  }
+  return r.json()
+})

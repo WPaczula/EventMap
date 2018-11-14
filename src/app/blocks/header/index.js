@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import Hamburger from './hamburger'
-import LoginStateControl from './login-state-control'
+import LoginStateControl from '../account-control'
 import {
   HeaderContainer,
   Navigation,
