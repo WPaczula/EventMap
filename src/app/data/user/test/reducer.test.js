@@ -92,7 +92,6 @@ describe('user', () => {
 
       expect(nextState).toEqual(makeState({ unhandledRegister: true }))
     })
-
     it('should set unhandled error.', () => {
       const prevState = makeState()
       const error = {}
