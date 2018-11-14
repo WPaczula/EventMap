@@ -18,3 +18,9 @@ const AppWrapper = () => (
 )
 
 hydrate(<AppWrapper />, document.getElementById('root'))
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+} else {
+  console.log('Cannot register a service worker')
+}
