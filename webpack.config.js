@@ -45,7 +45,9 @@ module.exports = env => ({
     new CopyWebpackPlugin(
       [
         { from: path.join(__dirname, '/src/workers/sw.js'), to: path.join(__dirname, '/build')},
-        { from: path.join(__dirname, '/assets/favicon.ico'), to: path.join(__dirname, '/build')},
+        { from: path.join(__dirname, '/favicon.ico'), to: path.join(__dirname, '/build')},
+        { from: path.join(__dirname, '/assets'), to: path.join(__dirname, '/build/assets')},
+        { from: path.join(__dirname, '/manifest.json'), to: path.join(__dirname, '/build')},
         { from: path.join(__dirname, '/src/static/error.html'), to: path.join(__dirname, '/build')},        
       ]
     )
