@@ -42,20 +42,11 @@ module.exports = env => ({
   },
   plugins: env.production 
     ? [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '/src/client/index.html'),
-      chunks: ['main'],
-      filename: '/index.html'
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '/src/static/error.html'),
-      chunks: ['static'],
-      filename: '/error.html'
-    }),
     new CopyWebpackPlugin(
       [
         { from: path.join(__dirname, '/src/workers/sw.js'), to: path.join(__dirname, '/build')},
         { from: path.join(__dirname, '/assets/favicon.ico'), to: path.join(__dirname, '/build')},
+        { from: path.join(__dirname, '/src/static/error.html'), to: path.join(__dirname, '/build')},        
       ]
     )
   ]

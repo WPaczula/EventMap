@@ -13,7 +13,8 @@
     "babel-node": "babel-node --presets=@babel/env",
     "start": "webpack-dev-server --mode development --env.development --open --hot",
     "server": "nodemon --exec npm run babel-node -- ./src/server/index.js",
-    "build": "webpack --mode production --env.production"
+    "build": "webpack --mode production --env.production",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,12 +27,6 @@
   },
   "homepage": "https://github.com/WPaczula/EventMap#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/node": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -56,6 +51,12 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "@babel/node": "^7.0.0",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "compression": "^1.7.3",
     "express": "^4.16.4",
     "http": "0.0.0",
