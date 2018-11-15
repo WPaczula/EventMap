@@ -6,11 +6,11 @@ import saga from './saga'
 const createComposedStore = ({ isSSR, preloadedState }) => {
   const sagaMiddleware = createSagaMiddleware()
 
-  const storeParams = isSSR
+  const storeParams = process.env.NODE_ENV === 'production' || isSSR
     ? applyMiddleware(sagaMiddleware)
     : compose(
       applyMiddleware(sagaMiddleware),
-      !isSSR && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(),
     )
 
   const store = createStore(
