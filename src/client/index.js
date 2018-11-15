@@ -24,3 +24,7 @@ if ('serviceWorker' in navigator) {
 } else {
   console.log('Cannot register a service worker')
 }
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.prompt()
+})
