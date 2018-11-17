@@ -1,58 +1,51 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { HeaderComponent as Header } from '..'
-import { MenuList, MenuItem } from '../style'
-import Hamburger from '../hamburger'
+import { mount } from 'enzyme'
+import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router'
+import { selectCategories } from '../../../data/category/selectors'
+import { fetchCategoriesList } from '../../../data/category/actions'
+import Header from '../component'
+import { createMockStore } from '../../../../../test/store'
+import { NOOPComponent } from '../../../../../test/components'
+import HeaderContainer from '../index'
 
-describe('header', () => {
-  const renderHeader = (opts = {}) => {
-    const {
-      location = { pathname: '/' },
-      routes = [
-        { path: '/', key: 'root' },
-        { path: '/path', key: 'other' },
-      ],
-    } = opts
+jest.mock('../../../data/category/selectors')
+jest.mock('../../../data/category/actions')
+jest.mock('../component')
 
-    return shallow(<Header location={location} routes={routes} />)
-  }
+Header.mockImplementation(NOOPComponent)
 
-  it('should highlight active item based on location.', () => {
-    const location = { pathname: '/active' }
-    const activeKey = 'active'
-    const routes = [
-      { path: '/', key: 'root' },
-      { path: '/active', key: activeKey },
-    ]
+describe('header container', () => {
+  it('should pass correct state props.', () => {
+    const categories = [{}, {}, {}]
+    selectCategories.mockReturnValue(categories)
+    const { wrapper } = setup()
 
-    const activeItem = renderHeader({ location, routes })
-      .find(MenuItem)
-      .find({ active: true })
+    const props = wrapper.find(Header).props()
 
-    expect(activeItem.key()).toBe(activeKey)
+    expect(props).toEqual(expect.objectContaining({ categories }))
   })
 
-  it('should have hamburger button which toggles the menu', () => {
-    const wrapper = renderHeader()
-    const menu = wrapper.find(MenuList)
-    const hamburger = wrapper.find(Hamburger)
+  it('should pass correct dispatch props.', () => {
+    const { wrapper, store } = setup()
+    const props = wrapper.find(Header).props()
 
-    hamburger.simulate('click')
+    props.loadCategories()
 
-    expect(menu.prop('hidden')).toBe(true)
-  })
-
-  it('should hide mobile menu if link is chosen.', () => {
-    const wrapper = renderHeader()
-    const inactiveMenuItem = wrapper
-      .find(MenuItem)
-      .find({ active: false })
-    const menu = wrapper
-      .find(MenuList)
-    wrapper.instance().toggleMenuHidden(false)
-
-    inactiveMenuItem.simulate('click', { preventDefault: jest.fn() })
-
-    expect(menu.prop('hidden')).toBe(true)
+    expect(store.dispatch).toHaveBeenCalledWith(fetchCategoriesList())
   })
 })
+
+const setup = () => {
+  const store = createMockStore()
+
+  const wrapper = mount(
+    <Provider store={store}>
+      <MemoryRouter>
+        <HeaderContainer />
+      </MemoryRouter>
+    </Provider>,
+  )
+
+  return { wrapper, store }
+}

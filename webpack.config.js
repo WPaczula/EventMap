@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports = env => ({
   entry: env.production
@@ -40,24 +41,29 @@ module.exports = env => ({
       },
     ],
   },
-  plugins: env.production 
-    ? [
-    new CopyWebpackPlugin(
-      [
-        { from: path.join(__dirname, '/src/workers/sw.js'), to: path.join(__dirname, '/build')},
-        { from: path.join(__dirname, '/favicon.ico'), to: path.join(__dirname, '/build')},
-        { from: path.join(__dirname, '/assets'), to: path.join(__dirname, '/build/assets')},
-        { from: path.join(__dirname, '/manifest.json'), to: path.join(__dirname, '/build')},
-        { from: path.join(__dirname, '/src/static/error.html'), to: path.join(__dirname, '/build')},        
-      ]
-    )
-  ]
-  : [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '/src/client/index.html'),
-    }),
+  plugins: [
+    ...(env.production ? prodPlugins : devPlugins),
+    new ProgressBarPlugin(),
   ],
   devServer: {
     historyApiFallback: true,
   },
 })
+
+const devPlugins = [
+  new HtmlWebpackPlugin({
+    template: path.join(__dirname, '/src/client/index.html'),
+  }),
+]
+
+const prodPlugins = [
+  new CopyWebpackPlugin(
+    [
+      { from: path.join(__dirname, '/src/workers/sw.js'), to: path.join(__dirname, '/build')},
+      { from: path.join(__dirname, '/favicon.ico'), to: path.join(__dirname, '/build')},
+      { from: path.join(__dirname, '/assets'), to: path.join(__dirname, '/build/assets')},
+      { from: path.join(__dirname, '/manifest.json'), to: path.join(__dirname, '/build')},
+      { from: path.join(__dirname, '/src/static/error.html'), to: path.join(__dirname, '/build')},        
+    ]
+  )
+]
