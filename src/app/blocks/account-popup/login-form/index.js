@@ -35,7 +35,7 @@ class LoginForm extends Component {
         onChange={this.setEmail}
         placeholder="email adress"
         type="email"
-        icon="👤"
+        icon="📨"
       />
       <Input
         value={password}
