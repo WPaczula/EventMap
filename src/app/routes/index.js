@@ -1,6 +1,5 @@
 import Home from './home'
-import About from './about'
-import Contact from './contact'
+import Categories from './categories'
 
 const homeRoute = {
   key: 'home',
@@ -9,22 +8,14 @@ const homeRoute = {
   exact: true,
 }
 
-const aboutRoute = {
-  key: 'about',
-  path: '/about',
-  component: About,
-  exact: true,
-}
-
-const contactRoute = {
-  key: 'contact',
-  path: '/contact',
-  component: Contact,
+const categoriesRoute = {
+  key: 'categories',
+  path: '/categories',
+  component: Categories,
   exact: true,
 }
 
 export default [
   homeRoute,
-  aboutRoute,
-  contactRoute,
+  categoriesRoute,
 ]

@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
   left: 0;
+  z-index: 100;
 `
 
 export const Navigation = styled.nav`
@@ -24,7 +25,7 @@ export const Navigation = styled.nav`
   justify-content: flex-end;
 `
 
-const transformOffset = '3em'
+const transformOffset = '12em'
 
 export const MenuList = styled.ul`
   list-style: none;
@@ -32,7 +33,7 @@ export const MenuList = styled.ul`
   flex: 1;
 
   ${media.upToDesktop`
-    height: ${headerSize(3)};
+    height: ${headerSize(6)};
     overflow: hidden;
     transition: transform .5s;
     position: absolute;
@@ -50,7 +51,7 @@ export const MenuList = styled.ul`
 
 export const MenuItem = styled.li`
   text-align: center;
-  flex: 0 0 15em;
+  flex: 0 1 15em;
   line-height: ${headerSize()};
   text-transform: uppercase;
   font-weight: 800;

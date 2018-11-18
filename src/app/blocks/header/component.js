@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import Hamburger from './hamburger'
 import LoginStateControl from '../account-control'
@@ -21,7 +20,7 @@ class Header extends Component {
     short: PropTypes.bool,
     categories: PropTypes.arrayOf(
       PropTypes.shape({
-        key: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
       }),
     ),
@@ -92,15 +91,15 @@ class Header extends Component {
             </MenuItem>
             {
             categories && categories
-              .filter((c, i) => i < 5)
+              .filter((c, i) => i < 4)
               .map(category => (
                 <MenuItem
-                  key={category.key}
-                  active={this.isNavigationItemChosen(category.key)}
+                  key={category._id}
+                  active={this.isNavigationItemChosen(makeCategoryLink(category._id))}
                   onClick={this.hideMobileMenu}
                 >
                   <NavigationLink
-                    to={makeCategoryLink(category.key)}
+                    to={makeCategoryLink(category._id)}
                   >
                     {category.name}
                   </NavigationLink>
@@ -125,5 +124,4 @@ class Header extends Component {
   }
 }
 
-export const HeaderComponent = Header
-export default withRouter(Header)
+export default Header

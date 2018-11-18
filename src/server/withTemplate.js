@@ -1,4 +1,4 @@
-const withTemplate = (html, styles) => `
+const withTemplate = (html, styles, state, isProd) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +15,13 @@ const withTemplate = (html, styles) => `
     <div id="modal-root"></div>
     <div id="message-root"></div>
     <noscript>
-        <h1>You don’t have javascript enabled.</h1>
+        <h1>It looks like you don’t have javascript enabled.</h1>
         <p>Please enable it to get the full experience.</p>
     </noscript>
+    <script>
+        window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}
+        window.__PROD__ = ${isProd}
+    </script>
     <script src="./main/bundle.js"></script>
 </body>
 </html>

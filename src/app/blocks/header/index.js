@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
+import { withRouter } from 'react-router'
 import Header from './component'
 import { selectCategories } from '../../data/category/selectors'
 import { fetchCategoriesList } from '../../data/category/actions'
@@ -14,4 +15,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(
   { loadCategories: fetchCategoriesList }, dispatch,
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

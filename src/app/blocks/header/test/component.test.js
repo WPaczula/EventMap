@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { HeaderComponent as Header } from '../component'
+import Header from '../component'
 import { MenuList, MenuItem } from '../style'
 import Hamburger from '../hamburger'
 
@@ -43,8 +43,8 @@ describe('header', () => {
   it('should hide mobile menu if link is chosen.', () => {
     const location = { pathname: '/category/active' }
     const categories = [
-      { key: 'active', name: 'activeName' },
-      { key: 'not-active', name: 'notActive' },
+      { _id: 'active', name: 'activeName' },
+      { _id: 'not-active', name: 'notActive' },
     ]
     const wrapper = renderHeader({ categories, location })
     const inactiveMenuItem = wrapper

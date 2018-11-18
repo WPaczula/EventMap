@@ -24,11 +24,13 @@ const GlobalStyle = createGlobalStyle`
 .blurred{
   filter:blur(4px);
 }
+
 #root {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
+
 #modal-root{
   position: absolute;
 }
