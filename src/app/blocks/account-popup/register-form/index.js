@@ -6,6 +6,7 @@ import MessagePopup from '../../message-popup'
 
 class RegisterForm extends Component {
   state = {
+    nickname: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -15,6 +16,10 @@ class RegisterForm extends Component {
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+  }
+
+  setNickname = (nickname) => {
+    this.setState({ nickname })
   }
 
   setEmail = (email) => {
@@ -30,15 +35,18 @@ class RegisterForm extends Component {
   }
 
   register = () => {
-    const { email, password, confirmPassword } = this.state
+    const {
+      email, nickname, password, confirmPassword,
+    } = this.state
     const { onSubmit } = this.props
 
-    if (password === confirmPassword) onSubmit(email, password)
+    if (password === confirmPassword) onSubmit(email, nickname, password)
     else this.setState(() => ({ errorMessage: 'Passwords don\'t match', shouldShowError: true }))
   }
 
   render() {
     const {
+      nickname,
       email,
       password,
       confirmPassword,
@@ -53,6 +61,13 @@ class RegisterForm extends Component {
         onChange={this.setEmail}
         placeholder="email adress"
         type="email"
+        icon="📨"
+      />
+      <Input
+        value={nickname}
+        onChange={this.setNickname}
+        placeholder="nickname"
+        type="text"
         icon="👤"
       />
       <Input

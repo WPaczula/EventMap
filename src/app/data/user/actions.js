@@ -15,7 +15,9 @@ export const storeTokens = tokens => ({ type: STORE_TOKENS, tokens })
 export const storeTokensError = error => ({ type: FAILED_TO_GET_TOKENS, error })
 export const clearTokens = () => ({ type: CLEAR_TOKENS })
 
-export const createAccount = (email, password) => ({ type: CREATE_ACCOUNT, email, password })
+export const createAccount = (email, nickname, password) => ({
+  type: CREATE_ACCOUNT, email, nickname, password,
+})
 export const accountCreated = () => ({ type: ACCOUNT_CREATED })
 export const accountCreationFailed = error => ({ type: ACCOUNT_CREATION_FAILED, error })
 export const handleRegister = () => ({ type: HANDLE_REGISTERED })

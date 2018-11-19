@@ -56,7 +56,7 @@ export const X = styled.div`
 `
 const StyledLogoContainer = styled.div`
     margin: auto;
-    margin-top: 5em;
+    margin-top: 2em;
     text-align: center;
     padding: 10%;
 `
