@@ -19,13 +19,13 @@ export default class Api {
     },
   })
 
-  createAccount = (email, password) => post({
+  createAccount = (email, nickname, password) => post({
     url: `${this.apiUrl}/register`,
     data: {
       client_id,
       client_secret,
       email,
-      nickname: email,
+      nickname,
       password,
     },
   })

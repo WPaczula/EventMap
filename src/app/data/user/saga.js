@@ -30,7 +30,7 @@ export function* clearTokens() {
 
 export function* createAccount(api, action) {
   try {
-    yield call(api.createAccount, action.email, action.password)
+    yield call(api.createAccount, action.email, action.nickname, action.password)
 
     yield put(accountCreated())
   } catch (e) {
