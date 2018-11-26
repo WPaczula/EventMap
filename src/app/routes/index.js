@@ -1,6 +1,6 @@
 import Home from './home'
 import Categories from './categories'
-import Category from './category/component'
+import Category from './category'
 
 const homeRoute = {
   key: 'home',

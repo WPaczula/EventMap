@@ -7,11 +7,11 @@ import App from '../app'
 import createStore from '../app/data/store'
 import withTemplate from './withTemplate'
 import routes from '../app/routes'
+import { isProd } from '../../config'
 
 const createHtml = (url) => {
   const sheet = new ServerStyleSheet()
   const store = createStore({ isSSR: true })
-  const isProd = false
 
   const AppWrapper = (
     <Provider store={store}>

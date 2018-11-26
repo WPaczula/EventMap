@@ -3,7 +3,7 @@ import makeReducer from '../../lib/store'
 import { FETCH_CATEGORY_EVENTS_SUCCEEDED, FETCH_CATEGORY_EVENTS_FAILED } from './constants'
 
 const initialState = Immutable({
-  byCategory: undefined,
+  byCategory: null,
 })
 
 const handlers = {

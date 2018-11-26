@@ -5,6 +5,7 @@ import { categoryEventsLoaded, categoryEventsLoadingError } from './actions'
 export function* fetchCategoryEvents(api, { categoryId }) {
   try {
     const events = yield call(api.getCategoryEvents, categoryId)
+
     yield put(categoryEventsLoaded(categoryId, events))
   } catch (e) {
     yield put(categoryEventsLoadingError(categoryId, e))

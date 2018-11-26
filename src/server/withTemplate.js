@@ -23,7 +23,7 @@ const withTemplate = (html, styles, state, isProd) => `
         window.__PROD__ = ${isProd}
     </script>
     <script src="./main/bundle.js"></script>
-</body>
+</body>z
 </html>
 `
 
