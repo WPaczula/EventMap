@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import Immutable from 'seamless-immutable'
 import reducer from './reducer'
 import saga from './saga'
 
 const createComposedStore = ({ isSSR, preloadedState }) => {
   const sagaMiddleware = createSagaMiddleware()
 
-  const storeParams = process.env.NODE_ENV === 'production' || isSSR
+  const storeParams = isSSR
     ? applyMiddleware(sagaMiddleware)
     : compose(
       applyMiddleware(sagaMiddleware),
@@ -15,7 +16,7 @@ const createComposedStore = ({ isSSR, preloadedState }) => {
 
   const store = createStore(
     reducer,
-    preloadedState,
+    Immutable(preloadedState),
     storeParams,
   )
 

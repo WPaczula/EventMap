@@ -6,8 +6,8 @@ import App from '../app'
 import routes from '../app/routes'
 import createScore from '../app/data/store'
 
-
-const preloadedState = window.REDUX_DATA
+const preloadedState = window.__PRELOADED_STATE__
+const isProd = window.__PROD__
 
 const AppWrapper = () => (
   <Provider store={createScore({ isSSR: false, preloadedState })}>
@@ -19,7 +19,7 @@ const AppWrapper = () => (
 
 hydrate(<AppWrapper />, document.getElementById('root'))
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && isProd) {
   navigator.serviceWorker.register('/sw.js')
 } else {
   console.log('Cannot register a service worker')

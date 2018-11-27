@@ -7,12 +7,14 @@ import App from '../app'
 import createStore from '../app/data/store'
 import withTemplate from './withTemplate'
 import routes from '../app/routes'
+import { isProd } from '../../config'
 
 const createHtml = (url) => {
   const sheet = new ServerStyleSheet()
+  const store = createStore({ isSSR: true })
 
   const AppWrapper = (
-    <Provider store={createStore({ isSSR: true })}>
+    <Provider store={store}>
       <StyleSheetManager sheet={sheet.instance}>
         <StaticRouter location={url} context={{}}>
           <App routes={routes} />
@@ -23,8 +25,9 @@ const createHtml = (url) => {
 
   const html = renderToString(AppWrapper)
   const styles = sheet.getStyleTags()
+  const state = store.getState()
 
-  return withTemplate(html, styles)
+  return withTemplate(html, styles, state, isProd)
 }
 
 export default createHtml

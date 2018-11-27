@@ -16,7 +16,8 @@
         "jsx-a11y/label-has-associated-control": "off",
         "no-use-before-define": "off",
         "no-restricted-globals": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "react/prefer-stateless-function": "off"
     },
     "env": {
         "browser": true,

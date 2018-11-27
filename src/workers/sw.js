@@ -17,6 +17,7 @@ addEventListener('install', (event) => {
         '/assets/icons/icon-168-168.png',
         '/assets/icons/icon-192-192.png',
         '/assets/icons/icon-512-512.png',
+        'http://80.211.62.201:8080/EventBackend/api/events/categories',
       ],
     )),
   )

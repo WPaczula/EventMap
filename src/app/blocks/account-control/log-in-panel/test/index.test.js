@@ -2,7 +2,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import LogInPanel from '..'
 import Popup, { popupTypes } from '../../../account-popup'
-import Link from '../../../link'
+import { AccountButton } from '../../style'
 
 describe('log in panel', () => {
   const renderLogInPanel = (opts = {}) => {
@@ -22,7 +22,7 @@ describe('log in panel', () => {
   it('should show login popup when login is clicked.', () => {
     const logInPanel = renderLogInPanel()
 
-    const logInLink = logInPanel.find(Link).at(0)
+    const logInLink = logInPanel.find(AccountButton).at(0)
     logInLink.simulate('click')
     const loginPopup = logInPanel.find(Popup)
 
@@ -33,7 +33,7 @@ describe('log in panel', () => {
     const logIn = jest.fn()
     const logInPanel = renderLogInPanel({ logIn })
 
-    const logInLink = logInPanel.find(Link).at(0)
+    const logInLink = logInPanel.find(AccountButton).at(0)
     logInLink.simulate('click')
     const loginPopup = logInPanel.find(Popup)
 
@@ -44,7 +44,7 @@ describe('log in panel', () => {
     const register = jest.fn()
     const logInPanel = renderLogInPanel({ register })
 
-    const registerLink = logInPanel.find(Link).at(1)
+    const registerLink = logInPanel.find(AccountButton).at(1)
     registerLink.simulate('click')
     const registerPopup = logInPanel.find(Popup)
 

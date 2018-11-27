@@ -1,4 +1,4 @@
-import { post } from './methods'
+import { post, get } from './methods'
 /* eslint-disable camelcase */
 import { clientId as client_id, clientSecret as client_secret } from '../../../../config'
 /* eslint-enable */
@@ -28,5 +28,13 @@ export default class Api {
       nickname,
       password,
     },
+  })
+
+  getCategories = () => get({
+    url: `${this.apiUrl}/events/categories`,
+  })
+
+  getCategoryEvents = categoryId => get({
+    url: `${this.apiUrl}/events/categories/${categoryId}`,
   })
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../link'
+import { AccountButton } from '../style'
 
 const LogIn = ({ logOut }) => (
-  <Link to="" onClick={logOut}>
+  <AccountButton onClick={logOut}>
     Logout
-  </Link>
+  </AccountButton>
 )
 
 LogIn.propTypes = {
