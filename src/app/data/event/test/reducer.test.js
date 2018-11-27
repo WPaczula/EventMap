@@ -7,7 +7,7 @@ import {
 describe('event reducer', () => {
   const makeState = (opts = {}) => {
     const {
-      byCategory = undefined,
+      byCategory = null,
     } = opts
 
     return Immutable({ byCategory })

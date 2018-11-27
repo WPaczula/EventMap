@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { CategoryTileContainer, CategoryTileLink } from './style'
+import { CategoryTileContainer, CategoryTileLink, CategoryTitle } from './style'
 
 class CategoryTile extends Component {
   static propTypes = {
@@ -15,7 +15,7 @@ class CategoryTile extends Component {
     return (
       <CategoryTileContainer photoUrl={photoUrl}>
         <CategoryTileLink to={`/categories/${_id}`} name={name}>
-          {name}
+          <CategoryTitle>{name}</CategoryTitle>
         </CategoryTileLink>
       </CategoryTileContainer>
     )

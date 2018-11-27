@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { secondaryColorLight } from '../../style/colors'
 import media from '../../style/media'
+import Button from '../button'
 
 export const AccountControlContainer = styled.div`
   ${media.fromTablet`
@@ -11,4 +12,9 @@ export const AccountControlContainer = styled.div`
   color: ${secondaryColorLight};
   padding: 0.9em 0.1em;
   font-size: 1.2em;
+`
+
+export const AccountButton = styled(Button)`
+  margin: 0 0.2em;
+  padding: 1em;
 `

@@ -3,7 +3,7 @@ import express from 'express'
 import compression from 'compression'
 import morgan from 'morgan'
 import path from 'path'
-// import enforce from 'express-sslify'
+import enforce from 'express-sslify'
 import createHtml from './createHtml'
 
 const normalizePort = port => parseInt(port, 10)
@@ -13,10 +13,10 @@ const app = express()
 
 app.disable('x-powered-by')
 
-// if (process.env.NODE_ENV === 'production') {
-//   console.log('Forcing https')
-//   app.use(enforce.HTTPS({ trustProtoHeader: true }))
-// }
+if (process.env.NODE_ENV === 'production') {
+  console.log('Forcing https')
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 
 app.use(compression())
 app.use(morgan('common'))

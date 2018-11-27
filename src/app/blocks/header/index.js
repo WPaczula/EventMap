@@ -16,3 +16,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 )
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
+export { Header as HeaderComponent }

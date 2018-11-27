@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {
   CategoryPageContainer,
-  Event,
 } from './style'
 import EventTile from '../../blocks/event-tile'
 
@@ -20,12 +19,15 @@ class CategoryPage extends Component {
       }),
     ),
     loadCategoryEvents: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+      visibleId: null,
+    }
   }
 
   componentDidMount() {
@@ -36,14 +38,41 @@ class CategoryPage extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const { loadCategoryEvents, events, categoryId } = this.props
+
+    if (!events) {
+      loadCategoryEvents(categoryId)
+    }
+  }
+
+
+  setVisible = (id) => {
+    this.setState({ visibleId: id })
+  }
+
+  navigate = (id) => {
+    const { history } = this.props
+
+    history.push(`/events/${id}`)
+  }
+
   render() {
     const { events } = this.props
+    const { visibleId } = this.state
 
     return (
       <CategoryPageContainer>
         {
           events
-            ? events.map(e => <EventTile {...e} />)
+            ? events.map(e => (
+              <EventTile
+                {...e}
+                isVisible={visibleId === e.id}
+                navigate={this.navigate}
+                setVisible={this.setVisible}
+              />
+            ))
             : new Array(10).fill().map(e => <EventTile.Loading {...e} />)
         }
       </CategoryPageContainer>

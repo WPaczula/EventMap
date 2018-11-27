@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../link'
+import { AccountButton } from '../style'
 import AccountPopup, { popupTypes } from '../../account-popup'
-import { Separator } from './style'
 
 class LogIn extends Component {
   state = { activePopup: undefined }
@@ -34,13 +33,12 @@ class LogIn extends Component {
 
     return (
       <>
-        <Link onClick={() => this.togglePopup(popupTypes.login)}>
+        <AccountButton onClick={() => this.togglePopup(popupTypes.login)}>
           Login
-        </Link>
-        <Separator>|</Separator>
-        <Link onClick={() => this.togglePopup(popupTypes.register)}>
+        </AccountButton>
+        <AccountButton onClick={() => this.togglePopup(popupTypes.register)}>
           Register
-        </Link>
+        </AccountButton>
         {
           activePopup
           && (
