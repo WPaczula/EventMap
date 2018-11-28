@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan'
-import { fetchCategoryEvents } from '../saga'
-import { loadCategoryEvents, categoryEventsLoaded, categoryEventsLoadingError } from '../actions'
+import { fetchCategoryEvents, fetchEvent } from '../saga'
+import { loadCategoryEvents, categoryEventsLoaded, categoryEventsLoadingError, loadEvent, eventLoaded, eventLoadingError } from '../actions'
 
 describe('fetchCategoryEvents saga', () => {
   it('should call api to load events.', () => {
@@ -32,6 +32,30 @@ describe('fetchCategoryEvents saga', () => {
 
     return expectSaga(fetchCategoryEvents, api, action)
       .put(categoryEventsLoadingError(categoryId, error))
+      .run()
+  })
+
+  it('should call api and put success action if api succeeds.', () => {
+    const event = {}
+    const api = { getEvent: jest.fn().mockReturnValue(event) }
+    const id = 'id'
+    const action = loadEvent(id)
+
+    return expectSaga(fetchEvent, api, action)
+      .call(api.getEvent)
+      .put(eventLoaded(id, event))
+      .run()
+  })
+
+  it('should put error action if fetch fails.', () => {
+    const error = new Error()
+    const api = { getEvent: jest.fn().mockImplementation(() => { throw error })}
+    const id = 'id'
+    const action = loadEvent(id)
+
+    return expectSaga(fetchEvent, api, action)
+      .call(api.getEvent)
+      .put(eventLoadingError(id, error))
       .run()
   })
 })

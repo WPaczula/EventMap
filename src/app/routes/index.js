@@ -1,6 +1,7 @@
 import Home from './home'
 import Categories from './categories'
 import Category from './category'
+import Event from './event'
 
 const homeRoute = {
   key: 'home',
@@ -23,8 +24,16 @@ const categoryRoute = {
   exact: false,
 }
 
+const eventRoute = {
+  key: 'event',
+  path: '/:eventId',
+  component: Event,
+  exact: true,
+}
+
 export default [
   homeRoute,
   categoriesRoute,
   categoryRoute,
+  eventRoute,
 ]
