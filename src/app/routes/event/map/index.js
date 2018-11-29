@@ -1,36 +1,41 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { render } from 'react-dom'
-import {
-  Map, Marker, Popup, TileLayer,
-} from 'react-leaflet'
 import Helmet from 'react-helmet'
 import { MapContainer } from '../style'
-import './style.css'
 
 class MapComponent extends Component {
   componentDidMount() {
+    this.loadMap()
+  }
+
+  loadMap = () => {
     const { position, loading } = this.props
 
-    if (!loading) {
-      const MapContent = () => (
-        <Map center={position} zoom={18}>
-          <TileLayer
-            url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-            attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-          />
-          <Marker position={position}>
-            <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-          </Marker>
-        </Map>
-      )
+    if (typeof window !== 'undefined') {
+      const {
+        Map, Marker, TileLayer,
+      } = require('react-leaflet')
 
-      render(<MapContent />, document.getElementById('map'))
+      if (!loading) {
+        const MapContent = () => (
+          <Map center={position} zoom={18}>
+            <TileLayer
+              url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+              attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+            />
+            <Marker position={position} />
+          </Map>
+        )
+
+        render(<MapContent />, document.getElementById('map'))
+      }
     }
   }
 
   render() {
     const { loading } = this.props
+
     return (
       <>
         <Helmet>
@@ -41,6 +46,14 @@ class MapComponent extends Component {
             crossOrigin=""
           />
         </Helmet>
+        <style>
+          {
+            `.leaflet-container {
+            height: 100%;
+            width: 100%;
+            }`
+            }
+        </style>
         <MapContainer id="map" loading={loading} />
       </>
     )

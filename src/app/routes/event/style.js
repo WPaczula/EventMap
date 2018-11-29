@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
 import media from '../../style/media'
-import { secondaryColorLight } from '../../style/colors'
+import { secondaryColorLight, secondaryColor } from '../../style/colors'
 import Button from '../../blocks/button'
+import Link from '../../blocks/link'
 
 export const EventPageLayout = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ export const EventPageLayout = styled.div`
 export const Header = styled.div`
   position: relative;
   width: 100vw;
-  height: 15em;
+  height: 20em;
 
   &::after {
     display: block;
@@ -48,6 +49,10 @@ export const Title = styled.h1`
 `
 
 export const Image = styled.img`
+  ${props => props.src === '' && css`
+    background-color: ${secondaryColor}
+  `}
+
   position: absolute;
   top: 0;
   width: 100%;
@@ -83,18 +88,37 @@ export const Description = styled.p`
   flex: 1;
 `
 
+export const MoreInfo = styled.a`
+  display: block;
+  text-decoration: none;
+  color: ${secondaryColorLight};
+  font-weight: 800;
+  margin-top: 1em;
+
+  &:hover {
+    color: ${secondaryColor};
+    text-decoration: underline;
+    cursor: pointer; 
+  }
+`
+
 export const InfoPanel = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1em;
   box-shadow: 0px 0px 84px -26px rgba(0,0,0,0.53);
   text-align: center;
-  max-height: 9em;
   justify-content: center;
 `
 
-export const Author = styled.p`
-  color: ${secondaryColorLight};
+export const Author = styled(Link)`
+  &::before {
+    content: 'by ';
+    color: black;
+    font-weight: normal;
+    font-size: 0.5em;
+  }
+
   font-weight: 800;
   font-size: 1.5em;
   flex: 0;
@@ -109,12 +133,18 @@ export const SignUpButton = styled(Button)`
   min-height: 5em;
 `
 
+export const Cost = styled.p`
+  text-align: center;
+  margin: 0.5em;
+  font-weight: 600;
+`
+
 export const MapContainer = styled.div`
   ${media.fromTablet`
     width: calc(75% - 2em);
   `}
   
-  border: 5px solid ${secondaryColorLight};
+  border: 2px solid ${secondaryColorLight};
   width: 100%;
   height: 34em;
   margin: 1em auto;

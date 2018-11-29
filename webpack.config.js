@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
+require.extensions['.css'] = () => {}
+
 module.exports = env => ({
   entry: env.production
     ? {
@@ -71,7 +73,6 @@ const devPlugins = [
   new HtmlWebpackPlugin({
     template: path.join(__dirname, '/src/client/index.html'),
   }),
-  new CopyWebpackPlugin([ { from: 'assets/events', to: 'events' } ])
 ]
 
 const prodPlugins = [

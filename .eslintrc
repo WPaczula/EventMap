@@ -17,7 +17,8 @@
         "no-use-before-define": "off",
         "no-restricted-globals": "off",
         "no-console": "off",
-        "react/prefer-stateless-function": "off"
+        "react/prefer-stateless-function": "off",
+        "global-require": "off"
     },
     "env": {
         "browser": true,
