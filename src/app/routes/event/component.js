@@ -56,7 +56,7 @@ class EventPage extends Component {
 
     const position = event && [event.latitude, event.longitude]
     const now = new Date()
-    const didStart = event.startDate - now > 0
+    const didStart = event && event.startDate - now > 0
 
     return (
       event
