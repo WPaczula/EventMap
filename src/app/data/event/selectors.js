@@ -9,5 +9,5 @@ export const selectCategoryEventsSelector = createSelector(
 
 export const selectEventSelector = createSelector(
   selectEventState,
-  eventState => id => eventState.byId && eventState.byId[id]
+  eventState => id => eventState.byId && eventState.byId[id],
 )

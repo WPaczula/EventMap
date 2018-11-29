@@ -1,11 +1,11 @@
 import Immutable from 'seamless-immutable'
 import makeReducer from '../../lib/store'
-import { 
-  FETCH_CATEGORY_EVENTS_SUCCEEDED, 
+import {
+  FETCH_CATEGORY_EVENTS_SUCCEEDED,
   FETCH_CATEGORY_EVENTS_FAILED,
   FETCH_EVENT_SUCCEEDED,
   FETCH_EVENT_FAILED,
- } from './constants'
+} from './constants'
 
 const initialState = Immutable({
   byCategory: null,

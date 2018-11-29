@@ -18,11 +18,11 @@ export const categoryEventsLoadingError = (categoryId, error) => ({
 })
 
 export const loadEvent = id => ({
-  type: FETCH_EVENT, id
+  type: FETCH_EVENT, id,
 })
 export const eventLoaded = (id, event) => ({
-  type: FETCH_EVENT_SUCCEEDED, id, event
+  type: FETCH_EVENT_SUCCEEDED, id, event,
 })
 export const eventLoadingError = (id, error) => ({
-  type: FETCH_EVENT_FAILED, id, error
+  type: FETCH_EVENT_FAILED, id, error,
 })

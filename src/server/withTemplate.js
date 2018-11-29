@@ -7,6 +7,7 @@ const withTemplate = (html, styles, state, isProd) => `
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#7200ca">
     <link rel="manifest" href="/manifest.json">
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
     ${styles}
 </head>
 

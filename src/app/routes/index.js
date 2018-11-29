@@ -26,7 +26,7 @@ const categoryRoute = {
 
 const eventRoute = {
   key: 'event',
-  path: '/:eventId',
+  path: '/events/:eventId',
   component: Event,
   exact: true,
 }

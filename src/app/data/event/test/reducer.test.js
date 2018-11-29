@@ -12,7 +12,7 @@ describe('event reducer', () => {
       byId = null,
     } = opts
 
-    return Immutable({ byCategory })
+    return Immutable({ byCategory, byId })
   }
 
   it('should have initial state', () => {
@@ -51,7 +51,7 @@ describe('event reducer', () => {
 
     const state = reducer(makeState(), action)
 
-    expect(state).toEqual(makeState({ byId: { [id]: event }}))
+    expect(state).toEqual(makeState({ byId: { [id]: event } }))
   })
 
   it('should store error after event fetching error.', () => {
@@ -61,6 +61,6 @@ describe('event reducer', () => {
 
     const state = reducer(makeState(), action)
 
-    expect(state).toEqual(makeState({ byId: { [id]: { error }}}))
+    expect(state).toEqual(makeState({ byId: { [id]: { error } } }))
   })
 })
