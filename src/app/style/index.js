@@ -4,15 +4,13 @@ const GlobalStyle = createGlobalStyle`
   html, body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'M PLUS 1p', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 * {
@@ -26,9 +24,10 @@ const GlobalStyle = createGlobalStyle`
 }
 
 #root {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;  
 }
 
 #modal-root{

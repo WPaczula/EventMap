@@ -15,7 +15,9 @@ class CategoryTile extends Component {
     return (
       <CategoryTileContainer photoUrl={photoUrl}>
         <CategoryTileLink to={`/categories/${_id}`} name={name}>
-          <CategoryTitle>{name}</CategoryTitle>
+          <CategoryTitle>
+            {name}
+          </CategoryTitle>
         </CategoryTileLink>
       </CategoryTileContainer>
     )

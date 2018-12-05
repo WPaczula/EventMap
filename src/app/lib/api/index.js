@@ -37,4 +37,8 @@ export default class Api {
   getCategoryEvents = categoryId => get({
     url: `${this.apiUrl}/events/categories/${categoryId}`,
   })
+
+  getEvent = id => get({
+    url: `${this.apiUrl}/events/${id}`,
+  })
 }

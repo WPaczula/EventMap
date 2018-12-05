@@ -1,6 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import { FETCH_CATEGORY_EVENTS } from './constants'
-import { categoryEventsLoaded, categoryEventsLoadingError } from './actions'
+import { FETCH_CATEGORY_EVENTS, FETCH_EVENT } from './constants'
+import {
+  categoryEventsLoaded, categoryEventsLoadingError, eventLoaded, eventLoadingError,
+} from './actions'
 
 export function* fetchCategoryEvents(api, { categoryId }) {
   try {
@@ -12,6 +14,17 @@ export function* fetchCategoryEvents(api, { categoryId }) {
   }
 }
 
+export function* fetchEvent(api, { id }) {
+  try {
+    const event = yield call(api.getEvent, id)
+
+    yield put(eventLoaded(id, event))
+  } catch (e) {
+    yield put(eventLoadingError(id, e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
+  yield takeLatest(FETCH_EVENT, fetchEvent, api)
 }
