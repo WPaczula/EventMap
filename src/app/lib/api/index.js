@@ -1,4 +1,4 @@
-import { post, get } from './methods'
+import { post, get, httpDelete } from './methods'
 /* eslint-disable camelcase */
 import { clientId as client_id, clientSecret as client_secret } from '../../../../config'
 /* eslint-enable */
@@ -38,7 +38,26 @@ export default class Api {
     url: `${this.apiUrl}/events/categories/${categoryId}`,
   })
 
-  getEvent = id => get({
+  getEvent = (id, token) => get({
     url: `${this.apiUrl}/events/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  signUpForEvent = (id, token) => post({
+    url: `${this.apiUrl}/events/${id}/participants`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    noContent: true,
+  })
+
+  giveUpEvent = (id, token) => httpDelete({
+    url: `${this.apiUrl}/events/${id}/participants`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    noContent: true,
   })
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Map from './map'
+import MessagePopup from '../../blocks/message-popup'
 import Address from '../../blocks/address'
+import Times from '../../blocks/times'
 import {
   EventPageLayout,
   Image,
@@ -11,7 +13,7 @@ import {
   Description,
   Author,
   InfoPanel,
-  SignUpButton,
+  ParticipationButton,
   Cost,
   MoreInfo,
 } from './style'
@@ -20,8 +22,11 @@ class EventPage extends Component {
   static propTypes = {
     isUserSignedIn: PropTypes.bool.isRequired,
     loadEvent: PropTypes.func.isRequired,
+    tryToSignUpForEvent: PropTypes.func.isRequired,
+    tryToGiveUpEvent: PropTypes.func.isRequired,
+    handleEventError: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
     event: PropTypes.shape({
-      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       ownerId: PropTypes.string.isRequired,
       ownerName: PropTypes.string.isRequired,
@@ -40,23 +45,40 @@ class EventPage extends Component {
         country: PropTypes.string.isRequired,
       }),
       cost: PropTypes.number,
+      signed: PropTypes.bool,
+      error: PropTypes.string,
     }),
   }
 
   componentDidMount() {
-    const { event, loadEvent } = this.props
+    const { event, id, loadEvent } = this.props
 
     if (!event) {
-      loadEvent()
+      loadEvent(id)
     }
   }
 
+  signIn = () => {
+    const { tryToSignUpForEvent, id } = this.props
+
+    tryToSignUpForEvent(id)
+  }
+
+  giveUp = () => {
+    const { tryToGiveUpEvent, id } = this.props
+
+    tryToGiveUpEvent(id)
+  }
+
   render() {
-    const { event, isUserSignedIn } = this.props
+    const {
+      event,
+      isUserSignedIn,
+      id,
+      handleEventError,
+    } = this.props
 
     const position = event && [event.latitude, event.longitude]
-    const now = new Date()
-    const didStart = event && event.startDate - now > 0
 
     return (
       event
@@ -80,21 +102,28 @@ class EventPage extends Component {
                 <Address
                   {...event.address}
                 />
+                <Times start={event.startDate} end={event.endDate} />
                 {
                   event.cost && (
                   <Cost>
-                    {event.cost} zł
+                    {event.cost.toFixed(2)} zł
                   </Cost>
                   )
               }
-                { isUserSignedIn && didStart && (
-                <SignUpButton>
-                  Join now
-                </SignUpButton>
+                { isUserSignedIn && (
+                <ParticipationButton onClick={event.signed ? this.giveUp : this.signIn}>
+                  { event.signed ? 'Leave event' : 'Join now' }
+                </ParticipationButton>
                 ) }
               </InfoPanel>
             </Content>
             <Map position={position} />
+            { event.error && (
+            <MessagePopup error unMount={() => { handleEventError(id) }}>
+              {event.error.message}
+            </MessagePopup>
+            )
+             }
           </EventPageLayout>
         )
         : (

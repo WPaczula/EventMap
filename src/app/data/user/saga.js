@@ -10,7 +10,7 @@ import {
 } from './actions'
 import { selectTokens } from './selectors'
 
-export function* getAccessToken(api, action) {
+export function* getAccessToken(api, window, action) {
   try {
     const savedTokens = yield select(selectTokens)
     if (!savedTokens) {
@@ -18,6 +18,7 @@ export function* getAccessToken(api, action) {
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
+      window.location.reload()
     }
   } catch (e) {
     yield put(storeTokensError(e))
@@ -39,7 +40,7 @@ export function* createAccount(api, action) {
 }
 
 function* userSaga(api) {
-  yield takeLatest(GET_TOKENS, getAccessToken, api)
+  yield takeLatest(GET_TOKENS, getAccessToken, api, window)
   yield takeLatest(CLEAR_TOKENS, clearTokens)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
 }

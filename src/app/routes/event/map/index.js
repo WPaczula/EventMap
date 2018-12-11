@@ -5,7 +5,17 @@ import Helmet from 'react-helmet'
 import { MapContainer } from '../style'
 
 class MapComponent extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
+
+    this.map = React.createRef()
+  }
+
+  componentWillMount() {
+    this.loadMap()
+  }
+
+  componentDidUpdate() {
     this.loadMap()
   }
 
@@ -19,9 +29,13 @@ class MapComponent extends Component {
 
       if (!loading) {
         const MapContent = () => (
-          <Map center={position} zoom={18}>
+          <Map
+            ref={this.map}
+            center={position}
+            zoom={18}
+          >
             <TileLayer
-              url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
             <Marker position={position} />
@@ -31,6 +45,10 @@ class MapComponent extends Component {
         render(<MapContent />, document.getElementById('map'))
       }
     }
+  }
+
+  handleScroll = () => {
+    console.log(this.map.current)
   }
 
   render() {
@@ -54,7 +72,7 @@ class MapComponent extends Component {
             }`
             }
         </style>
-        <MapContainer id="map" loading={loading} />
+        <MapContainer onScroll={this.handleScroll} id="map" loading={loading} />
       </>
     )
   }
