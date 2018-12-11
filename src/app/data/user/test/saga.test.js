@@ -47,8 +47,9 @@ describe('user', () => {
         const email = 'email'
         const password = 'password'
         const action = { type: GET_TOKENS, email, password }
+        const window = { location: { reload: jest.fn() } }
 
-        return expectSaga(getAccessToken, api, action)
+        return expectSaga(getAccessToken, api, window, action)
           .provide([
             [matchers.select(selectTokens), undefined],
           ])
@@ -66,8 +67,9 @@ describe('user', () => {
         const email = 'email'
         const password = 'password'
         const action = { type: GET_TOKENS, email, password }
+        const window = { location: { reload: jest.fn() } }
 
-        return expectSaga(getAccessToken, api, action)
+        return expectSaga(getAccessToken, api, window, action)
           .provide([
             [matchers.select(selectTokens), undefined],
           ])

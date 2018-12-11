@@ -50,7 +50,7 @@ export const Title = styled.h1`
 
 export const Image = styled.img`
   ${props => props.src === '' && css`
-    background-color: ${secondaryColor}
+    background-color: ${secondaryColor};
   `}
 
   position: absolute;
@@ -124,11 +124,11 @@ export const Author = styled(Link)`
   flex: 0;
 `
 
-export const SignUpButton = styled(Button)`
+export const ParticipationButton = styled(Button)`
   flex: 0;
   line-height: 1.2;
   white-space: normal;
-  max-width: 7em;
+  max-width: 9em;
   margin: 1em auto;
   min-height: 5em;
 `

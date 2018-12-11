@@ -1,8 +1,15 @@
 import Immutable from 'seamless-immutable'
 import reducer from '../reducer'
 import {
-  categoryEventsLoaded, categoryEventsLoadingError,
-  eventLoaded, eventLoadingError,
+  categoryEventsLoaded,
+  categoryEventsLoadingError,
+  eventLoaded,
+  eventLoadingError,
+  signedUpForEvent,
+  signedUpFOrEventFailed,
+  gaveUpEvent,
+  giveUpEventFailed,
+  handleEventError,
 } from '../actions'
 
 describe('event reducer', () => {
@@ -62,5 +69,54 @@ describe('event reducer', () => {
     const state = reducer(makeState(), action)
 
     expect(state).toEqual(makeState({ byId: { [id]: { error } } }))
+  })
+
+  it('should save information about signing to an event.', () => {
+    const event = {}
+    const id = 'id'
+    const action = signedUpForEvent(id)
+
+    const state = reducer(makeState({ byId: { [id]: event } }), action)
+
+    expect(state).toEqual(makeState({ byId: { [id]: { ...event, signed: true } } }))
+  })
+
+  it('should save error when sign in failed.', () => {
+    const error = new Error()
+    const id = 'id'
+    const action = signedUpFOrEventFailed(id, error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ byId: { [id]: { error } } }))
+  })
+
+  it('should clear signing in after user gives up event.', () => {
+    const event = {}
+    const id = 'id'
+    const action = gaveUpEvent(id)
+
+    const state = reducer(makeState({ byId: { [id]: event } }), action)
+
+    expect(state).toEqual(makeState({ byId: { [id]: { ...event, signed: false } } }))
+  })
+
+  it('should save error when giving up failed.', () => {
+    const error = new Error()
+    const id = 'id'
+    const action = giveUpEventFailed(id, error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ byId: { [id]: { error } } }))
+  })
+
+  it('should clear error when handled.', () => {
+    const id = 'id'
+    const action = handleEventError(id)
+
+    const state = reducer(makeState({ byId: { [id]: { error: {} } } }), action)
+
+    expect(state).toEqual(makeState({ byId: { [id]: { error: undefined } } }))
   })
 })

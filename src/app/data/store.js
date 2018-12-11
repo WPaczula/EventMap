@@ -7,7 +7,7 @@ import saga from './saga'
 const createComposedStore = ({ isSSR, preloadedState }) => {
   const sagaMiddleware = createSagaMiddleware()
 
-  const storeParams = isSSR
+  const storeParams = isSSR || !window || !window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? applyMiddleware(sagaMiddleware)
     : compose(
       applyMiddleware(sagaMiddleware),

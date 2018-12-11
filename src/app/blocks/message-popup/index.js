@@ -26,12 +26,12 @@ const MessageContainer = styled.div`
   text-align: center;
   color: white;
   font-weight: 800;
-  animation: ${appear} 5s linear forwards;
+  animation: ${appear} 3s linear forwards;
   box-shadow: 0 0.25em 0.25em 0 rgba(0, 0, 0, 0.14);
 `
 
 const MessagePopup = ({ children, error, unMount }) => {
-  setTimeout(unMount, 5000)
+  setTimeout(unMount, 3000)
 
   return (
     <Modal message>

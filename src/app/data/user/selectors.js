@@ -8,6 +8,11 @@ export const selectTokens = createSelector(
   userState => userState.tokens,
 )
 
+export const selectAccessToken = createSelector(
+  selectTokens,
+  userTokenInfo => userTokenInfo && userTokenInfo.access_token,
+)
+
 export const selectIsUserSignedIn = createSelector(
   selectTokens,
   tokens => !!(tokens && !didTokenExpire(tokens.expires)),
