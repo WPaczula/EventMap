@@ -1,6 +1,6 @@
 module.exports = {
   clientId: 'CLIENT_ID',
   clientSecret: 'CLIENT_SECRET',
-  apiUrl: 'https://80.211.62.201:443/EventBackend/api',
+  apiUrl: 'https://963219a5.ngrok.io/EventBackend/api',
   isProd: true,
 }
