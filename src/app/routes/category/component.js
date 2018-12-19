@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {
   CategoryPageContainer,
 } from './style'
+import OfflinePage from '../../../static/error-message'
 import EventTile from '../../blocks/event-tile'
 
 class CategoryPage extends Component {
@@ -33,15 +34,15 @@ class CategoryPage extends Component {
   componentDidMount() {
     const { events, loadCategoryEvents, categoryId } = this.props
 
-    if (!events) {
+    if (!events || events.offline) {
       loadCategoryEvents(categoryId)
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { loadCategoryEvents, events, categoryId } = this.props
 
-    if (!events) {
+    if (!events || (prevProps.events && prevProps.events.offline)) {
       loadCategoryEvents(categoryId)
     }
   }
@@ -60,6 +61,10 @@ class CategoryPage extends Component {
   render() {
     const { events } = this.props
     const { visibleId } = this.state
+
+    if (events && events.offline) {
+      return <OfflinePage />
+    }
 
     return (
       <CategoryPageContainer>

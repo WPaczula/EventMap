@@ -4,6 +4,7 @@ import Map from './map'
 import MessagePopup from '../../blocks/message-popup'
 import Address from '../../blocks/address'
 import Times from '../../blocks/times'
+import OfflinePage from '../../../static/error-message'
 import {
   EventPageLayout,
   Image,
@@ -53,7 +54,7 @@ class EventPage extends Component {
   componentDidMount() {
     const { event, id, loadEvent } = this.props
 
-    if (!event) {
+    if (!event || event.offline) {
       loadEvent(id)
     }
   }
@@ -79,6 +80,10 @@ class EventPage extends Component {
     } = this.props
 
     const position = event && [event.latitude, event.longitude]
+
+    if (event && event.offline) {
+      return <OfflinePage />
+    }
 
     return (
       event

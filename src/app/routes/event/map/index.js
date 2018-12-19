@@ -12,17 +12,17 @@ class MapComponent extends Component {
   }
 
   componentWillMount() {
-    this.loadMap()
+    if (typeof window !== 'undefined' && navigator && navigator.onLine) { this.loadMap() }
   }
 
   componentDidUpdate() {
-    this.loadMap()
+    if (typeof window !== 'undefined' && navigator && navigator.onLine) { this.loadMap() }
   }
 
   loadMap = () => {
     const { position, loading } = this.props
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof document !== 'undefined' && document.getElementById('map')) {
       const {
         Map, Marker, TileLayer,
       } = require('react-leaflet')
@@ -47,10 +47,6 @@ class MapComponent extends Component {
     }
   }
 
-  handleScroll = () => {
-    console.log(this.map.current)
-  }
-
   render() {
     const { loading } = this.props
 
@@ -72,7 +68,7 @@ class MapComponent extends Component {
             }`
             }
         </style>
-        <MapContainer onScroll={this.handleScroll} id="map" loading={loading} />
+        <MapContainer id="map" loading={loading} />
       </>
     )
   }
