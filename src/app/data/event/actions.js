@@ -12,6 +12,8 @@ import {
   GIVE_UP_EVENT_SUCCEEDED,
   GIVE_UP_EVENT_FAILED,
   HANDLE_EVENT_ERROR,
+  FETCH_USERS_EVENTS,
+  FETCH_USERS_EVENTS_SUCCEEDED,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -56,4 +58,15 @@ export const giveUpEventFailed = (id, error) => ({
 
 export const handleEventError = id => ({
   type: HANDLE_EVENT_ERROR, id,
+})
+
+
+export const getUsersEvents = id => ({
+  type: FETCH_USERS_EVENTS, id,
+})
+export const usersEventsLoaded = (id, events) => ({
+  type: FETCH_USERS_EVENTS_SUCCEEDED, id, events,
+})
+export const usersEventsLoadingError = (id, error) => ({
+  type: FETCH_CATEGORY_EVENTS_FAILED, id, error,
 })

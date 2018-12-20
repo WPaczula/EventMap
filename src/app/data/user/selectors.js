@@ -32,3 +32,13 @@ export const selectUnhandledError = createSelector(
   selectUserState,
   userState => userState.unhandledError,
 )
+
+export const selectUserSelector = createSelector(
+  selectUserState,
+  userState => id => userState.data && userState.data[id],
+)
+
+export const selectUserErrorSelector = id => createSelector(
+  selectUserState,
+  userState => userState.data && userState.data[id] && userState.data[id].error,
+)

@@ -9,6 +9,8 @@ import {
   CREATE_ACCOUNT,
   HANDLE_ERROR,
   HANDLE_REGISTERED,
+  GET_USERS_DATA_SUCCEEDED,
+  GET_USERS_DATA_FAILED,
 } from './constants'
 import Cookie from '../../lib/cookie'
 
@@ -16,6 +18,7 @@ const initialState = {
   tokens: null,
   unhandledError: false,
   unhandledRegister: false,
+  data: null,
 }
 
 const handlers = {
@@ -35,6 +38,9 @@ const handlers = {
 
   [HANDLE_REGISTERED]: state => state.set('unhandledRegister', false),
   [HANDLE_ERROR]: state => state.set('unhandledError', false),
+
+  [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['data', id], data),
+  [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['data', id, 'error'], error),
 }
 
 const reducer = (state = Immutable(initialState), action) => {

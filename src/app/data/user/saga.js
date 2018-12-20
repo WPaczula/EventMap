@@ -3,10 +3,19 @@ import {
 } from 'redux-saga/effects'
 import Cookie from '../../lib/cookie'
 import {
-  GET_TOKENS, COOKIE_NAME, CLEAR_TOKENS, CREATE_ACCOUNT,
+  GET_TOKENS,
+  COOKIE_NAME,
+  CLEAR_TOKENS,
+  CREATE_ACCOUNT,
+  GET_USERS_DATA,
 } from './constants'
 import {
-  storeTokens, storeTokensError, accountCreated, accountCreationFailed,
+  storeTokens,
+  storeTokensError,
+  accountCreated,
+  accountCreationFailed,
+  usersDataLoaded,
+  userDataLoadingFailed,
 } from './actions'
 import { selectTokens } from './selectors'
 
@@ -29,9 +38,9 @@ export function* clearTokens() {
   yield call(Cookie.remove, COOKIE_NAME)
 }
 
-export function* createAccount(api, action) {
+export function* createAccount(api, { email, nickname, password }) {
   try {
-    yield call(api.createAccount, action.email, action.nickname, action.password)
+    yield call(api.createAccount, email, nickname, password)
 
     yield put(accountCreated())
   } catch (e) {
@@ -39,10 +48,21 @@ export function* createAccount(api, action) {
   }
 }
 
+export function* getUsersData(api, { id }) {
+  try {
+    const data = yield call(api.getUsersData, id)
+
+    yield put(usersDataLoaded(id, data))
+  } catch (e) {
+    yield put(userDataLoadingFailed(id, e))
+  }
+}
+
 function* userSaga(api) {
   yield takeLatest(GET_TOKENS, getAccessToken, api, window)
   yield takeLatest(CLEAR_TOKENS, clearTokens)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
+  yield takeLatest(GET_USERS_DATA, getUsersData, api)
 }
 
 export default userSaga

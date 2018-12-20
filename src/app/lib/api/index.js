@@ -60,4 +60,12 @@ export default class Api {
     },
     noContent: true,
   })
+
+  getUsersData = id => get({
+    url: `${this.apiUrl}/user/${id}`,
+  })
+
+  getUsersEvents = id => get({
+    url: `${this.apiUrl}/events/users/${id}`,
+  })
 }

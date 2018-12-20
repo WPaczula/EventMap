@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
 import { secondaryColorLight } from '../../style/colors'
+import media from '../../style/media'
 
 export const EventTileContainer = styled.div`
   height: 26em;
@@ -9,6 +10,12 @@ export const EventTileContainer = styled.div`
   cursor: pointer;
   border-radius: 0.5em;
   box-shadow: 0 0.25em 0.25em 0 rgba(0,0,0,0.14);
+
+  ${media.upToTablet`
+    height: 10em;
+    width: 7em;
+    margin: 0.5em;
+  `}
 
   ${props => props.loading && css`
     background-color: lightgrey;
@@ -51,6 +58,10 @@ export const Shower = styled.div`
 
   ${props => props.isVisible && css`
     top: 50%;
+
+    ${media.upToTablet`
+      top: 0;
+    `}
 
     &:hover {
       & > ${Title}, 

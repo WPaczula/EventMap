@@ -11,3 +11,8 @@ export const selectEventSelector = createSelector(
   selectEventState,
   eventState => id => eventState.byId && eventState.byId[id],
 )
+
+export const selectUsersEventSelector = createSelector(
+  selectEventState,
+  eventState => id => eventState.byUser && eventState.byUser[id],
+)
