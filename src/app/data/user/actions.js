@@ -25,8 +25,8 @@ export const accountCreated = () => ({ type: ACCOUNT_CREATED })
 export const accountCreationFailed = error => ({ type: ACCOUNT_CREATION_FAILED, error })
 export const handleRegister = () => ({ type: HANDLE_REGISTERED })
 
-export const getUsersData = id => ({ type: GET_USERS_DATA, id })
+export const loadUsersData = id => ({ type: GET_USERS_DATA, id })
 export const usersDataLoaded = (id, data) => ({ type: GET_USERS_DATA_SUCCEEDED, id, data })
-export const userDataLoadingFailed = (id, error) => ({ type: GET_USERS_DATA_FAILED, error })
+export const userDataLoadingFailed = (id, error) => ({ type: GET_USERS_DATA_FAILED, id, error })
 
 export const handleError = () => ({ type: HANDLE_ERROR })

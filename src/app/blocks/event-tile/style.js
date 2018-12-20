@@ -56,6 +56,10 @@ export const Shower = styled.div`
   height: 100%;
   position: absolute;
 
+  ${media.upToTablet`
+    top: calc(100% - 4rem);
+  `}
+
   ${props => props.isVisible && css`
     top: 50%;
 
@@ -82,6 +86,10 @@ export const Title = styled.h1`
   background-color: #00000061;
   padding: 0.5em;
   text-align: center;
+
+  ${media.upToTablet`
+    font-size: 0.8rem;
+  `}
 `
 
 export const Description = styled.p`
@@ -89,6 +97,10 @@ export const Description = styled.p`
   color: white;
   max-height: 8em;
   overflow: hidden;
+
+  ${media.upToTablet`
+    font-size: 0.7rem;
+  `}
 `
 
 export const Owner = styled.p`

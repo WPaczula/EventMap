@@ -62,10 +62,6 @@ export default class Api {
   })
 
   getUsersData = id => get({
-    url: `${this.apiUrl}/user/${id}`,
-  })
-
-  getUsersEvents = id => get({
-    url: `${this.apiUrl}/events/users/${id}`,
+    url: `${this.apiUrl}/users/${id}`,
   })
 }

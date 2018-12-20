@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { secondaryColor } from '../../style/colors'
 
 export const UserPageLayout = styled.div`
@@ -13,6 +13,10 @@ export const UserName = styled.div`
   background-color: ${secondaryColor};
   color: white;
   font-weight: 800;
+
+  ${props => props.loading && css`
+    height: 8.43rem;
+  `}
 `
 
 export const EventsTitle = styled.h2`

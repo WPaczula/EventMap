@@ -17,9 +17,10 @@ describe('event reducer', () => {
     const {
       byCategory = null,
       byId = null,
+      byUser = null,
     } = opts
 
-    return Immutable({ byCategory, byId })
+    return Immutable({ byCategory, byId, byUser })
   }
 
   it('should have initial state', () => {

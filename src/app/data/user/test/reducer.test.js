@@ -8,6 +8,8 @@ import {
   createAccount,
   accountCreated,
   accountCreationFailed,
+  usersDataLoaded,
+  userDataLoadingFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -18,6 +20,7 @@ describe('user', () => {
         unhandledError = false,
         unhandledRegister = false,
         error = undefined,
+        data = null,
       } = opts
 
       return Immutable({
@@ -25,6 +28,7 @@ describe('user', () => {
         unhandledError,
         unhandledRegister,
         error,
+        data,
       })
     }
 
@@ -92,6 +96,7 @@ describe('user', () => {
 
       expect(nextState).toEqual(makeState({ unhandledRegister: true }))
     })
+
     it('should set unhandled error.', () => {
       const prevState = makeState()
       const error = {}
@@ -100,6 +105,26 @@ describe('user', () => {
       const nextState = reducer(prevState, action)
 
       expect(nextState).toEqual(makeState({ error, unhandledError: true }))
+    })
+
+    it('should store users data.', () => {
+      const usersData = {}
+      const id = 'id'
+      const action = usersDataLoaded(id, usersData)
+
+      const nextState = reducer(makeState(), action)
+
+      expect(nextState).toEqual(makeState({ data: { [id]: usersData } }))
+    })
+
+    it('should store users loading error.', () => {
+      const error = new Error()
+      const id = 'id'
+      const action = userDataLoadingFailed(id, error)
+
+      const nextState = reducer(makeState(), action)
+
+      expect(nextState).toEqual(makeState({ data: { [id]: { error } } }))
     })
   })
 })

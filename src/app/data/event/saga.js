@@ -6,7 +6,6 @@ import {
   FETCH_EVENT,
   SIGN_UP_FOR_EVENT,
   GIVE_UP_EVENT,
-  FETCH_USERS_EVENTS,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -17,8 +16,6 @@ import {
   signedUpForEvent,
   gaveUpEvent,
   giveUpEventFailed,
-  usersEventsLoaded,
-  usersEventsLoadingError,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
 
@@ -65,20 +62,9 @@ export function* giveUpEvent(api, { id }) {
   }
 }
 
-export function* fetchUsersEvents(api, { id }) {
-  try {
-    const events = yield call(api.getUsersEvents, id)
-
-    yield put(usersEventsLoaded(id, events))
-  } catch (e) {
-    yield put(usersEventsLoadingError(id, e))
-  }
-}
-
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
   yield takeLatest(SIGN_UP_FOR_EVENT, signUpForEvent, api)
   yield takeLatest(GIVE_UP_EVENT, giveUpEvent, api)
-  yield takeLatest(FETCH_USERS_EVENTS, fetchUsersEvents, api)
 }

@@ -10,7 +10,6 @@ import {
   GIVE_UP_EVENT_SUCCEEDED,
   GIVE_UP_EVENT_FAILED,
   HANDLE_EVENT_ERROR,
-  FETCH_USERS_EVENTS_SUCCEEDED,
 } from './constants'
 
 const initialState = Immutable({
@@ -31,9 +30,6 @@ const handlers = {
 
   [GIVE_UP_EVENT_SUCCEEDED]: (state, { id }) => state.setIn(['byId', id, 'signed'], false),
   [GIVE_UP_EVENT_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
-
-  [FETCH_USERS_EVENTS_SUCCEEDED]: (state, { id, events }) => state.setIn(['byUser', id], events),
-  [FETCH_CATEGORY_EVENTS_FAILED]: (state, { id, error }) => state.setIn(['byUser', id, 'error'], error),
 
   [HANDLE_EVENT_ERROR]: (state, { id }) => state.setIn(['byId', id, 'error'], undefined),
 }

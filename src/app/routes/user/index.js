@@ -3,24 +3,20 @@ import { createSelector } from 'reselect'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import UserPage from './component'
-import { selectUser, selectUsersEvents, selectUserId } from './selectors'
-import { getUsersData } from '../../data/user/actions'
-import { getUsersEvents } from '../../data/event/actions'
+import { selectUser, selectUserId } from './selectors'
+import { loadUsersData } from '../../data/user/actions'
 
 const mapStateToProps = createSelector(
   selectUserId,
   selectUser,
-  selectUsersEvents,
-  (id, userData, events) => ({
+  (id, userData) => ({
     id,
     userData,
-    events,
   }),
 )
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getUsersData,
-  getUsersEvents,
+  loadUsersData,
 }, dispatch)
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserPage))

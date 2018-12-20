@@ -4,7 +4,6 @@ import EventTile from '../../blocks/event-tile'
 import {
   UserPageLayout,
   UserName,
-  UsersEvents,
   EventsSection,
   EventsTitle,
 } from './style'
@@ -12,10 +11,8 @@ import {
 class UserPage extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    userData: PropTypes.string,
-    events: PropTypes.array,
-    getUsersData: PropTypes.func.isRequired,
-    getUsersEvents: PropTypes.func.isRequired,
+    userData: PropTypes.object,
+    loadUsersData: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
   }
 
@@ -31,17 +28,11 @@ class UserPage extends Component {
     const {
       id,
       userData,
-      events,
-      getUsersData,
-      getUsersEvents,
+      loadUsersData,
     } = this.props
 
     if (!userData) {
-      getUsersData(id)
-    }
-
-    if (!events) {
-      getUsersEvents(id)
+      loadUsersData(id)
     }
   }
 
@@ -57,28 +48,76 @@ class UserPage extends Component {
   }
 
   render() {
-    const { userData, events } = this.props
+    const { userData } = this.props
     const { visibleId } = this.state
 
-    return (
+    return userData ? (
       <UserPageLayout>
         <UserName>
-          { userData }
+          { userData.nickname }
         </UserName>
+        {
+          userData && userData.upcommingEvents && (
+            <>
+              <EventsTitle>
+                {'Upcomming events'}
+              </EventsTitle>
+              <EventsSection>
+                {
+                userData.upcommingEvents.map(e => (
+                  <EventTile
+                    {...e}
+                    key={e.id}
+                    isVisible={visibleId === e.id}
+                    navigate={this.navigate}
+                    setVisible={this.setVisible}
+                  />
+                ))
+                }
+              </EventsSection>
+          </>
+          )
+        }
+        {
+          userData && userData.createdEvents
+          && (<>
+            <EventsTitle>
+              {'Created events'}
+            </EventsTitle>
+            <EventsSection>
+              {
+               userData.createdEvents.map(e => (
+                 <EventTile
+                   {...e}
+                   key={e.id}
+                   isVisible={visibleId === e.id}
+                   navigate={this.navigate}
+                   setVisible={this.setVisible}
+                 />
+               ))
+            }
+            </EventsSection>
+          </>
+          )
+      }
+      </UserPageLayout>
+    ) : (
+      <UserPageLayout>
+        <UserName loading />
         <EventsTitle>
-          {'User\'s events'}
+          {'Upcomming events'}
         </EventsTitle>
         <EventsSection>
           {
-            events && events.map(e => (
-              <EventTile
-                {...e}
-                key={e.id}
-                isVisible={visibleId === e.id}
-                navigate={this.navigate}
-                setVisible={this.setVisible}
-              />
-            ))
+            new Array(5).fill().map(() => <EventTile.Loading />)
+          }
+        </EventsSection>
+        <EventsTitle>
+          {'Created events'}
+        </EventsTitle>
+        <EventsSection>
+          {
+            new Array(5).fill().map(() => <EventTile.Loading />)
           }
         </EventsSection>
       </UserPageLayout>
