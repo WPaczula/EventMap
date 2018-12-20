@@ -42,7 +42,7 @@ class MapComponent extends Component {
           </Map>
         )
 
-        render(<MapContent />, document.getElementById('map'))
+        setTimeout(() => render(<MapContent />, document.getElementById('map')))
       }
     }
   }
