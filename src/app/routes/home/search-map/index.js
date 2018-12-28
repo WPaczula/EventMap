@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import Helmet from 'react-helmet'
+import { bindActionCreators } from 'redux'
+import { createSelector } from 'reselect'
+import { connect } from 'react-redux'
 import { MapContainer } from '../../event/style'
+import { fetchMapEvents } from '../../../data/event/actions'
+import { selectMapEvents } from '../../../data/event/selectors'
 
 class MapController extends Component {
   constructor(props) {
@@ -22,8 +27,9 @@ class MapController extends Component {
   loadMap = () => {
     if (typeof window !== 'undefined') {
       const MapComponent = require('./component').default
+      const { events, loadEvents } = this.props
 
-      setTimeout(() => render(<MapComponent loadEvents={() => {}} />, document.getElementById('map')))
+      setTimeout(() => render(<MapComponent loadEvents={loadEvents} events={events} />, document.getElementById('map')))
     }
   }
 
@@ -56,6 +62,17 @@ class MapController extends Component {
 
 MapController.propTypes = {
   loading: PropTypes.bool,
+  loadEvents: PropTypes.func.isRequired,
+  events: PropTypes.array,
 }
 
-export default MapController
+const mapStateToProps = createSelector(
+  selectMapEvents,
+  events => ({ events }),
+)
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadEvents: fetchMapEvents,
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapController)

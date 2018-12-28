@@ -6,6 +6,7 @@ import {
   FETCH_EVENT,
   SIGN_UP_FOR_EVENT,
   GIVE_UP_EVENT,
+  GET_MAP_EVENTS,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -16,6 +17,8 @@ import {
   signedUpForEvent,
   gaveUpEvent,
   giveUpEventFailed,
+  fetchMapEventsSucceeded,
+  fetchMapEventsFailed,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
 
@@ -62,9 +65,20 @@ export function* giveUpEvent(api, { id }) {
   }
 }
 
+export function* getMapEvents(api, { lat, lng, rad }) {
+  try {
+    const events = yield call(api.getMapEvents, lat, lng, rad)
+
+    yield put(fetchMapEventsSucceeded(events))
+  } catch (e) {
+    yield put(fetchMapEventsFailed(e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
   yield takeLatest(SIGN_UP_FOR_EVENT, signUpForEvent, api)
   yield takeLatest(GIVE_UP_EVENT, giveUpEvent, api)
+  yield takeLatest(GET_MAP_EVENTS, getMapEvents, api)
 }

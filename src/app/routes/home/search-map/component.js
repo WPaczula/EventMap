@@ -3,7 +3,20 @@ import {
 } from 'react-leaflet'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Link from '../../../blocks/link'
+import styled from 'styled-components'
+import { secondaryColorLight, secondaryColor } from '../../../style/colors'
+
+const Link = styled.a`
+  text-decoration: none;
+  color: ${secondaryColorLight};
+  font-weight: 800;
+
+  &:hover {
+    color: ${secondaryColor};
+    text-decoration: underline;
+    cursor: pointer; 
+  }
+`
 
 class MapSearcher extends Component {
   static propTypes = {
@@ -97,7 +110,7 @@ class MapSearcher extends Component {
               ]}
             >
               <Popup>
-                <Link to={`/event/${e.id}`}>e.name</Link>
+                <Link href={`/events/${e.id}`} target="_blank">{e.name}</Link>
               </Popup>
             </Marker>
           ))
