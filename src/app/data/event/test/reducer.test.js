@@ -10,6 +10,8 @@ import {
   gaveUpEvent,
   giveUpEventFailed,
   handleEventError,
+  fetchMapEventsSucceeded,
+  fetchMapEventsFailed,
 } from '../actions'
 
 describe('event reducer', () => {
@@ -17,9 +19,10 @@ describe('event reducer', () => {
     const {
       byCategory = null,
       byId = null,
+      map = null,
     } = opts
 
-    return Immutable({ byCategory, byId })
+    return Immutable({ byCategory, byId, map })
   }
 
   it('should have initial state', () => {
@@ -118,5 +121,23 @@ describe('event reducer', () => {
     const state = reducer(makeState({ byId: { [id]: { error: {} } } }), action)
 
     expect(state).toEqual(makeState({ byId: { [id]: { error: undefined } } }))
+  })
+
+  it('should store map events after succeed action fired.', () => {
+    const events = [{}, {}, {}]
+    const action = fetchMapEventsSucceeded(events)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ map: events }))
+  })
+
+  it('should store error when map fetch failed.', () => {
+    const error = new Error()
+    const action = fetchMapEventsFailed(error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ map: { error } }))
   })
 })

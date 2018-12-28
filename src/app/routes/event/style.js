@@ -146,7 +146,7 @@ export const MapContainer = styled.div`
   
   border: 2px solid ${secondaryColorLight};
   width: 100%;
-  height: 34em;
+  height: 34rem;
   margin: 1em auto;
   box-shadow: 0px 0px 84px -26px rgba(0,0,0,0.53);
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import SearchMap from './search-map'
 
 const StyledHome = styled.div`
   font-size: 5em;
@@ -9,6 +10,7 @@ const StyledHome = styled.div`
 const Home = () => (
   <StyledHome>
     Home
+    <SearchMap />
   </StyledHome>
 )
 

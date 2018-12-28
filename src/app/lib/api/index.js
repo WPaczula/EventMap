@@ -60,4 +60,8 @@ export default class Api {
     },
     noContent: true,
   })
+
+  getMapEvents = (lat, lng, rad) => get({
+    url: `${this.apiUrl}/map/events/area?lat=${lat}&lng=${lng}&rad=${rad}`,
+  })
 }

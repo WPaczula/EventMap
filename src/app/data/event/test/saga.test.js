@@ -1,6 +1,6 @@
 import { expectSaga, matchers } from 'redux-saga-test-plan'
 import {
-  fetchCategoryEvents, fetchEvent, signUpForEvent, giveUpEvent,
+  fetchCategoryEvents, fetchEvent, signUpForEvent, giveUpEvent, getMapEvents,
 } from '../saga'
 import {
   loadCategoryEvents,
@@ -15,6 +15,9 @@ import {
   tryToGiveUpEvent,
   gaveUpEvent,
   giveUpEventFailed,
+  fetchMapEvents,
+  fetchMapEventsSucceeded,
+  fetchMapEventsFailed,
 } from '../actions'
 import { selectAccessToken } from '../../user/selectors'
 
@@ -168,6 +171,32 @@ describe('give up event saga', () => {
         [matchers.select(selectAccessToken), {}],
       ])
       .put(giveUpEventFailed(id, error))
+      .run()
+  })
+})
+
+describe('fetch map events', () => {
+  it('should call api when action fired.', () => {
+    const lat = 5
+    const lng = 56
+    const rad = 125
+    const action = fetchMapEvents(lat, lng, rad)
+    const events = [{}, {}, {}]
+    const api = { getMapEvents: jest.fn().mockReturnValue(events) }
+
+    return expectSaga(getMapEvents, api, action)
+      .call(api.getMapEvents, lat, lng, rad)
+      .put(fetchMapEventsSucceeded(events))
+      .run()
+  })
+
+  it('should put error action when api fails.', () => {
+    const error = new Error()
+    const action = fetchMapEvents(5, 5, 5)
+    const api = { getMapEvents: jest.fn().mockImplementation(() => { throw error }) }
+
+    return expectSaga(getMapEvents, api, action)
+      .put(fetchMapEventsFailed(error))
       .run()
   })
 })

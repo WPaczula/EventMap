@@ -12,6 +12,9 @@ import {
   GIVE_UP_EVENT_SUCCEEDED,
   GIVE_UP_EVENT_FAILED,
   HANDLE_EVENT_ERROR,
+  GET_MAP_EVENTS,
+  GET_MAP_EVENTS_SUCCEEDED,
+  GET_MAP_EVENTS_FAILED,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -56,4 +59,15 @@ export const giveUpEventFailed = (id, error) => ({
 
 export const handleEventError = id => ({
   type: HANDLE_EVENT_ERROR, id,
+})
+
+
+export const fetchMapEvents = (lat, lng, rad) => ({
+  type: GET_MAP_EVENTS, lat, lng, rad,
+})
+export const fetchMapEventsSucceeded = events => ({
+  type: GET_MAP_EVENTS_SUCCEEDED, events,
+})
+export const fetchMapEventsFailed = error => ({
+  type: GET_MAP_EVENTS_FAILED, error,
 })
