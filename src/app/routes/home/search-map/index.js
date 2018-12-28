@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { MapContainer } from '../../event/style'
 import { fetchMapEvents } from '../../../data/event/actions'
 import { selectMapEvents } from '../../../data/event/selectors'
+import { MapTitle, MapTitleContainer } from './style'
 
 class MapController extends Component {
   constructor(props) {
@@ -54,6 +55,9 @@ class MapController extends Component {
             }`
             }
         </style>
+        <MapTitleContainer>
+          <MapTitle>Events nearby</MapTitle>
+        </MapTitleContainer>
         <MapContainer id="map" loading={loading} />
       </>
     )
