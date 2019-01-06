@@ -12,6 +12,9 @@ import {
   handleEventError,
   fetchMapEventsSucceeded,
   fetchMapEventsFailed,
+  createEventSucceeded,
+  createEventFailed,
+  clearNewEvent,
 } from '../actions'
 
 describe('event reducer', () => {
@@ -20,9 +23,15 @@ describe('event reducer', () => {
       byCategory = null,
       byId = null,
       map = null,
+      newEvent = null,
     } = opts
 
-    return Immutable({ byCategory, byId, map })
+    return Immutable({
+      byCategory,
+      byId,
+      map,
+      newEvent,
+    })
   }
 
   it('should have initial state', () => {
@@ -139,5 +148,31 @@ describe('event reducer', () => {
     const state = reducer(makeState(), action)
 
     expect(state).toEqual(makeState({ map: { error } }))
+  })
+
+  it('should store an id of a new event.', () => {
+    const id = 'id'
+    const action = createEventSucceeded(id)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ newEvent: id }))
+  })
+
+  it('should store error if new event cant be made.', () => {
+    const error = new Error()
+    const action = createEventFailed(error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ newEvent: { error } }))
+  })
+
+  it('should clear new event flag after proper action.', () => {
+    const action = clearNewEvent()
+
+    const state = reducer(makeState({ newEvent: 'id' }), action)
+
+    expect(state).toEqual(makeState())
   })
 })

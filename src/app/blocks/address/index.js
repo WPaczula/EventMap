@@ -16,18 +16,18 @@ const Address = ({
   city, street, postalCode, buildingNumber, country,
 }) => (
   <AddressContainer>
-    <p>{country}</p>
-    <p>{street} {buildingNumber}</p>
-    <p>{postalCode} {city}</p>
+    {country && <p>{country}</p>}
+    {street && buildingNumber && <p>{street} {buildingNumber}</p>}
+    {postalCode && city && <p>{postalCode} {city}</p>}
   </AddressContainer>
 )
 
 Address.propTypes = {
-  city: PropTypes.string.isRequired,
-  street: PropTypes.string.isRequired,
-  postalCode: PropTypes.string.isRequired,
-  buildingNumber: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
+  city: PropTypes.string,
+  street: PropTypes.string,
+  postalCode: PropTypes.string,
+  buildingNumber: PropTypes.string,
+  country: PropTypes.string,
 }
 
 export default Address

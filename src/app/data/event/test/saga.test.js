@@ -1,6 +1,6 @@
 import { expectSaga, matchers } from 'redux-saga-test-plan'
 import {
-  fetchCategoryEvents, fetchEvent, signUpForEvent, giveUpEvent, getMapEvents,
+  fetchCategoryEvents, fetchEvent, signUpForEvent, giveUpEvent, getMapEvents, createEvent,
 } from '../saga'
 import {
   loadCategoryEvents,
@@ -18,6 +18,9 @@ import {
   fetchMapEvents,
   fetchMapEventsSucceeded,
   fetchMapEventsFailed,
+  createNewEvent,
+  createEventSucceeded,
+  createEventFailed,
 } from '../actions'
 import { selectAccessToken } from '../../user/selectors'
 
@@ -197,6 +200,99 @@ describe('fetch map events', () => {
 
     return expectSaga(getMapEvents, api, action)
       .put(fetchMapEventsFailed(error))
+      .run()
+  })
+})
+
+describe('create new event saga', () => {
+  it('should select token and call api.', () => {
+    const tokens = {}
+    const api = { createNewEvent: jest.fn() }
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = createNewEvent(...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(createEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.createNewEvent, params, tokens)
+      .run()
+  })
+
+  it('should store id of a newly created event.', () => {
+    const tokens = {}
+    const id = 'id'
+    const api = { createNewEvent: jest.fn().mockReturnValue({ id }) }
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = createNewEvent(...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(createEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.createNewEvent, params, tokens)
+      .put(createEventSucceeded(id))
+      .run()
+  })
+
+  it('should store error if creating a new event is not possible.', () => {
+    const tokens = {}
+    const error = new Error()
+    const api = { createNewEvent: jest.fn().mockImplementation(() => { throw error }) }
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = createNewEvent(...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(createEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.createNewEvent, params, tokens)
+      .put(createEventFailed(error))
       .run()
   })
 })

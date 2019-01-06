@@ -3,6 +3,7 @@ import Categories from './categories'
 import Category from './category'
 import Event from './event'
 import User from './user'
+import AddEvent from './new-event'
 
 const homeRoute = {
   key: 'home',
@@ -39,10 +40,18 @@ const userRoute = {
   exact: true,
 }
 
+const addEventRoute = {
+  key: 'add-event',
+  path: '/new-event',
+  component: AddEvent,
+  exact: true,
+}
+
 export default [
   homeRoute,
   categoriesRoute,
   categoryRoute,
   eventRoute,
   userRoute,
+  addEventRoute,
 ]

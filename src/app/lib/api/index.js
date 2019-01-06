@@ -68,4 +68,12 @@ export default class Api {
   getMapEvents = (lat, lng, rad) => get({
     url: `${this.apiUrl}/map/events/area?lat=${lat}&lng=${lng}&rad=${rad}`,
   })
+
+  createNewEvent = (params, token) => post({
+    url: `${this.apiUrl}/events/add`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: params,
+  })
 }

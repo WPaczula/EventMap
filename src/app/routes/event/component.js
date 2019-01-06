@@ -109,9 +109,9 @@ class EventPage extends Component {
                 />
                 <Times start={event.startDate} end={event.endDate} />
                 {
-                  event.cost && (
+                  typeof event.cost === 'number' && (
                   <Cost>
-                    {event.cost.toFixed(2)} zł
+                    {`${event.cost.toFixed(2)} zł`}
                   </Cost>
                   )
               }

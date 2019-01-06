@@ -12,12 +12,16 @@ import {
   HANDLE_EVENT_ERROR,
   GET_MAP_EVENTS_SUCCEEDED,
   GET_MAP_EVENTS_FAILED,
+  CREATE_NEW_EVENT_SUCEEDED,
+  CREATE_NEW_EVENT_FAILED,
+  CLEAR_NEW_EVENT_FLAG,
 } from './constants'
 
 const initialState = Immutable({
   byCategory: null,
   byId: null,
   map: null,
+  newEvent: null,
 })
 
 const handlers = {
@@ -35,6 +39,10 @@ const handlers = {
 
   [GET_MAP_EVENTS_SUCCEEDED]: (state, { events }) => state.set('map', events),
   [GET_MAP_EVENTS_FAILED]: (state, { error }) => state.setIn(['map', 'error'], error),
+
+  [CREATE_NEW_EVENT_SUCEEDED]: (state, { id }) => state.set('newEvent', id),
+  [CREATE_NEW_EVENT_FAILED]: (state, { error }) => state.setIn(['newEvent', 'error'], error),
+  [CLEAR_NEW_EVENT_FLAG]: state => state.set('newEvent', null),
 
   [HANDLE_EVENT_ERROR]: (state, { id }) => state.setIn(['byId', id, 'error'], undefined),
 }
