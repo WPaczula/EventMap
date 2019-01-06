@@ -11,3 +11,7 @@ export const COOKIE_NAME = 'EVENT_MAP_authData'
 
 export const HANDLE_ERROR = 'user/HANDLE_ERROR'
 export const HANDLE_REGISTERED = 'user/HANDLE_REGISTERED'
+
+export const GET_USERS_DATA = 'user/GET_USERS_DATA'
+export const GET_USERS_DATA_SUCCEEDED = 'user/GET_USERS_DATA_SUCCEEDED'
+export const GET_USERS_DATA_FAILED = 'user/GET_USERS_DATA_FAILED'

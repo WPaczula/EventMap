@@ -4,6 +4,7 @@ import { COOKIE_NAME, GET_TOKENS } from '../constants'
 import {
   getAccessToken,
   clearTokens,
+  getUsersData,
 } from '../saga'
 import {
   selectTokens,
@@ -11,6 +12,9 @@ import {
 import {
   storeTokens,
   storeTokensError,
+  loadUsersData,
+  usersDataLoaded,
+  userDataLoadingFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -76,6 +80,46 @@ describe('user', () => {
           .put(storeTokensError(error))
           .run()
       })
+    })
+  })
+
+  describe('get users data', () => {
+    it('should call api for users data.', () => {
+      const api = {
+        getUsersData: jest.fn(),
+      }
+      const id = 'id'
+      const action = loadUsersData(id)
+
+      return expectSaga(getUsersData, api, action)
+        .call(api.getUsersData, id)
+        .run()
+    })
+
+    it('should put success action if users data is stored.', () => {
+      const data = {}
+      const api = {
+        getUsersData: jest.fn().mockReturnValue(data),
+      }
+      const id = 'id'
+      const action = loadUsersData(id)
+
+      return expectSaga(getUsersData, api, action)
+        .put(usersDataLoaded(id, data))
+        .run()
+    })
+
+    it('should put error action if users data failed to load.', () => {
+      const error = new Error()
+      const api = {
+        getUsersData: jest.fn().mockImplementation(() => { throw error }),
+      }
+      const id = 'id'
+      const action = loadUsersData(id)
+
+      return expectSaga(getUsersData, api, action)
+        .put(userDataLoadingFailed(id, error))
+        .run()
     })
   })
 })

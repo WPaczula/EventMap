@@ -27,10 +27,10 @@ const handlers = {
   [FETCH_EVENT_SUCCEEDED]: (state, { id, event }) => state.setIn(['byId', id], event),
   [FETCH_EVENT_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
-  [SIGN_UP_FOR_EVENT_SUCCEEDED]: (state, { id }) => state.setIn(['byId', [id], 'signed'], true),
+  [SIGN_UP_FOR_EVENT_SUCCEEDED]: (state, { id }) => state.setIn(['byId', id, 'signed'], true),
   [SIGN_UP_FOR_EVENT_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
-  [GIVE_UP_EVENT_SUCCEEDED]: (state, { id }) => state.setIn(['byId', [id], 'signed'], false),
+  [GIVE_UP_EVENT_SUCCEEDED]: (state, { id }) => state.setIn(['byId', id, 'signed'], false),
   [GIVE_UP_EVENT_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
   [GET_MAP_EVENTS_SUCCEEDED]: (state, { events }) => state.set('map', events),
