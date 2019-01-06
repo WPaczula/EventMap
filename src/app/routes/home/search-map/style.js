@@ -16,4 +16,5 @@ export const MapTitle = styled.h1`
 export const MapTitleContainer = styled.div`
   position: relative;
   height: 3rem;
+  padding: 3rem;
 `

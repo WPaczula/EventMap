@@ -8,6 +8,7 @@ import Map from './map'
 import { secondaryColor } from '../../style/colors'
 import Button from '../../blocks/button'
 import MessagePopup from '../../blocks/message-popup'
+import media from '../../style/media'
 
 const CreateEventLayout = styled.div`
   display: flex;
@@ -20,10 +21,15 @@ const Title = styled.h1`
   width: 100vw;
   background-color: ${secondaryColor};
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
   left: -50vw;
   margin-left: 50%;
   padding: 1.5rem;
+  text-align: center;
+
+  ${media.fromTablet`
+    font-size: 2rem;
+  `}
 `
 
 const TitleContainer = styled.div`

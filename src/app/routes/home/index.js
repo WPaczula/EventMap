@@ -1,17 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import SearchMap from './search-map'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
+import { selectIsUserSignedIn } from '../../data/user/selectors'
+import HomePage from './component'
 
-const StyledHome = styled.div`
-  font-size: 5em;
-  text-align: center;
-`
-
-const Home = () => (
-  <StyledHome>
-    Home
-    <SearchMap />
-  </StyledHome>
+const mapStateToProsp = createSelector(
+  selectIsUserSignedIn,
+  isUserSignedIn => ({
+    isUserSignedIn,
+  }),
 )
 
-export default Home
+export default connect(mapStateToProsp)(HomePage)

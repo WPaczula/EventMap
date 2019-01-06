@@ -21,6 +21,7 @@ const initialState = Immutable({
   byCategory: null,
   byId: null,
   map: null,
+  newEvent: null,
 })
 
 const handlers = {
@@ -41,7 +42,7 @@ const handlers = {
 
   [CREATE_NEW_EVENT_SUCEEDED]: (state, { id }) => state.set('newEvent', id),
   [CREATE_NEW_EVENT_FAILED]: (state, { error }) => state.setIn(['newEvent', 'error'], error),
-  [CLEAR_NEW_EVENT_FLAG]: state => state.set('newEvent', undefined),
+  [CLEAR_NEW_EVENT_FLAG]: state => state.set('newEvent', null),
 
   [HANDLE_EVENT_ERROR]: (state, { id }) => state.setIn(['byId', id, 'error'], undefined),
 }
