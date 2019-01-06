@@ -16,3 +16,12 @@ export const selectMapEvents = createSelector(
   selectEventState,
   eventState => eventState && eventState.map,
 )
+
+export const selectNewEvent = createSelector(
+  selectEventState,
+  eventState => eventState && eventState.newEvent,
+)
+export const selectNewEventError = createSelector(
+  selectEventState,
+  eventState => eventState && eventState.newEvent && eventState.newEvent.error,
+)

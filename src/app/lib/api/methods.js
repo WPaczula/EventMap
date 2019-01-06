@@ -19,7 +19,7 @@ export const post = ({
   body: JSON.stringify(data),
   ...rest,
 }).then((r) => {
-  if (noContent || r.status === 201) {
+  if (noContent) {
     return r
   }
 

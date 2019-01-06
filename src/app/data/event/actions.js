@@ -15,6 +15,10 @@ import {
   GET_MAP_EVENTS,
   GET_MAP_EVENTS_SUCCEEDED,
   GET_MAP_EVENTS_FAILED,
+  CREATE_NEW_EVENT_REQUESTED,
+  CREATE_NEW_EVENT_SUCEEDED,
+  CREATE_NEW_EVENT_FAILED,
+  CLEAR_NEW_EVENT_FLAG,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -70,4 +74,46 @@ export const fetchMapEventsSucceeded = events => ({
 })
 export const fetchMapEventsFailed = error => ({
   type: GET_MAP_EVENTS_FAILED, error,
+})
+
+export const createNewEvent = (
+  name,
+  description,
+  startDate,
+  endDate,
+  latitude,
+  longitude,
+  externalUrl,
+  cost,
+  photoUrl,
+  categoryId,
+  tags = [],
+  maxParticipants = 1000,
+  onlyRegistered = 1,
+) => ({
+  type: CREATE_NEW_EVENT_REQUESTED,
+  name,
+  description,
+  startDate,
+  endDate,
+  latitude,
+  longitude,
+  externalUrl,
+  cost,
+  photoUrl,
+  categoryId,
+  tags,
+  maxParticipants,
+  onlyRegistered,
+})
+export const createEventSucceeded = id => ({
+  type: CREATE_NEW_EVENT_SUCEEDED,
+  id,
+})
+export const createEventFailed = error => ({
+  type: CREATE_NEW_EVENT_FAILED,
+  error,
+})
+export const clearNewEvent = () => ({
+  type: CLEAR_NEW_EVENT_FLAG,
 })
