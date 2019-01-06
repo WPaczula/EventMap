@@ -64,4 +64,8 @@ export default class Api {
   getUsersData = id => get({
     url: `${this.apiUrl}/users/${id}`,
   })
+
+  getMapEvents = (lat, lng, rad) => get({
+    url: `${this.apiUrl}/map/events/area?lat=${lat}&lng=${lng}&rad=${rad}`,
+  })
 }

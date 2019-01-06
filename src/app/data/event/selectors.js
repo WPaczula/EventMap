@@ -12,7 +12,7 @@ export const selectEventSelector = createSelector(
   eventState => id => eventState.byId && eventState.byId[id],
 )
 
-export const selectUsersEventSelector = createSelector(
+export const selectMapEvents = createSelector(
   selectEventState,
-  eventState => id => eventState.byUser && eventState.byUser[id],
+  eventState => eventState && eventState.map,
 )

@@ -27,7 +27,7 @@ export function* getAccessToken(api, window, action) {
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
-      window.location.reload()
+      if (typeof window !== 'undefined') window.location.reload()
     }
   } catch (e) {
     yield put(storeTokensError(e))
