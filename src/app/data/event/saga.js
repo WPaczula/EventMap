@@ -8,6 +8,7 @@ import {
   GIVE_UP_EVENT,
   GET_MAP_EVENTS,
   CREATE_NEW_EVENT_REQUESTED,
+  UPDATE_EVENT_REQUESTED,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -22,6 +23,8 @@ import {
   fetchMapEventsFailed,
   createEventSucceeded,
   createEventFailed,
+  updateEventSucceeded,
+  updateEventFailed,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
 
@@ -90,6 +93,18 @@ export function* createEvent(api, action) {
   }
 }
 
+export function* editEvent(api, action) {
+  try {
+    const { type, id, ...params } = action
+    const token = yield select(selectAccessToken)
+    yield call(api.updateEvent, id, params, token)
+
+    yield put(updateEventSucceeded(id))
+  } catch (e) {
+    yield put(updateEventFailed(e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
@@ -97,4 +112,5 @@ export default function* eventSaga(api) {
   yield takeLatest(GIVE_UP_EVENT, giveUpEvent, api)
   yield takeLatest(GET_MAP_EVENTS, getMapEvents, api)
   yield takeLatest(CREATE_NEW_EVENT_REQUESTED, createEvent, api)
+  yield takeLatest(UPDATE_EVENT_REQUESTED, editEvent, api)
 }

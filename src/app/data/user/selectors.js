@@ -35,10 +35,20 @@ export const selectUnhandledError = createSelector(
 
 export const selectUserSelector = createSelector(
   selectUserState,
-  userState => id => userState.data && userState.data[id],
+  userState => id => userState.byId && userState.byId[id],
 )
 
 export const selectUserErrorSelector = id => createSelector(
   selectUserState,
-  userState => userState.data && userState.data[id] && userState.data[id].error,
+  userState => userState.byId && userState.byId[id] && userState.byId[id].error,
+)
+
+export const selectUsersId = createSelector(
+  selectTokens,
+  userState => userState && userState.user_id,
+)
+
+export const selectUsersNickname = createSelector(
+  selectTokens,
+  userState => userState && userState.user_nickname,
 )

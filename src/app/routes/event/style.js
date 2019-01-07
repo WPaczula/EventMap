@@ -3,6 +3,7 @@ import media from '../../style/media'
 import { secondaryColorLight, secondaryColor } from '../../style/colors'
 import Button from '../../blocks/button'
 import Link from '../../blocks/link'
+import ButtonLink from '../../blocks/button-link'
 
 export const EventPageLayout = styled.div`
   display: flex;
@@ -155,4 +156,11 @@ export const MapContainer = styled.div`
     border: none;
     box-shadow: none;
   `}
+`
+
+export const EditEventLink = styled(ButtonLink)`
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0;
+  z-index: 10;
 `

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import media from '../../style/media'
 
 export const CategoriesPageLayout = styled.div`
   font-size: 5em;
@@ -8,9 +7,6 @@ export const CategoriesPageLayout = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  margin: 0 1rem;
-
-  ${media.fromTablet`
-    margin: 0 5rem;
-  `}
+  margin: 0 auto;
+  max-width: 70em;
 `

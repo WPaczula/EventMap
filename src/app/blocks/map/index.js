@@ -7,6 +7,7 @@ import { MapContainer } from './style'
 class MapController extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
   }
 
   constructor(props) {
@@ -24,7 +25,9 @@ class MapController extends Component {
   }
 
   loadMap = () => {
-    if (typeof window !== 'undefined') {
+    const { loading } = this.props
+
+    if (typeof window !== 'undefined' && !loading) {
       const MapComponent = require('./component').default
       const { onChange } = this.props
 
