@@ -19,6 +19,10 @@ import {
   CREATE_NEW_EVENT_SUCEEDED,
   CREATE_NEW_EVENT_FAILED,
   CLEAR_NEW_EVENT_FLAG,
+  UPDATE_EVENT_REQUESTED,
+  UPDATE_EVENT_SUCCEEDED,
+  UPDATE_EVENT_FAILED,
+  CLEAR_UPDATE_EVENT_FLAG,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -116,4 +120,46 @@ export const createEventFailed = error => ({
 })
 export const clearNewEvent = () => ({
   type: CLEAR_NEW_EVENT_FLAG,
+})
+
+export const updateEvent = (
+  id,
+  name,
+  description,
+  startDate,
+  endDate,
+  latitude,
+  longitude,
+  externalUrl,
+  cost,
+  photoUrl,
+  categoryId,
+  tags = [],
+  maxParticipants = 1000,
+  onlyRegistered = 1,
+) => ({
+  type: UPDATE_EVENT_REQUESTED,
+  id,
+  name,
+  description,
+  startDate,
+  endDate,
+  latitude,
+  longitude,
+  externalUrl,
+  cost,
+  photoUrl,
+  categoryId,
+  tags,
+  maxParticipants,
+  onlyRegistered,
+})
+export const updateEventSucceeded = id => ({
+  type: UPDATE_EVENT_SUCCEEDED, id,
+})
+export const updateEventFailed = error => ({
+  type: UPDATE_EVENT_FAILED, error,
+})
+export const clearUpdateEventFlag = () => ({
+  type: CLEAR_UPDATE_EVENT_FLAG,
 })

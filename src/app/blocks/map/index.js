@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import Helmet from 'react-helmet'
-import { MapContainer } from '../../event/style'
+import { MapContainer } from './style'
 
 class MapController extends Component {
   static propTypes = {

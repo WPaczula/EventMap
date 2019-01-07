@@ -1,78 +1,19 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 import { Redirect as RouterRedirect } from 'react-router'
-import Map from './map'
-import { secondaryColor } from '../../style/colors'
-import Button from '../../blocks/button'
+import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
-import media from '../../style/media'
-
-const CreateEventLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Title = styled.h1`
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  background-color: ${secondaryColor};
-  color: white;
-  font-size: 1.5rem;
-  left: -50vw;
-  margin-left: 50%;
-  padding: 1.5rem;
-  text-align: center;
-
-  ${media.fromTablet`
-    font-size: 2rem;
-  `}
-`
-
-const TitleContainer = styled.div`
-  position: relative;
-  height: 3rem;
-`
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 4rem;
-`
-
-const Label = styled.label`
-  display: block;
-  width: 100vw;
-  margin-bottom: 0.5rem;
-  padding: 0 2rem;
-
-  & > div {
-    display: block !important;
-  }
-
-  & > div >.react-datetime-picker__wrapper {
-    border-radius: 4px;
-    border-color: hsl(0,0%,80%);
-  }
-`
-
-const Input = styled.input`
-  margin-top: 0.25rem;
-  display: block;
-  height: 2rem;
-  width: 100%;
-  border: thin solid hsl(0,0%,80%);  
-  border-radius: 4px;
-  padding-left: 0.5rem;
-`
-
-const SubmitButton = styled(Button)`
-  margin: 2rem auto;
-  width: 13rem;
-`
+import {
+  CreateEventLayout,
+  Title,
+  TitleContainer,
+  Form,
+  Input,
+  Label,
+  SubmitButton,
+} from './style'
 
 export default class CreateEvent extends Component {
   static propTypes = {

@@ -25,3 +25,12 @@ export const selectNewEventError = createSelector(
   selectEventState,
   eventState => eventState && eventState.newEvent && eventState.newEvent.error,
 )
+
+export const selectUpdateEvent = createSelector(
+  selectEventState,
+  eventState => eventState && eventState.updateEvent,
+)
+export const selectUpdateEventError = createSelector(
+  selectUpdateEvent,
+  updateEvent => updateEvent && updateEvent.error,
+)
