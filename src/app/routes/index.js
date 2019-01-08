@@ -4,6 +4,7 @@ import Category from './category'
 import Event from './event'
 import User from './user'
 import AddEvent from './new-event'
+import EditEvent from './edit-event'
 
 const homeRoute = {
   key: 'home',
@@ -47,6 +48,13 @@ const addEventRoute = {
   exact: true,
 }
 
+const editEventRouter = {
+  key: 'edit-event',
+  path: '/edit-event/:eventId',
+  component: EditEvent,
+  exact: true,
+}
+
 export default [
   homeRoute,
   categoriesRoute,
@@ -54,4 +62,5 @@ export default [
   eventRoute,
   userRoute,
   addEventRoute,
+  editEventRouter,
 ]

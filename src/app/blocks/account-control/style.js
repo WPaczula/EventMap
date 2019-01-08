@@ -15,6 +15,6 @@ export const AccountControlContainer = styled.div`
 `
 
 export const AccountButton = styled(Button)`
-  margin: 0 0.2em;
-  padding: 1em;
+  margin: 0 0.2rem;
+  padding: 1rem;
 `

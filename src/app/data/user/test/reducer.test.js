@@ -20,7 +20,7 @@ describe('user', () => {
         unhandledError = false,
         unhandledRegister = false,
         error = undefined,
-        data = null,
+        byId = null,
       } = opts
 
       return Immutable({
@@ -28,7 +28,7 @@ describe('user', () => {
         unhandledError,
         unhandledRegister,
         error,
-        data,
+        byId,
       })
     }
 
@@ -114,7 +114,7 @@ describe('user', () => {
 
       const nextState = reducer(makeState(), action)
 
-      expect(nextState).toEqual(makeState({ data: { [id]: usersData } }))
+      expect(nextState).toEqual(makeState({ byId: { [id]: usersData } }))
     })
 
     it('should store users loading error.', () => {
@@ -124,7 +124,7 @@ describe('user', () => {
 
       const nextState = reducer(makeState(), action)
 
-      expect(nextState).toEqual(makeState({ data: { [id]: { error } } }))
+      expect(nextState).toEqual(makeState({ byId: { [id]: { error } } }))
     })
   })
 })

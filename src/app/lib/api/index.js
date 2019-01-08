@@ -1,4 +1,6 @@
-import { post, get, httpDelete } from './methods'
+import {
+  post, get, httpDelete, patch,
+} from './methods'
 /* eslint-disable camelcase */
 import { clientId as client_id, clientSecret as client_secret } from '../../../../config'
 /* eslint-enable */
@@ -75,5 +77,14 @@ export default class Api {
       Authorization: `Bearer ${token}`,
     },
     data: params,
+  })
+
+  updateEvent = (id, params, token) => patch({
+    url: `${this.apiUrl}/events/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: params,
+    noContent: true,
   })
 }

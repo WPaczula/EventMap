@@ -5,16 +5,26 @@ import {
   getAccessToken, clearTokens, createAccount, handleError, handleRegister,
 } from '../../data/user/actions'
 import {
-  selectIsUserSignedIn, selectUnhandledRegister, selectError, selectUnhandledError,
+  selectIsUserSignedIn,
+  selectUnhandledRegister,
+  selectError,
+  selectUnhandledError,
+  selectUsersId,
 } from '../../data/user/selectors'
 import AccountControl from './component'
 
 const mapStateToProps = createSelector(
   selectIsUserSignedIn,
+  selectUsersId,
   selectUnhandledRegister,
   selectError,
   selectUnhandledError,
-  (isUserLoggedIn, unhandledRegister, error, unhandledError) => ({
+  (isUserLoggedIn,
+    usersId,
+    unhandledRegister,
+    error,
+    unhandledError) => ({
+    usersId,
     isUserLoggedIn,
     unhandledRegister,
     error,

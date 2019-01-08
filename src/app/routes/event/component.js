@@ -17,6 +17,7 @@ import {
   ParticipationButton,
   Cost,
   MoreInfo,
+  EditEventLink,
 } from './style'
 
 class EventPage extends Component {
@@ -27,6 +28,7 @@ class EventPage extends Component {
     tryToGiveUpEvent: PropTypes.func.isRequired,
     handleEventError: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    usersId: PropTypes.string,
     event: PropTypes.shape({
       title: PropTypes.string.isRequired,
       ownerId: PropTypes.string.isRequired,
@@ -39,11 +41,11 @@ class EventPage extends Component {
       startDate: PropTypes.number.isRequired,
       endDate: PropTypes.number.isRequired,
       address: PropTypes.shape({
-        city: PropTypes.string.isRequired,
-        street: PropTypes.string.isRequired,
-        postalCode: PropTypes.string.isRequired,
-        buildingNumber: PropTypes.string.isRequired,
-        country: PropTypes.string.isRequired,
+        city: PropTypes.string,
+        street: PropTypes.string,
+        postalCode: PropTypes.string,
+        buildingNumber: PropTypes.string,
+        country: PropTypes.string,
       }),
       cost: PropTypes.number,
       signed: PropTypes.bool,
@@ -77,6 +79,7 @@ class EventPage extends Component {
       isUserSignedIn,
       id,
       handleEventError,
+      usersId,
     } = this.props
 
     const position = event && [event.latitude, event.longitude]
@@ -92,6 +95,12 @@ class EventPage extends Component {
             <Header>
               <Image src={event.photoUrl || ''} alt={event.title} />
               <Title>{event.title}</Title>
+              { event && usersId === event.ownerId && (
+                <EditEventLink to={`/edit-event/${id}`}>
+                  Edit event
+                </EditEventLink>
+              )
+              }
             </Header>
             <Content>
               <Description>

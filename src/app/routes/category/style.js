@@ -6,4 +6,5 @@ export const CategoryPageContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   max-width: 70em;
+  margin: 0 auto;
 `

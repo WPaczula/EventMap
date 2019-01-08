@@ -9,13 +9,16 @@ import {
   handleEventError,
 } from '../../data/event/actions'
 import EventPage from './component'
-import { selectIsUserSignedIn } from '../../data/user/selectors'
+import { selectIsUserSignedIn, selectUsersId } from '../../data/user/selectors'
 
 const mapStateToProps = createSelector(
   selectEvent,
   selectEventId,
   selectIsUserSignedIn,
-  (event, id, isUserSignedIn) => ({ event, id, isUserSignedIn }),
+  selectUsersId,
+  (event, id, isUserSignedIn, usersId) => ({
+    event, id, isUserSignedIn, usersId,
+  }),
 )
 
 const mapDispatchToProps = dispatch => bindActionCreators({

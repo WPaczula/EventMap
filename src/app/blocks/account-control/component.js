@@ -15,6 +15,7 @@ const AccountControl = ({
   unhandledRegister,
   handleError,
   handleRegister,
+  usersId,
 }) => (
   <>
     <AccountControlContainer>
@@ -27,7 +28,10 @@ const AccountControl = ({
             unhandledRegister={unhandledRegister}
           />
         ) : (
-          <LoggedOutPanel logOut={logOut} />
+          <LoggedOutPanel
+            logOut={logOut}
+            usersId={usersId}
+          />
         )
       }
     </AccountControlContainer>
@@ -53,5 +57,6 @@ AccountControl.propTypes = {
   logOut: PropTypes.func.isRequired,
   handleError: PropTypes.func.isRequired,
   handleRegister: PropTypes.func.isRequired,
+  usersId: PropTypes.string,
 }
 export default AccountControl

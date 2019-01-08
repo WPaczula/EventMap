@@ -15,6 +15,9 @@ import {
   createEventSucceeded,
   createEventFailed,
   clearNewEvent,
+  updateEventSucceeded,
+  updateEventFailed,
+  updateLoadedEvent,
 } from '../actions'
 
 describe('event reducer', () => {
@@ -24,6 +27,7 @@ describe('event reducer', () => {
       byId = null,
       map = null,
       newEvent = null,
+      updateEvent = null,
     } = opts
 
     return Immutable({
@@ -31,6 +35,7 @@ describe('event reducer', () => {
       byId,
       map,
       newEvent,
+      updateEvent,
     })
   }
 
@@ -174,5 +179,38 @@ describe('event reducer', () => {
     const state = reducer(makeState({ newEvent: 'id' }), action)
 
     expect(state).toEqual(makeState())
+  })
+
+  it('should store id of newly updated event.', () => {
+    const id = 'id'
+    const action = updateEventSucceeded(id)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ updateEvent: id }))
+  })
+
+  it('should store error if one happened when updating.', () => {
+    const error = new Error()
+    const action = updateEventFailed(error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ updateEvent: { error } }))
+  })
+
+  it('should update event by id when users update was succesful.', () => {
+    const event = {
+      title: 'title',
+    }
+    const newEvent = {
+      title: 'new title',
+    }
+    const id = 'id'
+    const action = updateLoadedEvent(id, newEvent)
+
+    const state = reducer(makeState({ byId: { [id]: event } }), action)
+
+    expect(state.byId[id].title).toBe(newEvent.title)
   })
 })

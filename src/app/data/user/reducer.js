@@ -18,7 +18,7 @@ const initialState = {
   tokens: null,
   unhandledError: false,
   unhandledRegister: false,
-  data: null,
+  byId: null,
 }
 
 const handlers = {
@@ -39,8 +39,8 @@ const handlers = {
   [HANDLE_REGISTERED]: state => state.set('unhandledRegister', false),
   [HANDLE_ERROR]: state => state.set('unhandledError', false),
 
-  [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['data', id], data),
-  [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['data', id, 'error'], error),
+  [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['byId', id], data),
+  [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 }
 
 const reducer = (state = Immutable(initialState), action) => {

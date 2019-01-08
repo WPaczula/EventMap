@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import Helmet from 'react-helmet'
-import { MapContainer } from '../../event/style'
+import { MapContainer } from './style'
 
 class MapController extends Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
+    loading: PropTypes.bool,
+    position: PropTypes.objectOf(PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+    })),
   }
 
   constructor(props) {
@@ -24,11 +29,13 @@ class MapController extends Component {
   }
 
   loadMap = () => {
-    if (typeof window !== 'undefined') {
-      const MapComponent = require('./component').default
-      const { onChange } = this.props
+    const { loading } = this.props
 
-      setTimeout(() => render(<MapComponent onChange={onChange} />, document.getElementById('map')))
+    if (typeof window !== 'undefined' && !loading) {
+      const MapComponent = require('./component').default
+      const { onChange, position } = this.props
+
+      setTimeout(() => render(<MapComponent onChange={onChange} position={position} />, document.getElementById('map')))
     }
   }
 

@@ -1,6 +1,12 @@
 import { expectSaga, matchers } from 'redux-saga-test-plan'
 import {
-  fetchCategoryEvents, fetchEvent, signUpForEvent, giveUpEvent, getMapEvents, createEvent,
+  fetchCategoryEvents,
+  fetchEvent,
+  signUpForEvent,
+  giveUpEvent,
+  getMapEvents,
+  createEvent,
+  editEvent,
 } from '../saga'
 import {
   loadCategoryEvents,
@@ -21,6 +27,9 @@ import {
   createNewEvent,
   createEventSucceeded,
   createEventFailed,
+  updateEvent,
+  updateEventSucceeded,
+  updateEventFailed,
 } from '../actions'
 import { selectAccessToken } from '../../user/selectors'
 
@@ -293,6 +302,101 @@ describe('create new event saga', () => {
       .select(selectAccessToken)
       .call(api.createNewEvent, params, tokens)
       .put(createEventFailed(error))
+      .run()
+  })
+})
+
+describe('edit event', () => {
+  it('should select token and call api.', () => {
+    const tokens = {}
+    const api = { updateEvent: jest.fn() }
+    const id = 'id'
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = updateEvent(id, ...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(editEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.updateEvent, id, params, tokens)
+      .run()
+  })
+
+  it('should put action that stores succesfuls event id.', () => {
+    const tokens = {}
+    const id = 'id'
+    const api = { updateEvent: jest.fn() }
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = updateEvent(id, ...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(editEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.updateEvent, id, params, tokens)
+      .put(updateEventSucceeded(id))
+      .run()
+  })
+
+  it('should store error if updating an new event is not possible.', () => {
+    const tokens = {}
+    const error = new Error()
+    const api = { updateEvent: jest.fn().mockImplementation(() => { throw error }) }
+    const id = 'id'
+    const params = {
+      name: 'name',
+      description: 'desc',
+      startDate: 123,
+      endDate: 123,
+      latitude: 123,
+      longitude: 123,
+      externalUrl: 'url',
+      cost: 0,
+      photoUrl: 'url',
+      categoryId: 'id',
+      tags: [],
+      maxParticipants: 1000,
+      onlyRegistered: false,
+    }
+    const action = updateEvent(id, ...Object.keys(params).map(k => params[k]))
+
+    return expectSaga(editEvent, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .select(selectAccessToken)
+      .call(api.updateEvent, id, params, tokens)
+      .put(updateEventFailed(error))
       .run()
   })
 })
