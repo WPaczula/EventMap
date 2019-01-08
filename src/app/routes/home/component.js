@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import SearchMap from './search-map'
 import {
   StyledHome,
+  NewEventButton,
 } from './style'
-import ButtonLink from '../../blocks/button-link'
 
 const Home = ({ isUserSignedIn }) => (
   <StyledHome>
     Welcome home 🙌
-    { isUserSignedIn && <ButtonLink to="/new-event">New event!</ButtonLink>}
+    { isUserSignedIn && <NewEventButton to="/new-event">New event!</NewEventButton>}
     <SearchMap />
   </StyledHome>
 )

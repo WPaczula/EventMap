@@ -10,14 +10,11 @@ const ButtonLink = styled(Link)`
   border-radius: 5em;
   font-weight: 800;
   padding: 1em 2em;
-  margin: 1em auto;
+  margin: 1em;
   line-height: 0em;
   cursor: pointer;
   text-transform: uppercase;
   outline: none;
-  display: block;
-  flex: 0;
-  max-width: 20rem;
 
   ${hover`
     background: ${secondaryColorDark};

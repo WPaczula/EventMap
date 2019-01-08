@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
   html, body {
   margin: 0;
   padding: 0;
-  font-family: 'M PLUS 1p', sans-serif;
+  font-family: 'M PLUS 1p', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
