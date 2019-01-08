@@ -206,6 +206,8 @@ export default class EditEvent extends Component {
       successfulyEdited,
     } = this.props
 
+    const position = { lat: latitude, lng: longitude }
+
     return event ? (
       <EditEventLayout>
         <TitleContainer>
@@ -237,7 +239,7 @@ export default class EditEvent extends Component {
           <Label>
             Place
             <Map
-              position={{ lat: latitude, lng: longitude }}
+              position={position}
               onChange={({ lat, lng }) => {
                 this.changeInstantValue('latitude')(lat)
                 this.changeInstantValue('longitude')(lng)

@@ -26,7 +26,7 @@ const initialState = Immutable({
   byId: null,
   map: null,
   newEvent: null,
-  eventUpdate: null,
+  updateEvent: null,
 })
 
 const handlers = {

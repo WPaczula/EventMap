@@ -28,17 +28,17 @@ class MapSearcher extends Component {
 
 
   componentDidMount() {
-    const { position: propsPosition } = this.props
+    const { position } = this.state
 
-    if (propsPosition) {
+    if (position[0] !== 0 && position[1] !== 0) {
       return
     }
 
     if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((p) => {
         const { onChange } = this.props
-        const lat = position.coords.latitude
-        const lng = position.coords.longitude
+        const lat = p.coords.latitude
+        const lng = p.coords.longitude
 
         onChange({ lat, lng })
         this.setState({ position: [lat, lng] })
@@ -49,8 +49,9 @@ class MapSearcher extends Component {
   /* eslint-disable */
   componentDidUpdate(prevProps) {
     const { position } = this.props
+    const { position: prevPosition } = prevProps
 
-    if(!prevProps.position && position) {
+    if(!prevPosition.lat && !prevPosition.lng && position.lat && position.lng) {
       this.setState({ position: [position.lat, position.lng] })
     }
   }
