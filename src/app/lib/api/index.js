@@ -85,5 +85,6 @@ export default class Api {
       Authorization: `Bearer ${token}`,
     },
     data: params,
+    noContent: true,
   })
 }

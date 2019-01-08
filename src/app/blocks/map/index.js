@@ -6,8 +6,12 @@ import { MapContainer } from './style'
 
 class MapController extends Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     loading: PropTypes.bool,
+    position: PropTypes.objectOf(PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+    })),
   }
 
   constructor(props) {
@@ -29,9 +33,9 @@ class MapController extends Component {
 
     if (typeof window !== 'undefined' && !loading) {
       const MapComponent = require('./component').default
-      const { onChange } = this.props
+      const { onChange, position } = this.props
 
-      setTimeout(() => render(<MapComponent onChange={onChange} />, document.getElementById('map')))
+      setTimeout(() => render(<MapComponent onChange={onChange} position={position} />, document.getElementById('map')))
     }
   }
 

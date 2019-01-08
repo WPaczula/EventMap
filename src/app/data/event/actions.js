@@ -23,6 +23,7 @@ import {
   UPDATE_EVENT_SUCCEEDED,
   UPDATE_EVENT_FAILED,
   CLEAR_UPDATE_EVENT_FLAG,
+  UPDATE_LOADED_EVENT,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -162,4 +163,7 @@ export const updateEventFailed = error => ({
 })
 export const clearUpdateEventFlag = () => ({
   type: CLEAR_UPDATE_EVENT_FLAG,
+})
+export const updateLoadedEvent = (id, event) => ({
+  type: UPDATE_LOADED_EVENT, id, event,
 })

@@ -18,6 +18,7 @@ import {
   UPDATE_EVENT_SUCCEEDED,
   UPDATE_EVENT_FAILED,
   CLEAR_UPDATE_EVENT_FLAG,
+  UPDATE_LOADED_EVENT,
 } from './constants'
 
 const initialState = Immutable({
@@ -48,9 +49,14 @@ const handlers = {
   [CREATE_NEW_EVENT_FAILED]: (state, { error }) => state.setIn(['newEvent', 'error'], error),
   [CLEAR_NEW_EVENT_FLAG]: state => state.set('newEvent', null),
 
-  [UPDATE_EVENT_SUCCEEDED]: (state, { id }) => state.set('eventUpdated', id),
-  [UPDATE_EVENT_FAILED]: (state, { error }) => state.setIn(['eventUpdate', 'error'], error),
-  [CLEAR_UPDATE_EVENT_FLAG]: state => state.set('eventUpdate', null),
+  [UPDATE_EVENT_SUCCEEDED]: (state, { id }) => state.set('updateEvent', id),
+  [UPDATE_EVENT_FAILED]: (state, { error }) => state.setIn(['updateEvent', 'error'], error),
+  [CLEAR_UPDATE_EVENT_FLAG]: state => state.set('updateEvent', null),
+  [UPDATE_LOADED_EVENT]: (state, { id, event }) => state.setIn(['byId', id], ({
+    ...state.getIn(['byId', id]),
+    ...event,
+    address: null,
+  })),
 
   [HANDLE_EVENT_ERROR]: (state, { id }) => state.setIn(['byId', id, 'error'], undefined),
 }

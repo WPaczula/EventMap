@@ -28,7 +28,9 @@ export default class EditEvent extends Component {
     didUpdateFail: PropTypes.bool,
     successfulyEdited: PropTypes.bool,
     loadEvent: PropTypes.func.isRequired,
+    updateLoadedEvent: PropTypes.func.isRequired,
     event: PropTypes.objectOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       latitude: PropTypes.number.isRequired,
@@ -76,7 +78,7 @@ export default class EditEvent extends Component {
 
   /* eslint-disable */
   componentDidUpdate(prevProps, prevState) {
-    const { id, event, categories, clearUpdateEventFlag } = this.props
+    const { id, event, categories, clearUpdateEventFlag, updateLoadedEvent, successfulyEdited } = this.props
 
     if (!prevProps.event && !isNullOrUndefined(event)) {
       this.setState({
@@ -86,6 +88,35 @@ export default class EditEvent extends Component {
         category: categories.find(c => c.value === event.categoryId),
       })
       clearUpdateEventFlag()
+    } else if(successfulyEdited) {
+      const {
+        title,
+        description,
+        latitude,
+        longitude,
+        startDate,
+        endDate,
+        externalUrl,
+        category,
+        cost,
+        photoUrl,
+      } = this.state
+      const { id, eventLoaded } = this.props
+      clearUpdateEventFlag()
+      const event = {
+        id,
+        title,
+        description,
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        startDate: startDate.getTime(),
+        endDate: endDate.getTime(),
+        externalUrl,
+        categoryId: category.value,
+        cost: Number(cost),
+        photoUrl
+      }
+      updateLoadedEvent(id, event)
     }
   }
   /* eslint-enable */
@@ -158,6 +189,8 @@ export default class EditEvent extends Component {
       description,
       startDate,
       endDate,
+      latitude,
+      longitude,
       externalUrl,
       category,
       cost,
@@ -203,10 +236,12 @@ export default class EditEvent extends Component {
 
           <Label>
             Place
-            <Map onChange={({ lat, lng }) => {
-              this.changeInstantValue('latitude')(lat)
-              this.changeInstantValue('longitude')(lng)
-            }}
+            <Map
+              position={{ lat: latitude, lng: longitude }}
+              onChange={({ lat, lng }) => {
+                this.changeInstantValue('latitude')(lat)
+                this.changeInstantValue('longitude')(lng)
+              }}
             />
           </Label>
 
