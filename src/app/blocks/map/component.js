@@ -51,7 +51,9 @@ class MapSearcher extends Component {
     const { position } = this.props
     const { position: prevPosition } = prevProps
 
-    if(!prevPosition.lat && !prevPosition.lng && position.lat && position.lng) {
+    if(
+      (prevPosition && !prevPosition.lat && !prevPosition.lng) 
+      && (position && position.lat && position.lng)) {
       this.setState({ position: [position.lat, position.lng] })
     }
   }
