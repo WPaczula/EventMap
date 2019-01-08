@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 import { Redirect } from 'react-router'
 import { isNullOrUndefined } from 'util'
+import DateTimePicker from '../../blocks/date-time-picker'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
 import {
@@ -232,7 +232,7 @@ export default class EditEvent extends Component {
           </Label>
 
           <Label>
-            Start date
+            End date
             <DateTimePicker value={endDate} onChange={this.changeInstantValue('endDate')} />
           </Label>
 
