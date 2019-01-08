@@ -6,6 +6,7 @@ import {
   UserName,
   EventsSection,
   EventsTitle,
+  Scroller,
 } from './style'
 
 class UserPage extends Component {
@@ -62,8 +63,9 @@ class UserPage extends Component {
               <EventsTitle>
                 {'Upcomming events'}
               </EventsTitle>
-              <EventsSection>
-                {
+              <Scroller>
+                <EventsSection>
+                  {
                 userData.upcommingEvents.map(e => (
                   <EventTile
                     {...e}
@@ -74,7 +76,8 @@ class UserPage extends Component {
                   />
                 ))
                 }
-              </EventsSection>
+                </EventsSection>
+              </Scroller>
           </>
           )
         }
@@ -84,8 +87,9 @@ class UserPage extends Component {
             <EventsTitle>
               {'Created events'}
             </EventsTitle>
-            <EventsSection>
-              {
+            <Scroller>
+              <EventsSection>
+                {
                userData.createdEvents.map(e => (
                  <EventTile
                    {...e}
@@ -96,7 +100,8 @@ class UserPage extends Component {
                  />
                ))
             }
-            </EventsSection>
+              </EventsSection>
+            </Scroller>
           </>
           )
       }
