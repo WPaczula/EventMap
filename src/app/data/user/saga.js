@@ -27,7 +27,8 @@ export function* getAccessToken(api, window, action) {
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
-      if (typeof window !== 'undefined') window.location.reload()
+      /* eslint-disable-next-line */
+      if (typeof window !== 'undefined' && window && window.location) window.location.reload()
     }
   } catch (e) {
     yield put(storeTokensError(e))

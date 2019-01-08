@@ -18,7 +18,8 @@ module.exports = env => ({
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.css'],
+    modules: ['node_modules'],
   },
   module: {
     rules: [

@@ -19,7 +19,8 @@ const withTemplate = (html, styles, state, isProd) => `
 </head>
 
 <body>
-    <div id="root">${html}
+    <div id="root">
+        ${html}
         <noscript>
             <h1>It looks like you don’t have javascript enabled.</h1>
             <p>Please enable it to get the full experience.</p>

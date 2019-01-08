@@ -62,46 +62,48 @@ addEventListener('activate', (e) => {
 })
 
 addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request)
-      .then((networkResponse) => {
-        console.log('Syncing cache with network')
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          console.log('Syncing cache with network')
 
-        return caches.open(cacheName)
-          .then((cache) => {
-            cache.put(event.request, networkResponse.clone())
-            return networkResponse
-          })
-      })
-      .catch((error) => {
-        console.log(`Cant fetch request ${event.request.url} due to ${error}`)
+          return caches.open(cacheName)
+            .then((cache) => {
+              cache.put(event.request, networkResponse.clone())
+              return networkResponse
+            })
+        })
+        .catch((error) => {
+          console.log(`Cant fetch request ${event.request.url} due to ${error}`)
 
-        return caches.open(cacheName)
-          .then(cache => cache.match(event.request)
-            .then((response) => {
-              if (response) {
-                console.log(`Response to ${event.request.url} from cache`)
+          return caches.open(cacheName)
+            .then(cache => cache.match(event.request)
+              .then((response) => {
+                if (response) {
+                  console.log(`Response to ${event.request.url} from cache`)
 
-                return response
-              }
+                  return response
+                }
 
-              console.log(`Cant find response to ${event.request.url} in cache`)
+                console.log(`Cant find response to ${event.request.url} in cache`)
 
-              if (event.request.mode === 'navigate'
-                || (event.request.method === 'GET'
-                && event.request.headers.get('accept').includes('text/html'))) {
-                return cache.match('/')
-                  .then((navigateResponse) => {
-                    if (navigateResponse) { return navigateResponse }
-                    return cache.match('/error.html')
-                      .then(noConnectionResponse => noConnectionResponse)
-                  })
-              }
+                if (event.request.mode === 'navigate'
+          || (event.request.method === 'GET'
+          && event.request.headers.get('accept').includes('text/html'))) {
+                  return cache.match('/')
+                    .then((navigateResponse) => {
+                      if (navigateResponse) { return navigateResponse }
+                      return cache.match('/error.html')
+                        .then(noConnectionResponse => noConnectionResponse)
+                    })
+                }
 
-              return new Response(JSON.stringify({ offline: true }), {
-                headers: { 'Content-Type': 'application/json' },
-              })
-            }))
-      }),
-  )
+                return new Response(JSON.stringify({ offline: true }), {
+                  headers: { 'Content-Type': 'application/json' },
+                })
+              }))
+        }),
+    )
+  }
 })
