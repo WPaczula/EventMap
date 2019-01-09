@@ -41,7 +41,7 @@ class UserPage extends Component {
     const { visibleId } = this.state
     const { history } = this.props
 
-    history.push(`/event/${visibleId}`)
+    history.push(`/events/${visibleId}`)
   }
 
   setVisible = (id) => {
