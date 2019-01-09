@@ -82,7 +82,7 @@ export const Title = styled.h1`
   font-size: 1em;
   text-transform: uppercase;
   font-weight: 800;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
   background-color: #00000061;
   padding: 0.5em;
   text-align: center;
@@ -100,6 +100,8 @@ export const Description = styled.p`
 
   ${media.upToTablet`
     font-size: 0.7rem;
+    max-height: 6.2rem;
+    line-height: 1;
   `}
 `
 

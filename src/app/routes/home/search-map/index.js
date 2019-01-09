@@ -25,7 +25,7 @@ class MapController extends Component {
   componentDidUpdate(prevProps) {
     const { events } = this.props
 
-    if (prevProps.events && prevProps.events !== events) {
+    if (prevProps.events !== events) {
       this.loadMap()
     }
   }
