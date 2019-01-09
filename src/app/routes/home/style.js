@@ -5,7 +5,7 @@ export const StyledHome = styled.div`
   text-align: center;
 `
 
-export const NewEventButton = styled(ButtonLink)`
+export const CtaButton = styled(ButtonLink)`
   flex: 0;
   max-width: 30rem;
   display: block;

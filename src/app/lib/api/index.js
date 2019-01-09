@@ -87,4 +87,9 @@ export default class Api {
     data: params,
     noContent: true,
   })
+
+  searchEvents = params => get({
+    url: `${this.apiUrl}/events`,
+    query: params,
+  })
 }

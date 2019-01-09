@@ -34,3 +34,8 @@ export const selectUpdateEventError = createSelector(
   selectUpdateEvent,
   updateEvent => updateEvent && updateEvent.error,
 )
+
+export const selectSearchEvents = createSelector(
+  selectEventState,
+  eventState => eventState && eventState.search,
+)

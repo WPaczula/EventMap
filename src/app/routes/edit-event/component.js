@@ -4,15 +4,15 @@ import Select from 'react-select'
 import { Redirect } from 'react-router'
 import { isNullOrUndefined } from 'util'
 import DateTimePicker from '../../blocks/date-time-picker'
+import Label from '../../blocks/label'
+import Input from '../../blocks/input'
+import Form from '../../blocks/form'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
 import {
   EditEventLayout,
   Title,
   TitleContainer,
-  Form,
-  Input,
-  Label,
   SubmitButton,
 } from './style'
 

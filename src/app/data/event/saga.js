@@ -9,6 +9,7 @@ import {
   GET_MAP_EVENTS,
   CREATE_NEW_EVENT_REQUESTED,
   UPDATE_EVENT_REQUESTED,
+  LOAD_SEARCH_EVENTS_REQUESTED,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -25,6 +26,8 @@ import {
   createEventFailed,
   updateEventSucceeded,
   updateEventFailed,
+  searchEventsFailed,
+  searchEventsLoaded,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
 
@@ -105,6 +108,17 @@ export function* editEvent(api, action) {
   }
 }
 
+export function* searchEvents(api, action) {
+  try {
+    const { type, ...params } = action
+    const events = yield call(api.searchEvents, params)
+
+    yield put(searchEventsLoaded(events))
+  } catch (e) {
+    yield put(searchEventsFailed(e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
@@ -113,4 +127,5 @@ export default function* eventSaga(api) {
   yield takeLatest(GET_MAP_EVENTS, getMapEvents, api)
   yield takeLatest(CREATE_NEW_EVENT_REQUESTED, createEvent, api)
   yield takeLatest(UPDATE_EVENT_REQUESTED, editEvent, api)
+  yield takeLatest(LOAD_SEARCH_EVENTS_REQUESTED, searchEvents, api)
 }

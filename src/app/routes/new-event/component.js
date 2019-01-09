@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Redirect as RouterRedirect } from 'react-router'
+import Input from '../../blocks/input'
+import Label from '../../blocks/label'
+import Form from '../../blocks/form'
 import DateTimePicker from '../../blocks/date-time-picker'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
@@ -9,9 +12,6 @@ import {
   CreateEventLayout,
   Title,
   TitleContainer,
-  Form,
-  Input,
-  Label,
   SubmitButton,
 } from './style'
 
