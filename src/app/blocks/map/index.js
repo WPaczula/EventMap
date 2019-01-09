@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { render } from 'react-dom'
 import Helmet from 'react-helmet'
 import { MapContainer } from './style'
 
@@ -9,23 +8,31 @@ class MapController extends Component {
     onChange: PropTypes.func,
     loading: PropTypes.bool,
     position: PropTypes.objectOf(PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
+      lat: PropTypes.number,
+      lng: PropTypes.number,
     })),
   }
 
   constructor(props) {
     super(props)
 
-    this.map = React.createRef()
+    this.state = {
+      renderMap: () => null,
+    }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadMap()
   }
 
-  componentDidUpdate() {
-    this.loadMap()
+  componentDidUpdate(prevProps) {
+    const { position } = this.props
+
+    if (prevProps.position
+      && (position.lat !== prevProps.position.lat
+      || position.lng !== prevProps.position.lng)) {
+      this.loadMap()
+    }
   }
 
   loadMap = () => {
@@ -35,11 +42,15 @@ class MapController extends Component {
       const MapComponent = require('./component').default
       const { onChange, position } = this.props
 
-      setTimeout(() => render(<MapComponent onChange={onChange} position={position} />, document.getElementById('map')))
+      this.setState({
+        renderMap: () => <MapComponent onChange={onChange} position={position} />,
+      })
     }
   }
 
   render() {
+    const { renderMap } = this.state
+
     return (
       <>
         <Helmet>
@@ -59,7 +70,9 @@ class MapController extends Component {
             }`
             }
         </style>
-        <MapContainer id="map" />
+        <MapContainer id="map">
+          {renderMap()}
+        </MapContainer>
       </>
     )
   }

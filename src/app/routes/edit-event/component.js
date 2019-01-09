@@ -207,6 +207,7 @@ export default class EditEvent extends Component {
     } = this.props
 
     const position = { lat: latitude, lng: longitude }
+    console.log(position)
 
     return event ? (
       <EditEventLayout>

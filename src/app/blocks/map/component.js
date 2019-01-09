@@ -16,21 +16,16 @@ class MapSearcher extends Component {
   constructor(props) {
     super(props)
 
-    const lat = (props.position && props.position.lat) || 0
-    const lng = (props.position && props.position.lng) || 0
-
     this.state = {
-      position: [lat, lng],
+      position: null,
     }
-
-    props.onChange({ lat, lng })
   }
 
 
   componentDidMount() {
-    const { position } = this.state
+    const { position } = this.props
 
-    if (position[0] !== 0 && position[1] !== 0) {
+    if (position) {
       return
     }
 
@@ -51,6 +46,9 @@ class MapSearcher extends Component {
     const { position } = this.props
     const { position: prevPosition } = prevProps
 
+    console.log(prevPosition)
+    console.log(position)
+
     if(
       (prevPosition && !prevPosition.lat && !prevPosition.lng) 
       && (position && position.lat && position.lng)) {
@@ -68,7 +66,7 @@ class MapSearcher extends Component {
     return (
       <Map
         ref={this.map}
-        center={position}
+        center={position || [50.2945, 18.6714]}
         zoom={18}
         onclick={(e) => {
           this.setState({ position: e.latlng })

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { render } from 'react-dom'
 import Helmet from 'react-helmet'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
@@ -14,15 +13,21 @@ class MapController extends Component {
   constructor(props) {
     super(props)
 
-    this.map = React.createRef()
+    this.state = {
+      renderMap: () => null,
+    }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadMap()
   }
 
-  componentDidUpdate() {
-    this.loadMap()
+  componentDidUpdate(prevProps) {
+    const { events } = this.props
+
+    if (prevProps.events && prevProps.events !== events) {
+      this.loadMap()
+    }
   }
 
   loadMap = () => {
@@ -30,12 +35,15 @@ class MapController extends Component {
       const MapComponent = require('./component').default
       const { events, loadEvents } = this.props
 
-      setTimeout(() => render(<MapComponent loadEvents={loadEvents} events={events} />, document.getElementById('map')))
+      this.setState({
+        renderMap: () => <MapComponent loadEvents={loadEvents} events={events} />,
+      })
     }
   }
 
   render() {
     const { loading } = this.props
+    const { renderMap } = this.state
 
     return (
       <>
@@ -59,7 +67,9 @@ class MapController extends Component {
         <MapTitleContainer>
           <MapTitle>Events nearby</MapTitle>
         </MapTitleContainer>
-        <MapContainer id="map" loading={loading} />
+        <MapContainer id="map" loading={loading}>
+          {renderMap()}
+        </MapContainer>
       </>
     )
   }
