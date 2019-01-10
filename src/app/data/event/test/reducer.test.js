@@ -18,6 +18,8 @@ import {
   updateEventSucceeded,
   updateEventFailed,
   updateLoadedEvent,
+  searchEventsLoaded,
+  searchEventsFailed,
 } from '../actions'
 
 describe('event reducer', () => {
@@ -28,6 +30,7 @@ describe('event reducer', () => {
       map = null,
       newEvent = null,
       updateEvent = null,
+      search = null,
     } = opts
 
     return Immutable({
@@ -36,6 +39,7 @@ describe('event reducer', () => {
       map,
       newEvent,
       updateEvent,
+      search,
     })
   }
 
@@ -212,5 +216,23 @@ describe('event reducer', () => {
     const state = reducer(makeState({ byId: { [id]: event } }), action)
 
     expect(state.byId[id].title).toBe(newEvent.title)
+  })
+
+  it('should store search results in state if they were loaded.', () => {
+    const events = [{}, {}, {}]
+    const action = searchEventsLoaded(events)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ search: events }))
+  })
+
+  it('should store error if search failed.', () => {
+    const error = new Error()
+    const action = searchEventsFailed(error)
+
+    const state = reducer(makeState(), action)
+
+    expect(state).toEqual(makeState({ search: { error } }))
   })
 })

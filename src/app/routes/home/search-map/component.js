@@ -78,7 +78,7 @@ class MapSearcher extends Component {
     } = this.state
     const { events, loading } = this.props
 
-    if (notSupported || loading) { return null }
+    if (notSupported || loading || (events && events.error)) { return null }
 
     return (
       <Map

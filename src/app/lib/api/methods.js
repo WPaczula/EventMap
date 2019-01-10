@@ -17,12 +17,12 @@ export const get = ({ url, query, ...rest }) => {
     method: 'GET',
     ...rest,
   }).then((r) => {
-    if (r.status === '400') {
-      throw r
+    if (!r.ok) {
+      throw new Error(r.message)
     }
 
     return r.json()
-  })
+  }).catch((e) => { throw e })
 }
 
 const withBody = method => ({
@@ -41,8 +41,8 @@ const withBody = method => ({
   body: JSON.stringify(data),
   ...rest,
 }).then((r) => {
-  if (r.status === '400') {
-    throw r
+  if (!r.ok) {
+    throw new Error(r.message)
   }
 
   if (noContent) {
