@@ -19,6 +19,8 @@ import {
   UPDATE_EVENT_FAILED,
   CLEAR_UPDATE_EVENT_FLAG,
   UPDATE_LOADED_EVENT,
+  LOAD_SEARCH_EVENTS_FAILED,
+  LOAD_SEARCH_EVENTS_SUCCEEDED,
 } from './constants'
 
 const initialState = Immutable({
@@ -27,6 +29,7 @@ const initialState = Immutable({
   map: null,
   newEvent: null,
   updateEvent: null,
+  search: null,
 })
 
 const handlers = {
@@ -59,6 +62,9 @@ const handlers = {
   })),
 
   [HANDLE_EVENT_ERROR]: (state, { id }) => state.setIn(['byId', id, 'error'], undefined),
+
+  [LOAD_SEARCH_EVENTS_SUCCEEDED]: (state, { events }) => state.set('search', events),
+  [LOAD_SEARCH_EVENTS_FAILED]: (state, { error }) => state.setIn(['search', 'error'], error),
 }
 
 export default makeReducer(handlers, initialState)

@@ -46,9 +46,6 @@ class MapSearcher extends Component {
     const { position } = this.props
     const { position: prevPosition } = prevProps
 
-    console.log(prevPosition)
-    console.log(position)
-
     if(
       (prevPosition && !prevPosition.lat && !prevPosition.lng) 
       && (position && position.lat && position.lng)) {

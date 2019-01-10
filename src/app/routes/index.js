@@ -5,6 +5,7 @@ import Event from './event'
 import User from './user'
 import AddEvent from './new-event'
 import EditEvent from './edit-event'
+import Search from './search'
 
 const homeRoute = {
   key: 'home',
@@ -48,10 +49,17 @@ const addEventRoute = {
   exact: true,
 }
 
-const editEventRouter = {
+const editEventRoute = {
   key: 'edit-event',
   path: '/edit-event/:eventId',
   component: EditEvent,
+  exact: true,
+}
+
+const searchRoute = {
+  key: 'search-route',
+  path: '/search',
+  component: Search,
   exact: true,
 }
 
@@ -62,5 +70,6 @@ export default [
   eventRoute,
   userRoute,
   addEventRoute,
-  editEventRouter,
+  editEventRoute,
+  searchRoute,
 ]

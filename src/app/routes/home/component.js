@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import SearchMap from './search-map'
 import {
   StyledHome,
-  NewEventButton,
+  CtaButton,
 } from './style'
 
 const Home = ({ isUserSignedIn }) => (
   <StyledHome>
     Welcome home 🙌
-    { isUserSignedIn && <NewEventButton to="/new-event">New event!</NewEventButton>}
+    { isUserSignedIn && <CtaButton to="/new-event">New event!</CtaButton>}
+    <CtaButton to="/search">Search</CtaButton>
     <SearchMap />
   </StyledHome>
 )

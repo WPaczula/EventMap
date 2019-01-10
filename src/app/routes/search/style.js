@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Button from '../../blocks/button'
-import media from '../../style/media'
 import { secondaryColor } from '../../style/colors'
+import media from '../../style/media'
 
-export const CreateEventLayout = styled.div`
+export const SearchPageLayout = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -30,7 +30,15 @@ export const TitleContainer = styled.div`
   height: 3rem;
 `
 
-export const SubmitButton = styled(Button)`
-  margin: 2rem auto;
-  width: 13rem;
+export const EventsSection = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0 1rem;
+	justify-content: center;
+`
+
+export const SearchButton = styled(Button)`
+	margin: 0.5rem auto;
+	width: 13rem;
 `

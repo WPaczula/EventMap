@@ -24,6 +24,9 @@ import {
   UPDATE_EVENT_FAILED,
   CLEAR_UPDATE_EVENT_FLAG,
   UPDATE_LOADED_EVENT,
+  LOAD_SEARCH_EVENTS_REQUESTED,
+  LOAD_SEARCH_EVENTS_SUCCEEDED,
+  LOAD_SEARCH_EVENTS_FAILED,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -166,4 +169,29 @@ export const clearUpdateEventFlag = () => ({
 })
 export const updateLoadedEvent = (id, event) => ({
   type: UPDATE_LOADED_EVENT, id, event,
+})
+
+export const searchEvents = (
+  startDate,
+  endDate,
+  city,
+  categoryId,
+  freeEntry,
+  maxPrice,
+) => ({
+  type: LOAD_SEARCH_EVENTS_REQUESTED,
+  startDate,
+  endDate,
+  city,
+  categoryId,
+  freeEntry,
+  maxPrice,
+})
+export const searchEventsLoaded = events => ({
+  type: LOAD_SEARCH_EVENTS_SUCCEEDED,
+  events,
+})
+export const searchEventsFailed = error => ({
+  type: LOAD_SEARCH_EVENTS_FAILED,
+  error,
 })

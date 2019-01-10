@@ -7,6 +7,7 @@ import {
   getMapEvents,
   createEvent,
   editEvent,
+  searchEvents as searchEventsSaga,
 } from '../saga'
 import {
   loadCategoryEvents,
@@ -30,6 +31,9 @@ import {
   updateEvent,
   updateEventSucceeded,
   updateEventFailed,
+  searchEvents,
+  searchEventsLoaded,
+  searchEventsFailed,
 } from '../actions'
 import { selectAccessToken } from '../../user/selectors'
 
@@ -397,6 +401,38 @@ describe('edit event', () => {
       .select(selectAccessToken)
       .call(api.updateEvent, id, params, tokens)
       .put(updateEventFailed(error))
+      .run()
+  })
+})
+
+describe('search events', () => {
+  it('should call api for events and put success action if it succeeds.', () => {
+    const events = [{}, {}, {}]
+    const api = { searchEvents: jest.fn().mockReturnValue(events) }
+    const params = {
+      startDate: null,
+      endDate: null,
+      city: null,
+      categoryId: null,
+      freeEntry: null,
+      maxPrice: null,
+    }
+    const values = Object.keys(params).map(k => params[k])
+    const action = searchEvents(...values)
+
+    return expectSaga(searchEventsSaga, api, action)
+      .call(api.searchEvents, params)
+      .put(searchEventsLoaded(events))
+      .run()
+  })
+
+  it('should put error action if api fails.', () => {
+    const error = new Error()
+    const api = { searchEvents: jest.fn().mockImplementation(() => { throw error }) }
+    const action = searchEvents()
+
+    return expectSaga(searchEventsSaga, api, action)
+      .put(searchEventsFailed(error))
       .run()
   })
 })
