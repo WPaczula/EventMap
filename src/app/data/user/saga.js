@@ -8,6 +8,7 @@ import {
   CLEAR_TOKENS,
   CREATE_ACCOUNT,
   GET_USERS_DATA,
+  DELETE_ACCOUNT_REQUESTED,
 } from './constants'
 import {
   storeTokens,
@@ -16,8 +17,10 @@ import {
   accountCreationFailed,
   usersDataLoaded,
   userDataLoadingFailed,
+  deleteAccountSucceeded,
+  deleteAccountFailed,
 } from './actions'
-import { selectTokens } from './selectors'
+import { selectTokens, selectAccessToken } from './selectors'
 
 export function* getAccessToken(api, window, action) {
   try {
@@ -59,11 +62,23 @@ export function* getUsersData(api, { id }) {
   }
 }
 
+export function* deleteUserAccount(api) {
+  try {
+    const tokens = yield select(selectAccessToken)
+    yield call(api.deleteUsersAccount, tokens)
+
+    yield put(deleteAccountSucceeded())
+  } catch (e) {
+    yield put(deleteAccountFailed(e))
+  }
+}
+
 function* userSaga(api) {
   yield takeLatest(GET_TOKENS, getAccessToken, api, window)
   yield takeLatest(CLEAR_TOKENS, clearTokens)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
+  yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
 }
 
 export default userSaga

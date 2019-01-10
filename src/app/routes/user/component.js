@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 import EventTile from '../../blocks/event-tile'
 import {
   UserPageLayout,
@@ -7,7 +8,9 @@ import {
   EventsSection,
   EventsTitle,
   Scroller,
+  DeleteButton,
 } from './style'
+import MessagePopup from '../../blocks/message-popup'
 
 class UserPage extends Component {
   static propTypes = {
@@ -15,6 +18,10 @@ class UserPage extends Component {
     userData: PropTypes.object,
     loadUsersData: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    isOwnPage: PropTypes.bool,
+    deleteAccount: PropTypes.func.isRequired,
+    isAccountDeleted: PropTypes.bool,
+    didAccountDeletionFail: PropTypes.bool,
   }
 
   constructor(props) {
@@ -48,14 +55,27 @@ class UserPage extends Component {
     this.setState({ visibleId: id })
   }
 
+  handleDelete = () => {
+    const { deleteAccount } = this.props
+
+    deleteAccount()
+  }
+
   render() {
-    const { userData } = this.props
+    const {
+      userData,
+      isOwnPage,
+      isAccountDeleted,
+      didAccountDeletionFail,
+      clearAccountDeletionFailed,
+    } = this.props
     const { visibleId } = this.state
 
     return userData ? (
       <UserPageLayout>
         <UserName>
           { userData.nickname }
+          {isOwnPage && <DeleteButton onClick={this.handleDelete}>Delete account</DeleteButton>}
         </UserName>
         {
           userData && userData.upcommingEvents && (
@@ -105,6 +125,12 @@ class UserPage extends Component {
           </>
           )
       }
+        { isAccountDeleted && <Redirect to="/" />}
+        { didAccountDeletionFail && (
+        <MessagePopup error unMount={clearAccountDeletionFailed}>
+          Error during deleting the account
+        </MessagePopup>
+        )}
       </UserPageLayout>
     ) : (
       <UserPageLayout>
@@ -114,7 +140,7 @@ class UserPage extends Component {
         </EventsTitle>
         <EventsSection>
           {
-            new Array(5).fill().map(() => <EventTile.Loading />)
+            new Array(5).fill().map((e, i) => <EventTile.Loading key={`loading-upcomming-tile${i}`} />)
           }
         </EventsSection>
         <EventsTitle>
@@ -122,7 +148,7 @@ class UserPage extends Component {
         </EventsTitle>
         <EventsSection>
           {
-            new Array(5).fill().map(() => <EventTile.Loading />)
+            new Array(5).fill().map((e, i) => <EventTile.Loading key={`loading-created-tile${i}`} />)
           }
         </EventsSection>
       </UserPageLayout>

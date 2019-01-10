@@ -93,4 +93,11 @@ export default class Api {
     url: `${this.apiUrl}/events`,
     query: params,
   })
+
+  deleteUsersAccount = token => httpDelete({
+    url: `${this.apiUrl}/users`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 }

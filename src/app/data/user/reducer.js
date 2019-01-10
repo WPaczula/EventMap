@@ -11,6 +11,9 @@ import {
   HANDLE_REGISTERED,
   GET_USERS_DATA_SUCCEEDED,
   GET_USERS_DATA_FAILED,
+  DELETE_ACCOUNT_SUCCEEDED,
+  DELETE_ACCOUNT_FAILED,
+  CLEAR_ACCOUNT_DELETION_FAILED,
 } from './constants'
 import Cookie from '../../lib/cookie'
 
@@ -19,6 +22,7 @@ const initialState = {
   unhandledError: false,
   unhandledRegister: false,
   byId: null,
+  deleted: false,
 }
 
 const handlers = {
@@ -41,6 +45,10 @@ const handlers = {
 
   [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['byId', id], data),
   [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
+
+  [DELETE_ACCOUNT_SUCCEEDED]: state => state.set('deleted', true),
+  [DELETE_ACCOUNT_FAILED]: (state, { error }) => state.setIn(['deleted', 'error'], error),
+  [CLEAR_ACCOUNT_DELETION_FAILED]: state => state.set('deleted', false),
 }
 
 const reducer = (state = Immutable(initialState), action) => {
