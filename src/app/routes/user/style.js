@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components'
 import { secondaryColor } from '../../style/colors'
+import Button from '../../blocks/button'
 
 export const UserPageLayout = styled.div`
   display: block;
 `
 
 export const UserName = styled.div`
+  position: relative;
   width: 100vw;
   text-align: center;
   font-size: 3em;
@@ -40,4 +42,10 @@ export const EventsSection = styled.div`
   & > * {
     flex: 0 0 auto;
   }
+`
+
+export const DeleteButton = styled(Button)`
+  position: absolute;
+  right: 1rem;
+  top: 0;
 `

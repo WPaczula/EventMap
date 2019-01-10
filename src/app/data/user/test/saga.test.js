@@ -5,9 +5,10 @@ import {
   getAccessToken,
   clearTokens,
   getUsersData,
+  deleteUserAccount,
 } from '../saga'
 import {
-  selectTokens,
+  selectTokens, selectAccessToken,
 } from '../selectors'
 import {
   storeTokens,
@@ -15,6 +16,9 @@ import {
   loadUsersData,
   usersDataLoaded,
   userDataLoadingFailed,
+  deleteAccount,
+  deleteAccountSucceeded,
+  deleteAccountFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -121,5 +125,49 @@ describe('user', () => {
         .put(userDataLoadingFailed(id, error))
         .run()
     })
+  })
+})
+
+describe('delete account saga', () => {
+  it('should select tokens and shoot to api with them', () => {
+    const tokens = {}
+    const api = { deleteUsersAccount: jest.fn() }
+    const action = deleteAccount()
+
+    return expectSaga(deleteUserAccount, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .call(api.deleteUsersAccount, tokens)
+      .run()
+  })
+
+  it('should put action if call succeeds.', () => {
+    const tokens = {}
+    const api = { deleteUsersAccount: jest.fn() }
+    const action = deleteAccount()
+
+    return expectSaga(deleteUserAccount, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .call(api.deleteUsersAccount, tokens)
+      .put(deleteAccountSucceeded())
+      .run()
+  })
+
+  it('should put fail action if call fails.', () => {
+    const tokens = {}
+    const error = new Error()
+    const api = { deleteUsersAccount: jest.fn().mockImplementation(() => { throw error }) }
+    const action = deleteAccount()
+
+    return expectSaga(deleteUserAccount, api, action)
+      .provide([
+        [matchers.select(selectAccessToken), tokens],
+      ])
+      .call(api.deleteUsersAccount, tokens)
+      .put(deleteAccountFailed(error))
+      .run()
   })
 })

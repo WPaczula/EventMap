@@ -52,3 +52,13 @@ export const selectUsersNickname = createSelector(
   selectTokens,
   userState => userState && userState.user_nickname,
 )
+
+export const selectIsAccountDeleted = createSelector(
+  selectUserState,
+  userState => userState && userState.deleted && typeof userState.deleted === 'boolean',
+)
+
+export const selectAccountDeletionFailed = createSelector(
+  selectUserState,
+  userState => userState && userState.deleted && !!userState.deleted.error,
+)

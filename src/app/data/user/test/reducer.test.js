@@ -10,6 +10,9 @@ import {
   accountCreationFailed,
   usersDataLoaded,
   userDataLoadingFailed,
+  deleteAccountSucceeded,
+  deleteAccountFailed,
+  clearAccountDeletionFailed,
 } from '../actions'
 
 describe('user', () => {
@@ -21,6 +24,7 @@ describe('user', () => {
         unhandledRegister = false,
         error = undefined,
         byId = null,
+        deleted = false,
       } = opts
 
       return Immutable({
@@ -29,6 +33,7 @@ describe('user', () => {
         unhandledRegister,
         error,
         byId,
+        deleted,
       })
     }
 
@@ -125,6 +130,31 @@ describe('user', () => {
       const nextState = reducer(makeState(), action)
 
       expect(nextState).toEqual(makeState({ byId: { [id]: { error } } }))
+    })
+
+    it('should store information about deleted user.', () => {
+      const action = deleteAccountSucceeded()
+
+      const nextState = reducer(makeState(), action)
+
+      expect(nextState).toEqual(makeState({ deleted: true }))
+    })
+
+    it('should store error if one happened after trying to delete an account.', () => {
+      const error = new Error()
+      const action = deleteAccountFailed(error)
+
+      const nextState = reducer(makeState(), action)
+
+      expect(nextState).toEqual(makeState({ deleted: { error } }))
+    })
+
+    it('should clear deleted information after proper action', () => {
+      const action = clearAccountDeletionFailed()
+
+      const nextState = reducer(makeState({ deleted: { error: new Error() } }), action)
+
+      expect(nextState).toEqual(makeState({ deleted: false }))
     })
   })
 })
