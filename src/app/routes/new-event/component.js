@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Redirect as RouterRedirect } from 'react-router'
-import Input from '../../blocks/input'
+import Input from '../../blocks/form-input'
 import Label from '../../blocks/label'
 import Form from '../../blocks/form'
 import DateTimePicker from '../../blocks/date-time-picker'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
+import TagsInput from '../../blocks/tags-input'
 import {
   CreateEventLayout,
   Title,
@@ -38,6 +39,7 @@ export default class CreateEvent extends Component {
     category: null,
     cost: 0,
     photoUrl: '',
+    tags: [],
     hasError: false,
     Redirect: () => null,
   }
@@ -84,6 +86,7 @@ export default class CreateEvent extends Component {
       category,
       cost,
       photoUrl,
+      tags,
     } = this.state
     const { createNewEvent } = this.props
 
@@ -116,6 +119,7 @@ export default class CreateEvent extends Component {
       Number(cost),
       photoUrl,
       Number(category.value),
+      tags,
     )
   }
 
@@ -131,6 +135,7 @@ export default class CreateEvent extends Component {
       photoUrl,
       hasError,
       Redirect,
+      tags,
     } = this.state
     const { categories, didNewEventFail, clearNewEvent } = this.props
 
@@ -141,7 +146,7 @@ export default class CreateEvent extends Component {
             Create your event
           </Title>
         </TitleContainer>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={(e) => { e.preventDefault() }}>
           <Label>
             Name
             <Input type="text" value={name} onChange={this.changeValue('name')} />
@@ -194,7 +199,13 @@ export default class CreateEvent extends Component {
               options={categories}
             />
           </Label>
-          <SubmitButton type="submit">
+
+          <Label>
+              Tags
+            <TagsInput tags={tags} onChange={(newTags) => { this.setState({ tags: newTags }) }} />
+          </Label>
+
+          <SubmitButton type="submit" onClick={this.handleSubmit}>
             Submit
           </SubmitButton>
         </Form>

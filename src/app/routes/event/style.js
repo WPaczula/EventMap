@@ -63,7 +63,7 @@ export const Image = styled.img`
 
 export const Content = styled.div`
   max-width: 75%;
-  margin: 2em auto;
+  margin: 1em auto;
   display: flex;
   flex-direction: column;
 
@@ -71,6 +71,7 @@ export const Content = styled.div`
     background-color: lightgray;
     width: calc(75% - 2em);
     height: 12em;
+    margin-top: 6.25rem;
   `}
 
   ${media.fromDesktop`
@@ -163,4 +164,23 @@ export const EditEventLink = styled(ButtonLink)`
   right: 1.5rem;
   bottom: 0;
   z-index: 10;
+`
+
+export const Tags = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+`
+
+export const Tag = styled.div`
+  color: white;
+  font-weight: bold;
+  background: ${secondaryColor};
+  flex: 0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin: 0.25rem;
+  white-space: nowrap;
 `

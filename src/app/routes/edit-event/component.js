@@ -5,10 +5,11 @@ import { Redirect } from 'react-router'
 import { isNullOrUndefined } from 'util'
 import DateTimePicker from '../../blocks/date-time-picker'
 import Label from '../../blocks/label'
-import Input from '../../blocks/input'
+import Input from '../../blocks/form-input'
 import Form from '../../blocks/form'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
+import TagsInput from '../../blocks/tags-input'
 import {
   EditEventLayout,
   Title,
@@ -41,6 +42,7 @@ export default class EditEvent extends Component {
       categoryId: PropTypes.string.isRequired,
       cost: PropTypes.number.isRequired,
       photoUrl: PropTypes.string.isRequired,
+      tags: PropTypes.arrayOf(PropTypes.string).isRequired,
     })),
   }
 
@@ -56,6 +58,7 @@ export default class EditEvent extends Component {
     cost: 0,
     photoUrl: '',
     hasError: false,
+    tags: [],
   }
 
   componentDidMount() {
@@ -83,6 +86,7 @@ export default class EditEvent extends Component {
     if (!prevProps.event && !isNullOrUndefined(event)) {
       this.setState({
         ...event,
+        tags: event.tags.asMutable(),
         startDate: new Date(event.startDate),
         endDate: new Date(event.endDate),
         category: categories.find(c => c.value === event.categoryId),
@@ -100,9 +104,12 @@ export default class EditEvent extends Component {
         category,
         cost,
         photoUrl,
+        tags,
       } = this.state
       const { id, eventLoaded } = this.props
+      
       clearUpdateEventFlag()
+      
       const event = {
         id,
         title,
@@ -114,7 +121,8 @@ export default class EditEvent extends Component {
         externalUrl,
         categoryId: category.value,
         cost: Number(cost),
-        photoUrl
+        photoUrl,
+        tags,
       }
       updateLoadedEvent(id, event)
     }
@@ -147,6 +155,7 @@ export default class EditEvent extends Component {
       category,
       cost,
       photoUrl,
+      tags,
     } = this.state
     const { updateEvent, id } = this.props
 
@@ -180,6 +189,7 @@ export default class EditEvent extends Component {
       Number(cost),
       photoUrl,
       Number(category.value),
+      tags,
     )
   }
 
@@ -195,6 +205,7 @@ export default class EditEvent extends Component {
       category,
       cost,
       photoUrl,
+      tags,
       hasError,
     } = this.state
     const {
@@ -215,7 +226,7 @@ export default class EditEvent extends Component {
             Edit your event
           </Title>
         </TitleContainer>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={(e) => { e.preventDefault() }}>
           <Label>
             Name
             <Input type="text" value={title} onChange={this.changeValue('title')} />
@@ -270,7 +281,13 @@ export default class EditEvent extends Component {
               options={categories}
             />
           </Label>
-          <SubmitButton type="submit">
+
+          <Label>
+              Tags
+            <TagsInput tags={tags} onChange={(newTags) => { this.setState({ tags: newTags }) }} />
+          </Label>
+
+          <SubmitButton type="submit" onClick={this.handleSubmit}>
             Submit
           </SubmitButton>
         </Form>
