@@ -30,6 +30,7 @@ export default class Api {
       nickname,
       password,
     },
+    noContent: true,
   })
 
   getCategories = () => get({

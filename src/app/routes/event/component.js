@@ -18,6 +18,8 @@ import {
   Cost,
   MoreInfo,
   EditEventLink,
+  Tags,
+  Tag,
 } from './style'
 
 class EventPage extends Component {
@@ -102,6 +104,9 @@ class EventPage extends Component {
               )
               }
             </Header>
+            <Tags>
+              {event.tags.map(t => <Tag>{t}</Tag>)}
+            </Tags>
             <Content>
               <Description>
                 {event.description}
