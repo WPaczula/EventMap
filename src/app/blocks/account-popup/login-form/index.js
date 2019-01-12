@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { SubmitButton } from '../style'
 import Input from '../../input'
+import FacebookLogin from '../facebook-login'
 
 class LoginForm extends Component {
   state = { email: '', password: '' }
@@ -43,6 +44,10 @@ class LoginForm extends Component {
         placeholder="password"
         type="password"
         icon="💬"
+      />
+      <FacebookLogin
+        onClick={() => { console.log('clicked') }}
+        onResponse={(response) => { console.log(response) }}
       />
       <SubmitButton inverse onClick={this.logIn}>Log in</SubmitButton>
     </>
