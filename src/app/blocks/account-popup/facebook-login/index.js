@@ -14,18 +14,16 @@ export default class FacebookLoginComponent extends Component {
     const { onClick, onResponse } = this.props
 
     return (
-      <>
-        <FacebookLogin
-          appId={facebookApi}
-          autoLoad
-          fields="name,email"
-          onClick={onClick}
-          callback={onResponse}
-          render={renderProps => (
-            <FacebookButton onClick={renderProps.onClick}>Login with facebook</FacebookButton>
-          )}
-        />
-      </>
+      <FacebookLogin
+        appId={facebookApi}
+        autoLoad
+        fields="name,email"
+        onClick={onClick}
+        callback={onResponse}
+        render={renderProps => (
+          <FacebookButton onClick={renderProps.onClick}>Login with facebook</FacebookButton>
+        )}
+      />
     )
   }
 }

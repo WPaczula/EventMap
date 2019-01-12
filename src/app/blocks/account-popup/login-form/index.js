@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { SubmitButton } from '../style'
 import Input from '../../input'
 import FacebookLogin from '../facebook-login'
+import GoogleLogin from '../google-login'
 
 class LoginForm extends Component {
   state = { email: '', password: '' }
@@ -48,6 +49,10 @@ class LoginForm extends Component {
       <FacebookLogin
         onClick={() => { console.log('clicked') }}
         onResponse={(response) => { console.log(response) }}
+      />
+      <GoogleLogin
+        onSuccess={(response) => { console.log(response) }}
+        onFailure={(response) => { console.log(response) }}
       />
       <SubmitButton inverse onClick={this.logIn}>Log in</SubmitButton>
     </>
