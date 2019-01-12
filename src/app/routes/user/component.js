@@ -71,6 +71,16 @@ class UserPage extends Component {
     } = this.props
     const { visibleId } = this.state
 
+    if (userData && userData.error) {
+      return (
+        <UserPageLayout>
+          <UserName>
+            {`${userData.error.message} 🙈`}
+          </UserName>
+        </UserPageLayout>
+      )
+    }
+
     return userData ? (
       <UserPageLayout>
         <UserName>

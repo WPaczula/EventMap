@@ -3,7 +3,7 @@ import {
   STORE_TOKENS,
   FAILED_TO_GET_TOKENS,
   COOKIE_NAME,
-  CLEAR_TOKENS,
+  LOG_OUT,
   ACCOUNT_CREATION_FAILED,
   ACCOUNT_CREATED,
   CREATE_ACCOUNT,
@@ -30,7 +30,7 @@ const handlers = {
   [FAILED_TO_GET_TOKENS]: (state, { error }) => state
     .set('error', error)
     .set('unhandledError', true),
-  [CLEAR_TOKENS]: state => state.set('tokens', null),
+  [LOG_OUT]: state => state.set('tokens', null),
 
   [CREATE_ACCOUNT]: state => state
     .set('unhandledRegister', false)
@@ -46,7 +46,7 @@ const handlers = {
   [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['byId', id], data),
   [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
-  [DELETE_ACCOUNT_SUCCEEDED]: state => state.set('deleted', true),
+  [DELETE_ACCOUNT_SUCCEEDED]: (state, { id }) => state.set('deleted', true).setIn(['byId', id], null),
   [DELETE_ACCOUNT_FAILED]: (state, { error }) => state.setIn(['deleted', 'error'], error),
   [CLEAR_ACCOUNT_DELETION_FAILED]: state => state.set('deleted', false),
 }

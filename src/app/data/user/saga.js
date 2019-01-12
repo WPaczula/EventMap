@@ -5,7 +5,7 @@ import Cookie from '../../lib/cookie'
 import {
   GET_TOKENS,
   COOKIE_NAME,
-  CLEAR_TOKENS,
+  LOG_OUT,
   CREATE_ACCOUNT,
   GET_USERS_DATA,
   DELETE_ACCOUNT_REQUESTED,
@@ -19,8 +19,9 @@ import {
   userDataLoadingFailed,
   deleteAccountSucceeded,
   deleteAccountFailed,
+  logOut,
 } from './actions'
-import { selectTokens, selectAccessToken } from './selectors'
+import { selectTokens, selectAccessToken, selectUsersId } from './selectors'
 
 export function* getAccessToken(api, window, action) {
   try {
@@ -38,7 +39,10 @@ export function* getAccessToken(api, window, action) {
   }
 }
 
-export function* clearTokens() {
+export function* logout(api) {
+  const token = yield select(selectAccessToken)
+
+  yield call(api.logoutUser, token)
   yield call(Cookie.remove, COOKIE_NAME)
 }
 
@@ -65,9 +69,12 @@ export function* getUsersData(api, { id }) {
 export function* deleteUserAccount(api) {
   try {
     const tokens = yield select(selectAccessToken)
+    const usersId = yield select(selectUsersId)
+
     yield call(api.deleteUsersAccount, tokens)
 
-    yield put(deleteAccountSucceeded())
+    yield put(logOut())
+    yield put(deleteAccountSucceeded(usersId))
   } catch (e) {
     yield put(deleteAccountFailed(e))
   }
@@ -75,7 +82,7 @@ export function* deleteUserAccount(api) {
 
 function* userSaga(api) {
   yield takeLatest(GET_TOKENS, getAccessToken, api, window)
-  yield takeLatest(CLEAR_TOKENS, clearTokens)
+  yield takeLatest(LOG_OUT, logout)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
   yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
