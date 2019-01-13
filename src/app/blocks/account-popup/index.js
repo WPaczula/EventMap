@@ -14,6 +14,7 @@ class AccountPopup extends Component {
     static propTypes={
       exit: PropTypes.func.isRequired,
       onSubmit: PropTypes.func.isRequired,
+      socialLogin: PropTypes.func.isRequired,
       popupType: PropTypes.oneOf(['LOGIN', 'REGISTER']),
     }
 
@@ -36,6 +37,7 @@ class AccountPopup extends Component {
         exit,
         onSubmit,
         popupType,
+        socialLogin,
       } = this.props
 
       const PopupComponent = popupType === popupTypes.login
@@ -48,7 +50,7 @@ class AccountPopup extends Component {
             <X onClick={exit} />
             <LogoContainer />
             {
-              <PopupComponent onSubmit={onSubmit} />
+              <PopupComponent onSubmit={onSubmit} socialLogin={socialLogin} />
             }
           </StyledPopup>
         </Modal>

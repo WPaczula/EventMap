@@ -9,6 +9,7 @@ class LogIn extends Component {
   static propTypes = {
     logIn: PropTypes.func.isRequired,
     register: PropTypes.func.isRequired,
+    socialLogin: PropTypes.func.isRequired,
     unhandledRegister: PropTypes.bool,
   }
 
@@ -25,7 +26,7 @@ class LogIn extends Component {
 
   render() {
     const { activePopup } = this.state
-    const { logIn, register } = this.props
+    const { logIn, register, socialLogin } = this.props
 
     const onSubmit = activePopup === popupTypes.login
       ? logIn
@@ -46,6 +47,7 @@ class LogIn extends Component {
             popupType={activePopup}
             exit={() => this.togglePopup(undefined)}
             onSubmit={onSubmit}
+            socialLogin={socialLogin}
           />
           )
         }

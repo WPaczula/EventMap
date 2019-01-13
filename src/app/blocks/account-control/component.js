@@ -16,6 +16,7 @@ const AccountControl = ({
   handleError,
   handleRegister,
   usersId,
+  socialLogin,
 }) => (
   <>
     <AccountControlContainer>
@@ -23,6 +24,7 @@ const AccountControl = ({
       !isUserLoggedIn
         ? (
           <LoggedInPanel
+            socialLogin={socialLogin}
             logIn={logIn}
             register={register}
             unhandledRegister={unhandledRegister}
@@ -58,5 +60,6 @@ AccountControl.propTypes = {
   handleError: PropTypes.func.isRequired,
   handleRegister: PropTypes.func.isRequired,
   usersId: PropTypes.string,
+  socialLogin: PropTypes.func.isRequired,
 }
 export default AccountControl

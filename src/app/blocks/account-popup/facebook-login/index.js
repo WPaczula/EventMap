@@ -6,7 +6,7 @@ import { FacebookButton } from './style'
 
 export default class FacebookLoginComponent extends Component {
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     onResponse: PropTypes.func.isRequired,
   }
 
@@ -20,6 +20,7 @@ export default class FacebookLoginComponent extends Component {
         fields="name,email"
         onClick={onClick}
         callback={onResponse}
+        onFailure={e => console.error(e)}
         render={renderProps => (
           <FacebookButton onClick={renderProps.onClick}>Login with facebook</FacebookButton>
         )}

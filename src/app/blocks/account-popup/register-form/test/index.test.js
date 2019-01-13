@@ -7,7 +7,7 @@ describe('register form', () => {
   it('should show errormessage when specified by props', () => {
     const errorMessage = 'message'
     const shouldShowError = true
-    const wrapper = shallow(<RegisterForm onSubmit={jest.fn()} />)
+    const wrapper = shallow(<RegisterForm onSubmit={jest.fn()} socialLogin={jest.fn()} />)
 
     wrapper.setState({ shouldShowError, errorMessage })
     const popup = wrapper.find(MessagePopup)

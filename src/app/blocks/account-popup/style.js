@@ -10,7 +10,7 @@ export const StyledPopup = styled.div`
     min-width: 26em;
     min-height: 35em;
     width: 20%;
-    height: 60%;
+    height: 70%;
     border-radius: 5%;
   `}
 

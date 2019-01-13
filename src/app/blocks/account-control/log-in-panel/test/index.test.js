@@ -15,6 +15,7 @@ describe('log in panel', () => {
     return shallow(<LogInPanel
       register={register}
       logIn={logIn}
+      socialLogin={jest.fn()}
       isSuccessfulyRegistered={isSuccessfulyRegistered}
     />)
   }

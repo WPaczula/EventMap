@@ -9,6 +9,7 @@ import {
   CREATE_ACCOUNT,
   GET_USERS_DATA,
   DELETE_ACCOUNT_REQUESTED,
+  SOCIAL_LOGIN_REQUESTED,
 } from './constants'
 import {
   storeTokens,
@@ -73,12 +74,26 @@ export function* deleteUserAccount(api) {
   }
 }
 
+export function* logInViaSocial(api, window, { name, email, userID }) {
+  try {
+    const tokens = yield call(api.socialLogin, name, email, userID)
+
+    yield put(storeTokens(tokens))
+    yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
+    /* eslint-disable-next-line */
+    if (typeof window !== 'undefined' && window && window.location) window.location.reload()
+  } catch (e) {
+    yield put(storeTokensError(e))
+  }
+}
+
 function* userSaga(api) {
   yield takeLatest(GET_TOKENS, getAccessToken, api, window)
   yield takeLatest(CLEAR_TOKENS, clearTokens)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
   yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
+  yield takeLatest(SOCIAL_LOGIN_REQUESTED, logInViaSocial, api, window)
 }
 
 export default userSaga

@@ -2,7 +2,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import {
-  getAccessToken, clearTokens, createAccount, handleError, handleRegister,
+  getAccessToken,
+  clearTokens,
+  createAccount,
+  handleError,
+  handleRegister,
+  socialLogin,
 } from '../../data/user/actions'
 import {
   selectIsUserSignedIn,
@@ -39,6 +44,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(
     logIn: getAccessToken,
     logOut: clearTokens,
     register: createAccount,
+    socialLogin,
   },
   dispatch,
 )

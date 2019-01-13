@@ -29,6 +29,7 @@ describe('login state control component', () => {
       unhandledError={unhandledError}
       handleError={handleError}
       handleRegister={handleRegister}
+      socialLogin={jest.fn()}
     />)
   }
 

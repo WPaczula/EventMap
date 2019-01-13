@@ -10,6 +10,7 @@ class LoginForm extends Component {
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    socialLogin: PropTypes.func.isRequired,
   }
 
   setEmail = (email) => {
@@ -27,9 +28,19 @@ class LoginForm extends Component {
     onSubmit(email, password)
   }
 
+  handleSocialResponse = (response) => {
+    const { name, email, userID } = response
+    const { socialLogin } = this.props
+
+    if (name && email && userID) {
+      console.log(response)
+      socialLogin(name, email, userID)
+    }
+  }
+
+
   render() {
     const { email, password } = this.state
-
     return (
     <>
       <Input
@@ -47,12 +58,11 @@ class LoginForm extends Component {
         icon="💬"
       />
       <FacebookLogin
-        onClick={() => { console.log('clicked') }}
-        onResponse={(response) => { console.log(response) }}
+        onResponse={this.handleSocialResponse}
       />
       <GoogleLogin
-        onSuccess={(response) => { console.log(response) }}
-        onFailure={(response) => { console.log(response) }}
+        onSuccess={this.handleSocialResponse}
+        onFailure={(response) => { console.error(response) }}
       />
       <SubmitButton inverse onClick={this.logIn}>Log in</SubmitButton>
     </>

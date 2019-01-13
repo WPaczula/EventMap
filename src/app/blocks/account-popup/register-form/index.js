@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { SubmitButton } from '../style'
 import Input from '../../input'
 import MessagePopup from '../../message-popup'
+import FacebookLogin from '../facebook-login'
+import GoogleLogin from '../google-login'
 
 class RegisterForm extends Component {
   state = {
@@ -16,6 +18,7 @@ class RegisterForm extends Component {
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    socialLogin: PropTypes.func.isRequired,
   }
 
   setNickname = (nickname) => {
@@ -42,6 +45,16 @@ class RegisterForm extends Component {
 
     if (password === confirmPassword) onSubmit(email, nickname, password)
     else this.setState(() => ({ errorMessage: 'Passwords don\'t match', shouldShowError: true }))
+  }
+
+  handleSocialResponse = (response) => {
+    const { name, email, userID } = response
+    const { socialLogin } = this.props
+
+    if (name && email && userID) {
+      console.log(response)
+      socialLogin(name, email, userID)
+    }
   }
 
   render() {
@@ -84,6 +97,15 @@ class RegisterForm extends Component {
         type="password"
         icon="💬"
       />
+
+      <FacebookLogin
+        onResponse={this.handleSocialResponse}
+      />
+      <GoogleLogin
+        onSuccess={this.handleSocialResponse}
+        onFailure={(response) => { console.error(response) }}
+      />
+
       <SubmitButton inverse onClick={this.register}>Register</SubmitButton>
       { shouldShowError && (
         <MessagePopup error unMount={() => { this.setState({ shouldShowError: false }) }}>
