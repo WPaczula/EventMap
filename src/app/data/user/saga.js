@@ -19,11 +19,10 @@ import {
   userDataLoadingFailed,
   deleteAccountSucceeded,
   deleteAccountFailed,
-  logOut,
 } from './actions'
 import { selectTokens, selectAccessToken, selectUsersId } from './selectors'
 
-export function* getAccessToken(api, window, action) {
+export function* getAccessToken(api, action) {
   try {
     const savedTokens = yield select(selectTokens)
     if (!savedTokens) {
@@ -31,8 +30,6 @@ export function* getAccessToken(api, window, action) {
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
-      /* eslint-disable-next-line */
-      if (typeof window !== 'undefined' && window && window.location) window.location.reload()
     }
   } catch (e) {
     yield put(storeTokensError(e))
@@ -72,8 +69,8 @@ export function* deleteUserAccount(api) {
     const usersId = yield select(selectUsersId)
 
     yield call(api.deleteUsersAccount, tokens)
+    yield call(Cookie.remove, COOKIE_NAME)
 
-    yield put(logOut())
     yield put(deleteAccountSucceeded(usersId))
   } catch (e) {
     yield put(deleteAccountFailed(e))
@@ -81,7 +78,7 @@ export function* deleteUserAccount(api) {
 }
 
 function* userSaga(api) {
-  yield takeLatest(GET_TOKENS, getAccessToken, api, window)
+  yield takeLatest(GET_TOKENS, getAccessToken, api)
   yield takeLatest(LOG_OUT, logout)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)

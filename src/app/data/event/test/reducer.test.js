@@ -150,13 +150,13 @@ describe('event reducer', () => {
     expect(state).toEqual(makeState({ map: events }))
   })
 
-  it('should store error when map fetch failed.', () => {
+  it('should not store error when map fetch failed.', () => {
     const error = new Error()
     const action = fetchMapEventsFailed(error)
 
     const state = reducer(makeState(), action)
 
-    expect(state).toEqual(makeState({ map: { error } }))
+    expect(state).toEqual(makeState())
   })
 
   it('should store an id of a new event.', () => {

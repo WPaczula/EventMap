@@ -161,6 +161,7 @@ class UserPage extends Component {
             new Array(5).fill().map((e, i) => <EventTile.Loading key={`loading-created-tile${i}`} />)
           }
         </EventsSection>
+        { isAccountDeleted && <Redirect to="/" />}
       </UserPageLayout>
     )
   }

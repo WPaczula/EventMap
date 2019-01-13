@@ -46,7 +46,10 @@ const handlers = {
   [GET_USERS_DATA_SUCCEEDED]: (state, { id, data }) => state.setIn(['byId', id], data),
   [GET_USERS_DATA_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
-  [DELETE_ACCOUNT_SUCCEEDED]: (state, { id }) => state.set('deleted', true).setIn(['byId', id], null),
+  [DELETE_ACCOUNT_SUCCEEDED]: (state, { id }) => state
+    .set('deleted', true)
+    .setIn(['byId', id], null)
+    .set('tokens', null),
   [DELETE_ACCOUNT_FAILED]: (state, { error }) => state.setIn(['deleted', 'error'], error),
   [CLEAR_ACCOUNT_DELETION_FAILED]: state => state.set('deleted', false),
 }
