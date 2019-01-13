@@ -3,12 +3,12 @@ import Cookie from '../../../lib/cookie'
 import { COOKIE_NAME, GET_TOKENS } from '../constants'
 import {
   getAccessToken,
-  clearTokens,
+  logout,
   getUsersData,
   deleteUserAccount,
 } from '../saga'
 import {
-  selectTokens, selectAccessToken,
+  selectTokens, selectAccessToken, selectUsersId,
 } from '../selectors'
 import {
   storeTokens,
@@ -24,9 +24,18 @@ import {
 describe('user', () => {
   describe('sagas', () => {
     describe('clearTokens', () => {
-      it('should clear cookies.', () => expectSaga(clearTokens)
-        .call(Cookie.remove, COOKIE_NAME)
-        .run())
+      it('should clear cookies.', () => {
+        const api = { logoutUser: jest.fn() }
+        const token = 'token'
+
+        return expectSaga(logout, api)
+          .provide([
+            [matchers.select(selectAccessToken), token],
+          ])
+          .call(api.logoutUser, token)
+          .call(Cookie.remove, COOKIE_NAME)
+          .run()
+      })
     })
 
     describe('getAccessToken', () => {
@@ -55,9 +64,8 @@ describe('user', () => {
         const email = 'email'
         const password = 'password'
         const action = { type: GET_TOKENS, email, password }
-        const window = { location: { reload: jest.fn() } }
 
-        return expectSaga(getAccessToken, api, window, action)
+        return expectSaga(getAccessToken, api, action)
           .provide([
             [matchers.select(selectTokens), undefined],
           ])
@@ -133,10 +141,12 @@ describe('delete account saga', () => {
     const tokens = {}
     const api = { deleteUsersAccount: jest.fn() }
     const action = deleteAccount()
+    const id = 'id'
 
     return expectSaga(deleteUserAccount, api, action)
       .provide([
         [matchers.select(selectAccessToken), tokens],
+        [matchers.select(selectUsersId), id],
       ])
       .call(api.deleteUsersAccount, tokens)
       .run()
@@ -146,13 +156,16 @@ describe('delete account saga', () => {
     const tokens = {}
     const api = { deleteUsersAccount: jest.fn() }
     const action = deleteAccount()
+    const id = 'id'
 
     return expectSaga(deleteUserAccount, api, action)
       .provide([
         [matchers.select(selectAccessToken), tokens],
+        [matchers.select(selectUsersId), id],
       ])
       .call(api.deleteUsersAccount, tokens)
-      .put(deleteAccountSucceeded())
+      .call(Cookie.remove, COOKIE_NAME)
+      .put(deleteAccountSucceeded(id))
       .run()
   })
 
@@ -161,10 +174,12 @@ describe('delete account saga', () => {
     const error = new Error()
     const api = { deleteUsersAccount: jest.fn().mockImplementation(() => { throw error }) }
     const action = deleteAccount()
+    const id = 'id'
 
     return expectSaga(deleteUserAccount, api, action)
       .provide([
         [matchers.select(selectAccessToken), tokens],
+        [matchers.select(selectUsersId), id],
       ])
       .call(api.deleteUsersAccount, tokens)
       .put(deleteAccountFailed(error))

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router'
 import LoginStateControl from '../component'
 import { selectIsUserSignedIn } from '../../../data/user/selectors'
-import { getAccessToken, clearTokens } from '../../../data/user/actions'
+import { getAccessToken, logOut } from '../../../data/user/actions'
 import { createMockStore } from '../../../../../test/store'
 import { NOOPComponent } from '../../../../../test/components'
 import LoginStateControlContainer from '../index'
@@ -34,7 +34,7 @@ describe('login state control container', () => {
     props.logOut()
 
     expect(store.dispatch).toHaveBeenCalledWith(getAccessToken())
-    expect(store.dispatch).toHaveBeenCalledWith(clearTokens())
+    expect(store.dispatch).toHaveBeenCalledWith(logOut())
   })
 })
 

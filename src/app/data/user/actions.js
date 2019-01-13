@@ -2,7 +2,7 @@ import {
   GET_TOKENS,
   STORE_TOKENS,
   FAILED_TO_GET_TOKENS,
-  CLEAR_TOKENS,
+  LOG_OUT,
   CREATE_ACCOUNT,
   ACCOUNT_CREATED,
   ACCOUNT_CREATION_FAILED,
@@ -21,7 +21,7 @@ import {
 export const getAccessToken = (email, password) => ({ type: GET_TOKENS, email, password })
 export const storeTokens = tokens => ({ type: STORE_TOKENS, tokens })
 export const storeTokensError = error => ({ type: FAILED_TO_GET_TOKENS, error })
-export const clearTokens = () => ({ type: CLEAR_TOKENS })
+export const logOut = () => ({ type: LOG_OUT })
 
 export const createAccount = (email, nickname, password) => ({
   type: CREATE_ACCOUNT, email, nickname, password,
@@ -39,8 +39,9 @@ export const handleError = () => ({ type: HANDLE_ERROR })
 export const deleteAccount = () => ({
   type: DELETE_ACCOUNT_REQUESTED,
 })
-export const deleteAccountSucceeded = () => ({
+export const deleteAccountSucceeded = id => ({
   type: DELETE_ACCOUNT_SUCCEEDED,
+  id,
 })
 export const deleteAccountFailed = error => ({
   type: DELETE_ACCOUNT_FAILED,

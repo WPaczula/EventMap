@@ -5,7 +5,7 @@ import Cookie from '../../lib/cookie'
 import {
   GET_TOKENS,
   COOKIE_NAME,
-  CLEAR_TOKENS,
+  LOG_OUT,
   CREATE_ACCOUNT,
   GET_USERS_DATA,
   DELETE_ACCOUNT_REQUESTED,
@@ -21,9 +21,9 @@ import {
   deleteAccountSucceeded,
   deleteAccountFailed,
 } from './actions'
-import { selectTokens, selectAccessToken } from './selectors'
+import { selectTokens, selectAccessToken, selectUsersId } from './selectors'
 
-export function* getAccessToken(api, window, action) {
+export function* getAccessToken(api, action) {
   try {
     const savedTokens = yield select(selectTokens)
     if (!savedTokens) {
@@ -31,15 +31,16 @@ export function* getAccessToken(api, window, action) {
 
       yield put(storeTokens(tokens))
       yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
-      /* eslint-disable-next-line */
-      if (typeof window !== 'undefined' && window && window.location) window.location.reload()
     }
   } catch (e) {
     yield put(storeTokensError(e))
   }
 }
 
-export function* clearTokens() {
+export function* logout(api) {
+  const token = yield select(selectAccessToken)
+
+  yield call(api.logoutUser, token)
   yield call(Cookie.remove, COOKIE_NAME)
 }
 
@@ -66,9 +67,12 @@ export function* getUsersData(api, { id }) {
 export function* deleteUserAccount(api) {
   try {
     const tokens = yield select(selectAccessToken)
-    yield call(api.deleteUsersAccount, tokens)
+    const usersId = yield select(selectUsersId)
 
-    yield put(deleteAccountSucceeded())
+    yield call(api.deleteUsersAccount, tokens)
+    yield call(Cookie.remove, COOKIE_NAME)
+
+    yield put(deleteAccountSucceeded(usersId))
   } catch (e) {
     yield put(deleteAccountFailed(e))
   }
@@ -88,8 +92,8 @@ export function* logInViaSocial(api, window, { name, email, userID }) {
 }
 
 function* userSaga(api) {
-  yield takeLatest(GET_TOKENS, getAccessToken, api, window)
-  yield takeLatest(CLEAR_TOKENS, clearTokens)
+  yield takeLatest(GET_TOKENS, getAccessToken, api)
+  yield takeLatest(LOG_OUT, logout)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
   yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)

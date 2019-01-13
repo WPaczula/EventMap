@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import {
   getAccessToken,
-  clearTokens,
+  logOut,
   createAccount,
   handleError,
   handleRegister,
@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(
     handleError,
     handleRegister,
     logIn: getAccessToken,
-    logOut: clearTokens,
+    logOut,
     register: createAccount,
     socialLogin,
   },

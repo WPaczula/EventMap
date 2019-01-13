@@ -110,5 +110,14 @@ export default class Api {
       client_id,
       client_secret,
     },
+    noContent: true,
+  })
+
+  logoutUser = token => post({
+    url: `${this.apiUrl}/authorization/logout`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    noContent: true,
   })
 }

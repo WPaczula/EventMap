@@ -11,7 +11,6 @@ import {
   GIVE_UP_EVENT_FAILED,
   HANDLE_EVENT_ERROR,
   GET_MAP_EVENTS_SUCCEEDED,
-  GET_MAP_EVENTS_FAILED,
   CREATE_NEW_EVENT_SUCEEDED,
   CREATE_NEW_EVENT_FAILED,
   CLEAR_NEW_EVENT_FLAG,
@@ -46,7 +45,6 @@ const handlers = {
   [GIVE_UP_EVENT_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'error'], error),
 
   [GET_MAP_EVENTS_SUCCEEDED]: (state, { events }) => state.set('map', events),
-  [GET_MAP_EVENTS_FAILED]: (state, { error }) => state.setIn(['map', 'error'], error),
 
   [CREATE_NEW_EVENT_SUCEEDED]: (state, { id }) => state.set('newEvent', id),
   [CREATE_NEW_EVENT_FAILED]: (state, { error }) => state.setIn(['newEvent', 'error'], error),
