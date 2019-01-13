@@ -71,6 +71,16 @@ class UserPage extends Component {
     } = this.props
     const { visibleId } = this.state
 
+    if (userData && userData.error) {
+      return (
+        <UserPageLayout>
+          <UserName>
+            {`${userData.error.message} 🙈`}
+          </UserName>
+        </UserPageLayout>
+      )
+    }
+
     return userData ? (
       <UserPageLayout>
         <UserName>
@@ -151,6 +161,7 @@ class UserPage extends Component {
             new Array(5).fill().map((e, i) => <EventTile.Loading key={`loading-created-tile${i}`} />)
           }
         </EventsSection>
+        { isAccountDeleted && <Redirect to="/" />}
       </UserPageLayout>
     )
   }

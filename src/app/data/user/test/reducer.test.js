@@ -3,7 +3,7 @@ import reducer from '../reducer'
 import {
   storeTokens,
   storeTokensError,
-  clearTokens,
+  logOut,
   handleError,
   createAccount,
   accountCreated,
@@ -68,7 +68,7 @@ describe('user', () => {
 
     it('should clear tokens.', () => {
       const prevState = makeState({ tokens: {} })
-      const action = clearTokens()
+      const action = logOut()
 
       const nextState = reducer(prevState, action)
 
@@ -132,12 +132,13 @@ describe('user', () => {
       expect(nextState).toEqual(makeState({ byId: { [id]: { error } } }))
     })
 
-    it('should store information about deleted user.', () => {
-      const action = deleteAccountSucceeded()
+    it('should store information about deleted user and clear saved data.', () => {
+      const id = 'id'
+      const action = deleteAccountSucceeded(id)
 
-      const nextState = reducer(makeState(), action)
+      const nextState = reducer(makeState({ byId: { [id]: {} } }), action)
 
-      expect(nextState).toEqual(makeState({ deleted: true }))
+      expect(nextState).toEqual(makeState({ deleted: true, byId: { [id]: null } }))
     })
 
     it('should store error if one happened after trying to delete an account.', () => {

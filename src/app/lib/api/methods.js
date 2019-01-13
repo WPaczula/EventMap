@@ -18,11 +18,12 @@ export const get = ({ url, query, ...rest }) => {
     ...rest,
   }).then((r) => {
     if (!r.ok) {
-      throw new Error(r.message)
+      return r.json()
+        .then((e) => { throw e })
     }
 
     return r.json()
-  }).catch((e) => { throw e })
+  })
 }
 
 const withBody = method => ({
@@ -42,7 +43,8 @@ const withBody = method => ({
   ...rest,
 }).then((r) => {
   if (!r.ok) {
-    throw new Error(r.message)
+    return r.json()
+      .then((e) => { throw e })
   }
 
   if (noContent) {
