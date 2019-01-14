@@ -103,14 +103,13 @@ export default class Api {
 
   socialLogin = (name, email, userId) => post({
     url: `${this.apiUrl}/authorization/social`,
-    body: {
+    data: {
       name,
       email,
       userId,
       client_id,
       client_secret,
     },
-    noContent: true,
   })
 
   logoutUser = token => post({

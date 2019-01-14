@@ -6,21 +6,32 @@ import { FacebookButton } from './style'
 
 export default class FacebookLoginComponent extends Component {
   static propTypes = {
-    onClick: PropTypes.func,
-    onResponse: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      response: null,
+    }
+  }
+
+  storeResponse = (response) => {
+    this.setState({ response })
   }
 
   render() {
-    const { onClick, onResponse } = this.props
+    const { onClick } = this.props
+    const { response } = this.state
 
     return (
       <FacebookLogin
         appId={facebookApi}
         autoLoad
         fields="name,email"
-        onClick={onClick}
-        callback={onResponse}
-        onFailure={e => console.error(e)}
+        onClick={() => onClick(response)}
+        callback={this.storeResponse}
         render={renderProps => (
           <FacebookButton onClick={renderProps.onClick}>Login with facebook</FacebookButton>
         )}

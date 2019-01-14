@@ -28,13 +28,23 @@ class LoginForm extends Component {
     onSubmit(email, password)
   }
 
-  handleSocialResponse = (response) => {
+  handleFacebookResponse = (response) => {
     const { name, email, userID } = response
     const { socialLogin } = this.props
 
     if (name && email && userID) {
-      console.log(response)
       socialLogin(name, email, userID)
+    }
+  }
+
+  handleGoogleResponse = (response) => {
+    const { profileObj } = response
+    const { socialLogin } = this.props
+
+    const { name, email, googleId } = profileObj
+
+    if (name && email && googleId) {
+      socialLogin(name, email, googleId)
     }
   }
 
@@ -58,10 +68,10 @@ class LoginForm extends Component {
         icon="💬"
       />
       <FacebookLogin
-        onResponse={this.handleSocialResponse}
+        onClick={this.handleFacebookResponse}
       />
       <GoogleLogin
-        onSuccess={this.handleSocialResponse}
+        onSuccess={this.handleGoogleResponse}
         onFailure={(response) => { console.error(response) }}
       />
       <SubmitButton inverse onClick={this.logIn}>Log in</SubmitButton>

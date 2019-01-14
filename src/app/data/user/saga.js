@@ -84,8 +84,6 @@ export function* logInViaSocial(api, window, { name, email, userID }) {
 
     yield put(storeTokens(tokens))
     yield call(Cookie.set, COOKIE_NAME, JSON.stringify(tokens))
-    /* eslint-disable-next-line */
-    if (typeof window !== 'undefined' && window && window.location) window.location.reload()
   } catch (e) {
     yield put(storeTokensError(e))
   }
@@ -93,7 +91,7 @@ export function* logInViaSocial(api, window, { name, email, userID }) {
 
 function* userSaga(api) {
   yield takeLatest(GET_TOKENS, getAccessToken, api)
-  yield takeLatest(LOG_OUT, logout)
+  yield takeLatest(LOG_OUT, logout, api)
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
   yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)

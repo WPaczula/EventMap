@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import { didTokenExpire } from './utils'
 
 const selectUserState = state => state.user
 
@@ -15,7 +14,7 @@ export const selectAccessToken = createSelector(
 
 export const selectIsUserSignedIn = createSelector(
   selectTokens,
-  tokens => !!(tokens && !didTokenExpire(tokens.expires)),
+  tokens => !!(tokens && tokens.access_token),
 )
 
 export const selectUnhandledRegister = createSelector(

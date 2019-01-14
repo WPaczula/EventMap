@@ -47,13 +47,23 @@ class RegisterForm extends Component {
     else this.setState(() => ({ errorMessage: 'Passwords don\'t match', shouldShowError: true }))
   }
 
-  handleSocialResponse = (response) => {
+  handleFacebookResponse = (response) => {
     const { name, email, userID } = response
     const { socialLogin } = this.props
 
     if (name && email && userID) {
-      console.log(response)
       socialLogin(name, email, userID)
+    }
+  }
+
+  handleGoogleResponse = (response) => {
+    const { profileObj } = response
+    const { socialLogin } = this.props
+
+    const { name, email, googleId } = profileObj
+
+    if (name && email && googleId) {
+      socialLogin(name, email, googleId)
     }
   }
 
@@ -99,10 +109,10 @@ class RegisterForm extends Component {
       />
 
       <FacebookLogin
-        onResponse={this.handleSocialResponse}
+        onClick={this.handleFacebookResponse}
       />
       <GoogleLogin
-        onSuccess={this.handleSocialResponse}
+        onSuccess={this.handleGoogleResponse}
         onFailure={(response) => { console.error(response) }}
       />
 
