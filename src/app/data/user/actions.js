@@ -15,6 +15,7 @@ import {
   DELETE_ACCOUNT_SUCCEEDED,
   DELETE_ACCOUNT_FAILED,
   CLEAR_ACCOUNT_DELETION_FAILED,
+  SOCIAL_LOGIN_REQUESTED,
 } from './constants'
 
 export const getAccessToken = (email, password) => ({ type: GET_TOKENS, email, password })
@@ -48,4 +49,11 @@ export const deleteAccountFailed = error => ({
 })
 export const clearAccountDeletionFailed = () => ({
   type: CLEAR_ACCOUNT_DELETION_FAILED,
+})
+
+export const socialLogin = (name, email, userID) => ({
+  type: SOCIAL_LOGIN_REQUESTED,
+  name,
+  email,
+  userID,
 })

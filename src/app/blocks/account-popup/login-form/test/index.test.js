@@ -6,7 +6,7 @@ import { SubmitButton } from '../../style'
 describe('Login form', () => {
   it('should pass email and password with login fn.', () => {
     const logIn = jest.fn()
-    const wrapper = shallow(<LoginForm onSubmit={logIn} />)
+    const wrapper = shallow(<LoginForm onSubmit={logIn} socialLogin={jest.fn()} />)
     wrapper.instance().setPassword('password')
     wrapper.instance().setEmail('email')
 

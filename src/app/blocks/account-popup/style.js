@@ -10,7 +10,7 @@ export const StyledPopup = styled.div`
     min-width: 26em;
     min-height: 35em;
     width: 20%;
-    height: 60%;
+    height: 70%;
     border-radius: 5%;
   `}
 
@@ -68,3 +68,17 @@ export const SubmitButton = styled(Button)`
 `
 
 export const LogoContainer = () => <StyledLogoContainer><Logo /></StyledLogoContainer>
+
+export const createSocialButton = color => styled(Button)`
+  background-color: ${color};
+  border-color: white;
+  border-radius: 4px;
+  display: block;
+  margin: 1.5rem auto;
+  width: 15rem;
+
+  &:hover {
+    background-color: ${color};
+    border-color: white;
+  }
+`

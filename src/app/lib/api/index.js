@@ -3,7 +3,6 @@ import {
 } from './methods'
 /* eslint-disable camelcase */
 import { clientId as client_id, clientSecret as client_secret } from '../../../../config'
-/* eslint-enable */
 
 export default class Api {
   constructor(apiUrl) {
@@ -100,6 +99,17 @@ export default class Api {
       Authorization: `Bearer ${token}`,
     },
     noContent: true,
+  })
+
+  socialLogin = (name, email, userId) => post({
+    url: `${this.apiUrl}/authorization/social`,
+    data: {
+      name,
+      email,
+      userId,
+      client_id,
+      client_secret,
+    },
   })
 
   logoutUser = token => post({
