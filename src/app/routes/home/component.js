@@ -12,7 +12,7 @@ import Scroller from '../../blocks/scroller'
 import EventTile from '../../blocks/event-tile'
 
 class Home extends Component {
-  propTypes = {
+  static propTypes = {
     loadPopularEvents: PropTypes.func.isRequired,
     popularEvents: PropTypes.array,
     isUserSignedIn: PropTypes.bool,

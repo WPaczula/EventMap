@@ -73,12 +73,13 @@ class CategoryPage extends Component {
             ? events.map(e => (
               <EventTile
                 {...e}
+                key={e.id}
                 isVisible={visibleId === e.id}
                 navigate={this.navigate}
                 setVisible={this.setVisible}
               />
             ))
-            : new Array(10).fill().map(e => <EventTile.Loading {...e} />)
+            : new Array(10).fill().map((e, i) => <EventTile.Loading key={`loading-category-event-${i}`} />)
         }
       </CategoryPageContainer>
     )

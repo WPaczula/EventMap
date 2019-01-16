@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import ButtonLink from '../../blocks/button-link'
 import { secondaryColor } from '../../style/colors'
+import media from '../../style/media'
 
 export const StyledHome = styled.div`
   text-align: center;
@@ -13,6 +14,12 @@ export const CtaButton = styled(ButtonLink)`
   display: block;
   margin: 2rem auto;
   font-size: 2rem;
+
+  ${media.upToTablet`
+    max-width: 15rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+  `}
 `
 
 export const PopularEventsSection = styled.div`

@@ -94,7 +94,7 @@ export const Title = styled.h1`
 export const Description = styled.p`
   padding: 0 1em;
   color: white;
-  max-height: 8.5em;
+  max-height: 7.2em;
   overflow: hidden;
 
   ${media.upToTablet`
