@@ -28,6 +28,9 @@ import {
   LOAD_SEARCH_EVENTS_SUCCEEDED,
   LOAD_SEARCH_EVENTS_FAILED,
   LOAD_EVENT_PARTICIPANTS,
+  LOAD_POPULAR_EVENTS,
+  LOAD_POPULAR_EVENTS_SUCCEEDED,
+  LOAD_POPULAR_EVENTS_FAILED,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -214,4 +217,16 @@ export const eventParticipantsLoadingFailed = (id, error) => ({
   type: LOAD_SEARCH_EVENTS_FAILED,
   error,
   id,
+})
+
+export const loadPopularEvents = () => ({
+  type: LOAD_POPULAR_EVENTS,
+})
+export const popularEventsLoaded = events => ({
+  type: LOAD_POPULAR_EVENTS_SUCCEEDED,
+  events,
+})
+export const popularEventsLoadingError = error => ({
+  type: LOAD_POPULAR_EVENTS_FAILED,
+  error,
 })

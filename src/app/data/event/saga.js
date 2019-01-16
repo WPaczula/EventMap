@@ -11,6 +11,7 @@ import {
   UPDATE_EVENT_REQUESTED,
   LOAD_SEARCH_EVENTS_REQUESTED,
   LOAD_EVENT_PARTICIPANTS,
+  LOAD_POPULAR_EVENTS,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -31,6 +32,8 @@ import {
   searchEventsLoaded,
   eventParticipantsLoaded,
   eventParticipantsLoadingFailed,
+  popularEventsLoaded,
+  popularEventsLoadingError,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
 import { loadUsersData } from '../user/actions'
@@ -134,6 +137,16 @@ export function* fetchEventParticipants(api, { id }) {
   }
 }
 
+export function* fetchPopularEvents(api) {
+  try {
+    const events = yield call(api.popularEvents)
+
+    yield put(popularEventsLoaded(events))
+  } catch (e) {
+    yield put(popularEventsLoadingError(e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
@@ -144,4 +157,5 @@ export default function* eventSaga(api) {
   yield takeLatest(UPDATE_EVENT_REQUESTED, editEvent, api)
   yield takeLatest(LOAD_SEARCH_EVENTS_REQUESTED, searchEvents, api)
   yield takeLatest(LOAD_EVENT_PARTICIPANTS, fetchEventParticipants, api)
+  yield takeLatest(LOAD_POPULAR_EVENTS, fetchPopularEvents, api)
 }

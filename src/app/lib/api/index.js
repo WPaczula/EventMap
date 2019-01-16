@@ -123,4 +123,8 @@ export default class Api {
     },
     noContent: true,
   })
+
+  popularEvents = () => get({
+    url: `${this.apiUrl}/events/popular`,
+  })
 }

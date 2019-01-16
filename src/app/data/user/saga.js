@@ -40,7 +40,7 @@ export function* getAccessToken(api, action) {
 export function* logout(api) {
   const token = yield select(selectAccessToken)
 
-  // yield call(api.logoutUser, token)
+  yield call(api.logoutUser, token)
   yield call(Cookie.remove, COOKIE_NAME)
 }
 

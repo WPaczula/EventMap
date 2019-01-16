@@ -31,6 +31,7 @@ describe('event reducer', () => {
       newEvent = null,
       updateEvent = null,
       search = null,
+      popular = null,
     } = opts
 
     return Immutable({
@@ -40,6 +41,7 @@ describe('event reducer', () => {
       newEvent,
       updateEvent,
       search,
+      popular,
     })
   }
 
