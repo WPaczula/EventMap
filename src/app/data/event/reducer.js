@@ -20,6 +20,8 @@ import {
   UPDATE_LOADED_EVENT,
   LOAD_SEARCH_EVENTS_FAILED,
   LOAD_SEARCH_EVENTS_SUCCEEDED,
+  LOAD_EVENT_PARTICIPANTS_SUCCEEDED,
+  LOAD_EVENT_PARTICIPANTS_FAILED,
 } from './constants'
 
 const initialState = Immutable({
@@ -63,6 +65,9 @@ const handlers = {
 
   [LOAD_SEARCH_EVENTS_SUCCEEDED]: (state, { events }) => state.set('search', events),
   [LOAD_SEARCH_EVENTS_FAILED]: (state, { error }) => state.setIn(['search', 'error'], error),
+
+  [LOAD_EVENT_PARTICIPANTS_SUCCEEDED]: (state, { id, participants }) => state.setIn(['byId', id, 'participants'], participants),
+  [LOAD_EVENT_PARTICIPANTS_FAILED]: (state, { id, error }) => state.setIn(['byId', id, 'participants', 'error'], error),
 }
 
 export default makeReducer(handlers, initialState)

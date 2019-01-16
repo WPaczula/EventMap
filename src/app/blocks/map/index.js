@@ -7,10 +7,10 @@ class MapController extends Component {
   static propTypes = {
     onChange: PropTypes.func,
     loading: PropTypes.bool,
-    position: PropTypes.objectOf(PropTypes.shape({
+    position: PropTypes.shape({
       lat: PropTypes.number,
       lng: PropTypes.number,
-    })),
+    }),
   }
 
   constructor(props) {

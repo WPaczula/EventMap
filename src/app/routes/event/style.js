@@ -49,6 +49,16 @@ export const Title = styled.h1`
   text-align: center;
 `
 
+export const SubHeader = styled.h2`
+  width: 100vw;
+  text-align: center;
+  color: white;
+  background-color: ${secondaryColor};
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+`
+
 export const Image = styled.img`
   ${props => props.src === '' && css`
     background-color: ${secondaryColor};

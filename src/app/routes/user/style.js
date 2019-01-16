@@ -30,12 +30,6 @@ export const EventsTitle = styled.h2`
   margin: 1em 0;
 `
 
-export const Scroller = styled.div`
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: 100%;
-`
-
 export const EventsSection = styled.div`
   display: flex;
   

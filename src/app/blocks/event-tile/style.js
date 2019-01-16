@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { secondaryColorLight } from '../../style/colors'
 import media from '../../style/media'
 
 export const EventTileContainer = styled.div`
@@ -95,7 +94,7 @@ export const Title = styled.h1`
 export const Description = styled.p`
   padding: 0 1em;
   color: white;
-  max-height: 8em;
+  max-height: 8.5em;
   overflow: hidden;
 
   ${media.upToTablet`
@@ -107,7 +106,7 @@ export const Description = styled.p`
 
 export const Owner = styled.p`
   padding: 1em;
-  color: ${secondaryColorLight};
+  color: white;
   position: absolute;
   top: 10em;
   right: 0;

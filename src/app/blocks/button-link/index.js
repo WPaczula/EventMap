@@ -18,6 +18,8 @@ const ButtonLink = styled(Link)`
 
   ${hover`
     background: ${secondaryColorDark};
+    text-decoration: none;
+    color: white;
   `}
 
   ${props => props.inverse && css`

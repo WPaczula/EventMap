@@ -8,10 +8,9 @@ import {
 
 const Home = ({ isUserSignedIn }) => (
   <StyledHome>
-    Welcome home 🙌
     { isUserSignedIn && <CtaButton to="/new-event">New event!</CtaButton>}
-    <CtaButton to="/search">Search</CtaButton>
     <SearchMap />
+    <CtaButton to="/search">Search</CtaButton>
   </StyledHome>
 )
 

@@ -47,6 +47,10 @@ export default class Api {
     },
   })
 
+  loadEventParticipants = id => get({
+    url: `${this.apiUrl}/events${id}/participants`,
+  })
+
   signUpForEvent = (id, token) => post({
     url: `${this.apiUrl}/events/${id}/participants`,
     headers: {

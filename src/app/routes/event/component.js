@@ -5,6 +5,7 @@ import MessagePopup from '../../blocks/message-popup'
 import Address from '../../blocks/address'
 import Times from '../../blocks/times'
 import OfflinePage from '../../../static/error-message'
+import Participants from '../../blocks/participants'
 import {
   EventPageLayout,
   Image,
@@ -20,6 +21,7 @@ import {
   EditEventLink,
   Tags,
   Tag,
+  SubHeader,
 } from './style'
 
 class EventPage extends Component {
@@ -29,6 +31,7 @@ class EventPage extends Component {
     tryToSignUpForEvent: PropTypes.func.isRequired,
     tryToGiveUpEvent: PropTypes.func.isRequired,
     handleEventError: PropTypes.func.isRequired,
+    loadEventParticipants: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     usersId: PropTypes.string,
     event: PropTypes.shape({
@@ -52,14 +55,32 @@ class EventPage extends Component {
       cost: PropTypes.number,
       signed: PropTypes.bool,
       error: PropTypes.string,
+      showGuestList: PropTypes.bool.isRequired,
     }),
   }
 
   componentDidMount() {
-    const { event, id, loadEvent } = this.props
+    const {
+      event,
+      id,
+      loadEvent,
+      loadEventParticipants,
+    } = this.props
 
     if (!event || event.offline) {
       loadEvent(id)
+    }
+
+    if (event && event.showGuestList && !event.participants) {
+      loadEventParticipants(event.id)
+    }
+  }
+
+  componentDidUpdate() {
+    const { event, loadEventParticipants } = this.props
+
+    if (event.showGuestList && !event.participants) {
+      loadEventParticipants(event.id)
     }
   }
 
@@ -105,7 +126,7 @@ class EventPage extends Component {
               }
             </Header>
             <Tags>
-              {event.tags.map(t => <Tag>{t}</Tag>)}
+              {event.tags.map(t => <Tag key={t}>{t}</Tag>)}
             </Tags>
             <Content>
               <Description>
@@ -136,6 +157,17 @@ class EventPage extends Component {
                 ) }
               </InfoPanel>
             </Content>
+            {
+            event.showGuestList && <>
+              <SubHeader>
+                Participants
+              </SubHeader>
+              <Participants participants={event.participants || [{ id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }]} />
+            </>
+            }
+            <SubHeader>
+                Map
+            </SubHeader>
             <Map position={position} />
             { event.error && (
             <MessagePopup error unMount={() => { handleEventError(id) }}>

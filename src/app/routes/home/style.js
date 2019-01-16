@@ -8,6 +8,8 @@ export const StyledHome = styled.div`
 export const CtaButton = styled(ButtonLink)`
   flex: 0;
   max-width: 30rem;
+  padding: 2rem;
   display: block;
-  margin: 1rem auto;
+  margin: 2rem auto;
+  font-size: 2rem;
 `
