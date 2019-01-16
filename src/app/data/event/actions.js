@@ -27,6 +27,10 @@ import {
   LOAD_SEARCH_EVENTS_REQUESTED,
   LOAD_SEARCH_EVENTS_SUCCEEDED,
   LOAD_SEARCH_EVENTS_FAILED,
+  LOAD_EVENT_PARTICIPANTS,
+  LOAD_POPULAR_EVENTS,
+  LOAD_POPULAR_EVENTS_SUCCEEDED,
+  LOAD_POPULAR_EVENTS_FAILED,
 } from './constants'
 
 export const loadCategoryEvents = categoryId => ({
@@ -96,6 +100,7 @@ export const createNewEvent = (
   photoUrl,
   categoryId,
   tags = [],
+  showGuestList = true,
   maxParticipants = 1000,
   onlyRegistered = 1,
 ) => ({
@@ -113,6 +118,7 @@ export const createNewEvent = (
   tags,
   maxParticipants,
   onlyRegistered,
+  showGuestList,
 })
 export const createEventSucceeded = id => ({
   type: CREATE_NEW_EVENT_SUCEEDED,
@@ -139,6 +145,7 @@ export const updateEvent = (
   photoUrl,
   categoryId,
   tags = [],
+  showGuestList = true,
   maxParticipants = 1000,
   onlyRegistered = 1,
 ) => ({
@@ -155,6 +162,7 @@ export const updateEvent = (
   photoUrl,
   categoryId,
   tags,
+  showGuestList,
   maxParticipants,
   onlyRegistered,
 })
@@ -193,5 +201,32 @@ export const searchEventsLoaded = events => ({
 })
 export const searchEventsFailed = error => ({
   type: LOAD_SEARCH_EVENTS_FAILED,
+  error,
+})
+
+export const loadEventParticipants = id => ({
+  type: LOAD_EVENT_PARTICIPANTS,
+  id,
+})
+export const eventParticipantsLoaded = (id, participants) => ({
+  type: LOAD_SEARCH_EVENTS_SUCCEEDED,
+  participants,
+  id,
+})
+export const eventParticipantsLoadingFailed = (id, error) => ({
+  type: LOAD_SEARCH_EVENTS_FAILED,
+  error,
+  id,
+})
+
+export const loadPopularEvents = () => ({
+  type: LOAD_POPULAR_EVENTS,
+})
+export const popularEventsLoaded = events => ({
+  type: LOAD_POPULAR_EVENTS_SUCCEEDED,
+  events,
+})
+export const popularEventsLoadingError = error => ({
+  type: LOAD_POPULAR_EVENTS_FAILED,
   error,
 })

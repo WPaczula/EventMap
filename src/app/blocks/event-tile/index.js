@@ -50,7 +50,7 @@ class EventTile extends Component {
           <Shower isVisible={isVisible}>
             <Title>{title}</Title>
             <Description>{description}</Description>
-            <Owner>{ownerName}</Owner>
+            <Owner>~{ownerName}</Owner>
           </Shower>
         </InfoContainer>
       </EventTileContainer>

@@ -6,6 +6,7 @@ import { isNullOrUndefined } from 'util'
 import DateTimePicker from '../../blocks/date-time-picker'
 import Label from '../../blocks/label'
 import Input from '../../blocks/form-input'
+import Checkbox from '../../blocks/checkbox'
 import Form from '../../blocks/form'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
@@ -30,9 +31,9 @@ export default class EditEvent extends Component {
     successfulyEdited: PropTypes.bool,
     loadEvent: PropTypes.func.isRequired,
     updateLoadedEvent: PropTypes.func.isRequired,
-    event: PropTypes.objectOf(PropTypes.shape({
+    event: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       latitude: PropTypes.number.isRequired,
       longitude: PropTypes.number.isRequired,
@@ -43,7 +44,8 @@ export default class EditEvent extends Component {
       cost: PropTypes.number.isRequired,
       photoUrl: PropTypes.string.isRequired,
       tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    })),
+      showGuestList: PropTypes.bool.isRequired,
+    }),
   }
 
   state = {
@@ -59,6 +61,7 @@ export default class EditEvent extends Component {
     photoUrl: '',
     hasError: false,
     tags: [],
+    showGuestList: false,
   }
 
   componentDidMount() {
@@ -105,6 +108,7 @@ export default class EditEvent extends Component {
         cost,
         photoUrl,
         tags,
+        showGuestList,
       } = this.state
       const { id, eventLoaded } = this.props
       
@@ -123,6 +127,7 @@ export default class EditEvent extends Component {
         cost: Number(cost),
         photoUrl,
         tags,
+        showGuestList,
       }
       updateLoadedEvent(id, event)
     }
@@ -156,6 +161,7 @@ export default class EditEvent extends Component {
       cost,
       photoUrl,
       tags,
+      showGuestList,
     } = this.state
     const { updateEvent, id } = this.props
 
@@ -190,6 +196,7 @@ export default class EditEvent extends Component {
       photoUrl,
       Number(category.value),
       tags,
+      showGuestList,
     )
   }
 
@@ -207,6 +214,7 @@ export default class EditEvent extends Component {
       photoUrl,
       tags,
       hasError,
+      showGuestList,
     } = this.state
     const {
       event,
@@ -235,6 +243,11 @@ export default class EditEvent extends Component {
           <Label>
             Description
             <Input type="text" value={description} onChange={this.changeValue('description')} />
+          </Label>
+
+          <Label>
+            Show participants
+            <Checkbox type="checkbox" checked={showGuestList} onChange={this.changeInstantValue('showGuestList')} />
           </Label>
 
           <Label>

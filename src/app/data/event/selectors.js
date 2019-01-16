@@ -39,3 +39,8 @@ export const selectSearchEvents = createSelector(
   selectEventState,
   eventState => eventState && eventState.search,
 )
+
+export const selectPopularEvents = createSelector(
+  selectEventState,
+  eventState => eventState && eventState.popular,
+)

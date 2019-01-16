@@ -7,10 +7,10 @@ import PropTypes from 'prop-types'
 class MapSearcher extends Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
-    position: PropTypes.objectOf(PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
-    })),
+    position: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number,
+    }),
   }
 
   constructor(props) {

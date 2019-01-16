@@ -233,6 +233,7 @@ describe('create new event saga', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }
@@ -263,6 +264,7 @@ describe('create new event saga', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }
@@ -294,6 +296,7 @@ describe('create new event saga', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }
@@ -327,6 +330,7 @@ describe('edit event', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }
@@ -357,6 +361,7 @@ describe('edit event', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }
@@ -389,6 +394,7 @@ describe('edit event', () => {
       photoUrl: 'url',
       categoryId: 'id',
       tags: [],
+      showGuestList: true,
       maxParticipants: 1000,
       onlyRegistered: false,
     }

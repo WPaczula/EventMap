@@ -7,10 +7,10 @@ import {
   UserName,
   EventsSection,
   EventsTitle,
-  Scroller,
   DeleteButton,
 } from './style'
 import MessagePopup from '../../blocks/message-popup'
+import Scroller from '../../blocks/scroller'
 
 class UserPage extends Component {
   static propTypes = {

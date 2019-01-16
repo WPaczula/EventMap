@@ -5,6 +5,7 @@ import { Redirect as RouterRedirect } from 'react-router'
 import Input from '../../blocks/form-input'
 import Label from '../../blocks/label'
 import Form from '../../blocks/form'
+import Checkbox from '../../blocks/checkbox'
 import DateTimePicker from '../../blocks/date-time-picker'
 import Map from '../../blocks/map'
 import MessagePopup from '../../blocks/message-popup'
@@ -40,6 +41,7 @@ export default class CreateEvent extends Component {
     cost: 0,
     photoUrl: '',
     tags: [],
+    showGuestList: false,
     hasError: false,
     Redirect: () => null,
   }
@@ -87,6 +89,7 @@ export default class CreateEvent extends Component {
       cost,
       photoUrl,
       tags,
+      showGuestList,
     } = this.state
     const { createNewEvent } = this.props
 
@@ -120,6 +123,7 @@ export default class CreateEvent extends Component {
       photoUrl,
       Number(category.value),
       tags,
+      showGuestList,
     )
   }
 
@@ -136,6 +140,7 @@ export default class CreateEvent extends Component {
       hasError,
       Redirect,
       tags,
+      showGuestList,
     } = this.state
     const { categories, didNewEventFail, clearNewEvent } = this.props
 
@@ -155,6 +160,11 @@ export default class CreateEvent extends Component {
           <Label>
             Description
             <Input type="text" value={description} onChange={this.changeValue('description')} />
+          </Label>
+
+          <Label>
+            Show participants
+            <Checkbox type="checkbox" checked={showGuestList} onChange={this.changeInstantValue('showGuestList')} />
           </Label>
 
           <Label>

@@ -10,6 +10,8 @@ import {
   CREATE_NEW_EVENT_REQUESTED,
   UPDATE_EVENT_REQUESTED,
   LOAD_SEARCH_EVENTS_REQUESTED,
+  LOAD_EVENT_PARTICIPANTS,
+  LOAD_POPULAR_EVENTS,
 } from './constants'
 import {
   categoryEventsLoaded,
@@ -28,8 +30,13 @@ import {
   updateEventFailed,
   searchEventsFailed,
   searchEventsLoaded,
+  eventParticipantsLoaded,
+  eventParticipantsLoadingFailed,
+  popularEventsLoaded,
+  popularEventsLoadingError,
 } from './actions'
 import { selectAccessToken } from '../user/selectors'
+import { loadUsersData } from '../user/actions'
 
 export function* fetchCategoryEvents(api, { categoryId }) {
   try {
@@ -91,6 +98,7 @@ export function* createEvent(api, action) {
     const { id } = yield call(api.createNewEvent, params, token)
 
     yield put(createEventSucceeded(id))
+    yield put(loadUsersData(event.ownerId))
   } catch (e) {
     yield put(createEventFailed(e))
   }
@@ -119,6 +127,26 @@ export function* searchEvents(api, action) {
   }
 }
 
+export function* fetchEventParticipants(api, { id }) {
+  try {
+    const participants = yield call(api.loadEventParticipants, id)
+
+    yield put(eventParticipantsLoaded(id, participants))
+  } catch (e) {
+    yield put(eventParticipantsLoadingFailed(id, e))
+  }
+}
+
+export function* fetchPopularEvents(api) {
+  try {
+    const events = yield call(api.popularEvents)
+
+    yield put(popularEventsLoaded(events))
+  } catch (e) {
+    yield put(popularEventsLoadingError(e))
+  }
+}
+
 export default function* eventSaga(api) {
   yield takeLatest(FETCH_CATEGORY_EVENTS, fetchCategoryEvents, api)
   yield takeLatest(FETCH_EVENT, fetchEvent, api)
@@ -128,4 +156,6 @@ export default function* eventSaga(api) {
   yield takeLatest(CREATE_NEW_EVENT_REQUESTED, createEvent, api)
   yield takeLatest(UPDATE_EVENT_REQUESTED, editEvent, api)
   yield takeLatest(LOAD_SEARCH_EVENTS_REQUESTED, searchEvents, api)
+  yield takeLatest(LOAD_EVENT_PARTICIPANTS, fetchEventParticipants, api)
+  yield takeLatest(LOAD_POPULAR_EVENTS, fetchPopularEvents, api)
 }

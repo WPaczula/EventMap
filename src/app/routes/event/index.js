@@ -7,6 +7,7 @@ import {
   tryToSignUpForEvent,
   tryToGiveUpEvent,
   handleEventError,
+  loadEventParticipants,
 } from '../../data/event/actions'
 import EventPage from './component'
 import { selectIsUserSignedIn, selectUsersId } from '../../data/user/selectors'
@@ -26,6 +27,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   tryToSignUpForEvent,
   tryToGiveUpEvent,
   handleEventError,
+  loadEventParticipants,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage)

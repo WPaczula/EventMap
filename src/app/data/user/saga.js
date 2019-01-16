@@ -78,7 +78,7 @@ export function* deleteUserAccount(api) {
   }
 }
 
-export function* logInViaSocial(api, window, { name, email, userID }) {
+export function* logInViaSocial(api, { name, email, userID }) {
   try {
     const tokens = yield call(api.socialLogin, name, email, userID)
 
@@ -95,7 +95,7 @@ function* userSaga(api) {
   yield takeLatest(CREATE_ACCOUNT, createAccount, api)
   yield takeLatest(GET_USERS_DATA, getUsersData, api)
   yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
-  yield takeLatest(SOCIAL_LOGIN_REQUESTED, logInViaSocial, api, window)
+  yield takeLatest(SOCIAL_LOGIN_REQUESTED, logInViaSocial, api)
 }
 
 export default userSaga

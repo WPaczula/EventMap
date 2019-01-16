@@ -98,6 +98,7 @@ class MapSearcher extends Component {
                 e.latitude,
                 e.longitude,
               ]}
+              key={`${e.latitude}${e.longitude}`}
             >
               <Popup>
                 <Link to={`/events/${e.id}`}>{e.name}</Link>

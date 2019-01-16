@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
+import media from '../../style/media'
+import { secondaryColor } from '../../style/colors'
 
 export const CategoryTileLink = styled(Link)`
   text-decoration: none;
@@ -10,6 +12,10 @@ export const CategoryTileLink = styled(Link)`
   padding: 5rem 0;
   border-radius: 0.5rem;
   flex: 1;
+
+  ${media.upToTablet`
+    padding: 2rem 0;
+  `}
 `
 
 export const CategoryTitle = styled.p`
@@ -32,6 +38,7 @@ export const CategoryTileContainer = styled.div`
     color: lightgray;
   ` : css`
     background-image: url(${props.photoUrl});
+    background-color: ${secondaryColor};
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; 
