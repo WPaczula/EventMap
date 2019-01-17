@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects'
 import userSaga from './user/saga'
 import categorySaga from './category/saga'
 import eventSaga from './event/saga'
+import globalSaga from './global/saga'
 import Api from '../lib/api/index'
 import { apiUrl } from '../../../config'
 
@@ -12,5 +13,6 @@ export default function* sagas() {
     userSaga(api),
     categorySaga(api),
     eventSaga(api),
+    globalSaga(api),
   ])
 }

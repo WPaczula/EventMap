@@ -1,10 +1,19 @@
-import React from 'react'
-import StyledFooter from './style'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
+import { bindActionCreators } from 'redux'
+import { selectTerms } from '../../data/global/selectors'
+import { loadTerms } from '../../data/global/actions'
+import Footer from './component'
 
-const Footer = () => (
-  <StyledFooter>
-    Footer
-  </StyledFooter>
+const mapStateToProps = createSelector(
+  selectTerms,
+  terms => ({
+    terms,
+  }),
 )
 
-export default Footer
+const mapDispatchToProps = dispatch => bindActionCreators({
+  loadTerms,
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer)
