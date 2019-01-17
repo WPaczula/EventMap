@@ -127,4 +127,8 @@ export default class Api {
   popularEvents = () => get({
     url: `${this.apiUrl}/events/popular`,
   })
+
+  loadTerms = () => get({
+    url: `${this.apiUrl}/agreements`,
+  })
 }
