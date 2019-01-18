@@ -37,11 +37,16 @@ export function* getAccessToken(api, action) {
   }
 }
 
-export function* logout(api) {
-  const token = yield select(selectAccessToken)
+export function* logout(api, window) {
+  try {
+    const token = yield select(selectAccessToken)
 
-  yield call(api.logoutUser, token)
-  yield call(Cookie.remove, COOKIE_NAME)
+    yield call(api.logoutUser, token)
+    yield call(Cookie.remove, COOKIE_NAME)
+    window.location.reload()
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export function* createAccount(api, { email, nickname, password }) {
@@ -90,12 +95,16 @@ export function* logInViaSocial(api, { name, email, userID }) {
 }
 
 function* userSaga(api) {
-  yield takeLatest(GET_TOKENS, getAccessToken, api)
-  yield takeLatest(LOG_OUT, logout, api)
-  yield takeLatest(CREATE_ACCOUNT, createAccount, api)
-  yield takeLatest(GET_USERS_DATA, getUsersData, api)
-  yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
-  yield takeLatest(SOCIAL_LOGIN_REQUESTED, logInViaSocial, api)
+  try {
+    yield takeLatest(GET_TOKENS, getAccessToken, api)
+    yield takeLatest(LOG_OUT, logout, api, window)
+    yield takeLatest(CREATE_ACCOUNT, createAccount, api)
+    yield takeLatest(GET_USERS_DATA, getUsersData, api)
+    yield takeLatest(DELETE_ACCOUNT_REQUESTED, deleteUserAccount, api)
+    yield takeLatest(SOCIAL_LOGIN_REQUESTED, logInViaSocial, api)
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export default userSaga

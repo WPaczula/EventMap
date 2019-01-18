@@ -27,8 +27,9 @@ describe('user', () => {
       it('should clear cookies.', () => {
         const api = { logoutUser: jest.fn() }
         const token = 'token'
+        const window = { location: { reload: jest.fn() } }
 
-        return expectSaga(logout, api)
+        return expectSaga(logout, api, window)
           .provide([
             [matchers.select(selectAccessToken), token],
           ])
