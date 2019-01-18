@@ -3,7 +3,6 @@ import {
   STORE_TOKENS,
   FAILED_TO_GET_TOKENS,
   COOKIE_NAME,
-  LOG_OUT,
   ACCOUNT_CREATION_FAILED,
   ACCOUNT_CREATED,
   CREATE_ACCOUNT,
@@ -30,7 +29,6 @@ const handlers = {
   [FAILED_TO_GET_TOKENS]: (state, { error }) => state
     .set('error', error)
     .set('unhandledError', true),
-  [LOG_OUT]: state => state.set('tokens', null),
 
   [CREATE_ACCOUNT]: state => state
     .set('unhandledRegister', false)

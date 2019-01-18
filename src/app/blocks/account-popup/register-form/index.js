@@ -48,11 +48,13 @@ class RegisterForm extends Component {
   }
 
   handleFacebookResponse = (response) => {
-    const { name, email, userID } = response
-    const { socialLogin } = this.props
+    if (response) {
+      const { name, email, userID } = response
+      const { socialLogin } = this.props
 
-    if (name && email && userID) {
-      socialLogin(name, email, userID)
+      if (name && email && userID) {
+        socialLogin(name, email, userID)
+      }
     }
   }
 

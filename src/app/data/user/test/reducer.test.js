@@ -3,7 +3,6 @@ import reducer from '../reducer'
 import {
   storeTokens,
   storeTokensError,
-  logOut,
   handleError,
   createAccount,
   accountCreated,
@@ -64,15 +63,6 @@ describe('user', () => {
       const nextState = reducer(prevState, action)
 
       expect(nextState).toEqual(makeState({ error, unhandledError: true }))
-    })
-
-    it('should clear tokens.', () => {
-      const prevState = makeState({ tokens: {} })
-      const action = logOut()
-
-      const nextState = reducer(prevState, action)
-
-      expect(nextState).toEqual(makeState())
     })
 
     it('should clear unhandled errors.', () => {

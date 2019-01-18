@@ -10,7 +10,7 @@ import { X } from '../account-popup/style'
 
 export default class Footer extends Component {
   static propTypes = {
-    terms: PropTypes.string,
+    terms: PropTypes.object,
     loadTerms: PropTypes.func.isRequired,
   }
 
