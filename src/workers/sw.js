@@ -1,4 +1,4 @@
-const cacheName = '__EventMapCache__'
+const cacheName = '__NewEventMapCache__'
 const offlineUrl = './error.html'
 
 

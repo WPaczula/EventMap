@@ -3,7 +3,7 @@
   "short_name": "EventMap",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#607d8b",
+  "background_color": "#7200ca",
   "theme_color": "#7200ca",
   "description": "Find your events on map bro",
   "icons": [{
