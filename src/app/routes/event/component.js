@@ -162,7 +162,7 @@ class EventPage extends Component {
               <SubHeader>
                 Participants
               </SubHeader>
-              <Participants participants={event.participants || [{ id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }, { id: 'dsa', nickname: 'dsasa' }]} />
+              <Participants participants={event.participants} />
             </>
             }
             <SubHeader>
