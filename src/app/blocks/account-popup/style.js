@@ -23,6 +23,7 @@ export const StyledPopup = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
+  overflow-y: auto;
 `
 export const X = styled.div`
   position: absolute;
