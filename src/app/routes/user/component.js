@@ -88,7 +88,7 @@ class UserPage extends Component {
           {isOwnPage && <DeleteButton onClick={this.handleDelete}>Delete account</DeleteButton>}
         </UserName>
         {
-          userData && userData.upcommingEvents && (
+          userData && userData.upcomingEvents && (
             <>
               <EventsTitle>
                 {'Upcomming events'}
@@ -96,7 +96,7 @@ class UserPage extends Component {
               <Scroller>
                 <EventsSection>
                   {
-                userData.upcommingEvents.map(e => (
+                userData.upcomingEvents.map(e => (
                   <EventTile
                     {...e}
                     key={e.id}
