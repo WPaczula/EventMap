@@ -56,7 +56,7 @@ export const Shower = styled.div`
   position: absolute;
 
   ${media.upToTablet`
-    top: calc(100% - 4rem);
+    top: calc(100% - 2rem);
   `}
 
   ${props => props.isVisible && css`

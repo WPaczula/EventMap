@@ -11,6 +11,7 @@ import {
 } from './style'
 import MessagePopup from '../../blocks/message-popup'
 import Scroller from '../../blocks/scroller'
+import OfflinePage from '../../../static/error-message'
 
 class UserPage extends Component {
   static propTypes = {
@@ -28,7 +29,8 @@ class UserPage extends Component {
     super(props)
 
     this.state = {
-      visibleId: null,
+      createdVisibleId: null,
+      upcomingVisibleId: null,
     }
   }
 
@@ -44,15 +46,26 @@ class UserPage extends Component {
     }
   }
 
-  navigate = () => {
-    const { visibleId } = this.state
+  navigateUpcoming = () => {
+    const { upcomingVisibleId } = this.state
     const { history } = this.props
 
-    history.push(`/events/${visibleId}`)
+    history.push(`/events/${upcomingVisibleId}`)
   }
 
-  setVisible = (id) => {
-    this.setState({ visibleId: id })
+  navigateCreated = () => {
+    const { createdVisibleId } = this.state
+    const { history } = this.props
+
+    history.push(`/events/${createdVisibleId}`)
+  }
+
+  setVisibleCreated = (id) => {
+    this.setState({ createdVisibleId: id })
+  }
+
+  setVisibleUpcoming = (id) => {
+    this.setState({ upcomingVisibleId: id })
   }
 
   handleDelete = () => {
@@ -69,7 +82,11 @@ class UserPage extends Component {
       didAccountDeletionFail,
       clearAccountDeletionFailed,
     } = this.props
-    const { visibleId } = this.state
+    const { upcomingVisibleId, createdVisibleId } = this.state
+
+    if (userData && userData.offline) {
+      return <OfflinePage />
+    }
 
     if (userData && userData.error) {
       return (
@@ -100,9 +117,9 @@ class UserPage extends Component {
                   <EventTile
                     {...e}
                     key={e.id}
-                    isVisible={visibleId === e.id}
-                    navigate={this.navigate}
-                    setVisible={this.setVisible}
+                    isVisible={upcomingVisibleId === e.id}
+                    navigate={this.navigateUpcoming}
+                    setVisible={this.setVisibleUpcoming}
                   />
                 ))
                 }
@@ -124,9 +141,9 @@ class UserPage extends Component {
                  <EventTile
                    {...e}
                    key={e.id}
-                   isVisible={visibleId === e.id}
-                   navigate={this.navigate}
-                   setVisible={this.setVisible}
+                   isVisible={createdVisibleId === e.id}
+                   navigate={this.navigateCreated}
+                   setVisible={this.setVisibleCreated}
                  />
                ))
             }

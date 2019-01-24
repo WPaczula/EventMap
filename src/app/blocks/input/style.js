@@ -6,6 +6,8 @@ export default styled.div`
         width: 70%;
     `}
 
+    display: flex;
+    flex-direction: row;
     text-align: center;
     font-size: 2em;
     border-bottom: 1px #ffffffb3 solid;

@@ -10,6 +10,7 @@ import {
 } from './style'
 import Scroller from '../../blocks/scroller'
 import EventTile from '../../blocks/event-tile'
+import OfflinePage from '../../../static/error-message'
 
 class Home extends Component {
   static propTypes = {
@@ -48,6 +49,10 @@ class Home extends Component {
   render() {
     const { isUserSignedIn, popularEvents } = this.props
     const { visibleId } = this.state
+
+    if (popularEvents && popularEvents.offline) {
+      return <OfflinePage />
+    }
 
     return (
       <StyledHome>

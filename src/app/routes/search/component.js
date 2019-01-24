@@ -111,14 +111,14 @@ class SearchPage extends Component {
       <Label>
 						Start date
         <DateTime
-          value={startDate || new Date()}
+          value={startDate}
           onChange={start => this.setState({ startDate: start })}
         />
       </Label>
       <Label>
 						End date
         <DateTime
-          value={endDate || new Date()}
+          value={endDate}
           onChange={end => this.setState({ endDate: end })}
         />
       </Label>
